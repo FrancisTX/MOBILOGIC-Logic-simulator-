@@ -1,8 +1,9 @@
-package org.ecs160.a2.Widgets;
+package org.ecs160.a2.Component.Gate;
 
-public class GateOR extends LogicGate {
+import org.ecs160.a2.Component.NodeInput;
 
-    public GateOR(int x, int y) {
+public class GateNOR extends LogicGate {
+    public GateNOR(int x, int y) {
         super(x, y);
     }
 
@@ -22,6 +23,6 @@ public class GateOR extends LogicGate {
         for (NodeInput input : inputs) {
             res |= input.getVal();
         }
-        return res;
+        return !res;
     }
 }

@@ -1,4 +1,4 @@
-package org.ecs160.a2.Widgets;
+package org.ecs160.a2.Component.Gate;
 
 public class GateNOT extends LogicGate {
     public GateNOT(int x, int y) {

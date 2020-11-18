@@ -1,17 +1,34 @@
-package org.ecs160.a2.Widgets;
+package org.ecs160.a2.Component.Gate;
 import com.codename1.ui.*;
+import org.ecs160.a2.Utilities.Config;
+import org.ecs160.a2.Component.NodeInput;
+import org.ecs160.a2.Component.Widget;
+
 import java.util.*;
 
 public abstract class LogicGate extends Widget {
-    protected final int width = 20;
-    protected final int height = 20;
-    protected final int color = 0x0000ff;
-
     protected final int NORMALGATE_INPUT_MINSIZE = 2;
-    protected final int NORMALGATE_INPUT_MAXSIZE = 7;
+    protected final int NORMALGATE_INPUT_MAXSIZE = 5;
 
     public LogicGate(int x, int y) {
-        super(x, y);
+        super(x, y,
+                Config.getInstance().logicGateWidth,
+                Config.getInstance().logicGateHeight);
+    }
+
+    public void draw(Graphics g) {
+        // TODO: Draw itself
+        for (NodeInput input : inputs) {
+            input.draw(g);
+        }
+        output.draw(g);
+    }
+
+    public NodeInput getNodeInput(int i) {
+        if (i < 0 || i >= inputs.size()) {
+            return null;
+        }
+        return inputs.get(i);
     }
 
     public void changeInputSize(int inputSize) {
@@ -19,9 +36,7 @@ public abstract class LogicGate extends Widget {
             return; // input size cannot be smaller than 2
         }
         this.inputs = new ArrayList<NodeInput>();
-        for (int i = 0; i < inputSize; i++) {
-            this.inputs.add(new NodeInput(this));
-        }
+        populateInput(inputSize);
     }
 
     private int calcInputX(int index) {
@@ -39,20 +54,5 @@ public abstract class LogicGate extends Widget {
     private int calcOutputY(){
         // TODO: Implement Y COORDINATES FOR OUTPUT
         return this.getY();
-    }
-
-    public void draw(Graphics g) {
-        // TODO: Draw itself
-        for (int i = 0; i < inputs.size(); i++) {
-            inputs.get(i).draw(g, calcInputX(i), calcInputY(i));
-        }
-        output.draw(g, calcOutputX(), calcOutputY());
-    }
-
-    public NodeInput getNodeInput(int i) {
-        if (i < 0 || i >= inputs.size()) {
-            return null;
-        }
-        return inputs.get(i);
     }
 }

@@ -1,4 +1,4 @@
-package org.ecs160.a2.Widgets;
+package org.ecs160.a2.Component;
 import java.util.ArrayList;
 
 public class NodeOutput extends Node {
@@ -6,8 +6,8 @@ public class NodeOutput extends Node {
     private ArrayList<NodeInput> nextInputs = new ArrayList<NodeInput>();
     private boolean val;
 
-    public NodeOutput(Widget widget) {
-        super(widget);
+    public NodeOutput(Widget widget, int x, int y) {
+        super(widget, x, y);
         this.val = false;
     }
     protected void update(boolean val) {

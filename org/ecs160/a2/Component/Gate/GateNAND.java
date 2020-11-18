@@ -1,7 +1,9 @@
-package org.ecs160.a2.Widgets;
+package org.ecs160.a2.Component.Gate;
 
-public class GateXOR extends LogicGate {
-    public GateXOR(int x, int y) {
+import org.ecs160.a2.Component.NodeInput;
+
+public class GateNAND extends LogicGate {
+    public GateNAND(int x, int y) {
         super(x, y);
     }
 
@@ -17,12 +19,10 @@ public class GateXOR extends LogicGate {
 
     @Override
     public boolean getComputedOutput() {
-        int counter = 0;
+        boolean res = true;
         for (NodeInput input : inputs) {
-            if (input.getVal()) {
-                counter += 1;
-            }
+            res &= input.getVal();
         }
-        return counter % 2 == 1;
+        return !res;
     }
 }

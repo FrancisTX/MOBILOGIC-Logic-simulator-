@@ -1,7 +1,9 @@
-package org.ecs160.a2.Widgets;
+package org.ecs160.a2.Component.Gate;
 
-public class GateXNOR extends LogicGate {
-    public GateXNOR(int x, int y) {
+import org.ecs160.a2.Component.NodeInput;
+
+public class GateXOR extends LogicGate {
+    public GateXOR(int x, int y) {
         super(x, y);
     }
 
@@ -23,6 +25,6 @@ public class GateXNOR extends LogicGate {
                 counter += 1;
             }
         }
-        return counter % 2 == 0;
+        return counter % 2 == 1;
     }
 }

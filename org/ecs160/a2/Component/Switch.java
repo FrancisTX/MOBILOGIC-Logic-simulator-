@@ -1,8 +1,11 @@
-package org.ecs160.a2.Widgets;
+package org.ecs160.a2.Component;
+
+import com.codename1.ui.Graphics;
 
 public class Switch extends Widget {
+
     public Switch(int x, int y) {
-        super(x, y);
+        super(x, y, 100, 100);
     }
 
     @Override
@@ -22,5 +25,9 @@ public class Switch extends Widget {
 
     public void powerSwitch() {
         output.update(!output.getVal());
+    }
+
+    @Override
+    public void draw(Graphics g) {
     }
 }

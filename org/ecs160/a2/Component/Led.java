@@ -1,8 +1,10 @@
-package org.ecs160.a2.Widgets;
+package org.ecs160.a2.Component;
+
+import com.codename1.ui.Graphics;
 
 public class Led extends Widget {
     public Led(int x, int y) {
-        super(x, y);
+        super(x, y, 100, 100);
     }
 
     @Override
@@ -18,9 +20,15 @@ public class Led extends Widget {
     public boolean getComputedOutput() {
         return this.inputs.get(0).getVal();
     }
+
     public NodeInput getNodeInput() { return this.inputs.get(0); }
 
     public void testing() {
         System.out.println(this.getComputedOutput());
+    }
+
+    @Override
+    public void draw(Graphics g) {
+
     }
 }
