@@ -9,28 +9,30 @@ import java.util.ArrayList;
 
 public abstract class Widget extends Selectable {
     protected ArrayList<NodeInput> inputs;
-    protected final NodeOutput output;
+    protected ArrayList<NodeOutput> outputs;
 
     public Widget(int x, int y, int width, int height) {
         super(x, y, width, height);
-        output = new NodeOutput(this, calcOutputX(), calcOutputY());
-        this.inputs = new ArrayList<NodeInput>();
-        populateInput(getMinInputSize());
+        populateInput(getMinInputsNum());
+        populateOutput(getMinOutputNum());
         setCoordinates(x, y);
     }
     public abstract boolean getComputedOutput(); // Main Logic Functions
-    public abstract int getMinInputSize(); // 2 for normal gates, 1 otherwise
-    public abstract int getMaxInputSize(); // 7 for normal gates, 1 otherwise
+    public abstract int getMinInputsNum(); // 2 for normal gates, 1 otherwise
+    public abstract int getMaxInputsNum(); // 7 for normal gates, 1 otherwise
+    public abstract int getMinOutputNum();
 
     public void update() {
-        this.output.update(getComputedOutput());
+        for (NodeOutput output : outputs) {
+            output.update(getComputedOutput());
+        }
     }
-    public NodeOutput getNodeOutput() {
-        return output;
+    public NodeOutput getOneAndOnlyOutput() {
+        return outputs.get(0);
     }
     public ArrayList<Node> getAllNodes() {
         ArrayList<Node> all = new ArrayList<>(inputs);
-        all.add(output);
+        all.addAll(outputs);
         return all;
     }
 
@@ -41,34 +43,44 @@ public abstract class Widget extends Selectable {
         for (int i = 0; i < inputs.size(); i++) {
             inputs.get(i).setCoordinates(calcInputX(i), calcInputY());
         }
-        output.setCoordinates(calcOutputX(), calcOutputY());
+        for (int i = 0; i < outputs.size(); i++) {
+            outputs.get(i).setCoordinates(calcOutputX(i), calcOutputY());
+        }
     };
 
     public void drawNodes(Graphics g) {
         for (NodeInput input : inputs) {
             input.draw(g);
         }
-        output.draw(g);
+        for (NodeOutput output : outputs) {
+            output.draw(g);
+        }
     }
 
     public void populateInput(int size) {
+        this.inputs = new ArrayList<NodeInput>();
         for (int i = 0; i < size; i++) {
             this.inputs.add(new NodeInput(this, calcInputX(i), calcInputY()));
         }
     }
-    private int calcOutputX(){
-        return this.x + width/2 - Config.getInstance().nodeWidth/2;
+    public void populateOutput(int size) {
+        this.outputs = new ArrayList<NodeOutput>();
+        for (int i = 0; i < size; i++) {
+            this.outputs.add(new NodeOutput(this, calcOutputX(i), calcOutputY()));
+        }
+    }
+    private int calcInputX(int index){
+        int gap = this.width / (this.inputs.size() + 1);
+        return this.x + gap * (index + 1) - Config.getInstance().nodeWidth / 2;
+    }
+    private int calcOutputX(int index){
+        int gap = this.width / (this.outputs.size() + 1);
+        return this.x + gap * (index + 1) - Config.getInstance().nodeWidth / 2;
     }
     private int calcOutputY(){
         return this.getY() + this.height;
     }
-    private int calcInputX(int index) {
-        // TODO: Implement X COORDINATES FOR INPUT
-        int gap = this.width / (this.inputs.size() + 1);
-        return this.x + gap * (index + 1) - Config.getInstance().nodeWidth / 2;
-    }
     private int calcInputY() {
-        // TODO: Implement Y COORDINATES FOR INPUT
         return this.y - Config.getInstance().nodeHeight;
     }
 }

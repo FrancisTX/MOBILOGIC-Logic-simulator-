@@ -12,12 +12,12 @@ public class GateOR extends LogicGate {
     }
 
     @Override
-    public int getMinInputSize() {
+    public int getMinInputsNum() {
         return NORMALGATE_INPUT_MINSIZE;
     }
 
     @Override
-    public int getMaxInputSize() {
+    public int getMaxInputsNum() {
         return NORMALGATE_INPUT_MAXSIZE;
     }
 

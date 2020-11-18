@@ -12,12 +12,17 @@ public class Led extends Widget {
     }
 
     @Override
-    public int getMinInputSize() {
+    public int getMinInputsNum() {
         return 1;
     }
     @Override
-    public int getMaxInputSize() {
+    public int getMaxInputsNum() {
         return 1;
+    }
+
+    @Override
+    public int getMinOutputNum() {
+        return 0;
     }
 
     @Override

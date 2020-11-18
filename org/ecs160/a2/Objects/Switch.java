@@ -5,19 +5,26 @@ import org.ecs160.a2.Objects.Interface.Widget;
 import org.ecs160.a2.Utilities.Config;
 
 public class Switch extends Widget {
+    private final NodeOutput output;
 
     public Switch(int x, int y) {
         super(x, y,
                 Config.getInstance().switchWidth,
                 Config.getInstance().switchHeight);
+        output = getOneAndOnlyOutput();
     }
 
     @Override
-    public int getMinInputSize() {
-        return 1;
+    public int getMinInputsNum() {
+        return 0;
     }
     @Override
-    public int getMaxInputSize() {
+    public int getMaxInputsNum() {
+        return 0;
+    }
+
+    @Override
+    public int getMinOutputNum() {
         return 1;
     }
 
@@ -25,10 +32,11 @@ public class Switch extends Widget {
     public boolean getComputedOutput() {
         return output.getVal();
     }
-    public NodeInput getNodeInput() { return this.inputs.get(0); }
-
     public void powerSwitch() {
         output.update(!output.getVal());
+    }
+    public void update(boolean val) {
+        output.update(val);
     }
 
     @Override

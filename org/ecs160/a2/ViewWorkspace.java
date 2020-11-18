@@ -27,11 +27,11 @@ public class ViewWorkspace extends Container {
         GateOR o1 = new GateOR(60,70);
         Led l = new Led(88, 88);
 
-        flipConnection(s1.getNodeOutput(), a1.getNodeInput(0));
-        flipConnection(s2.getNodeOutput(), a1.getNodeInput(1));
-        flipConnection(a1.getNodeOutput(), o1.getNodeInput(0));
-        flipConnection(s3.getNodeOutput(), o1.getNodeInput(1));
-        flipConnection(o1.getNodeOutput(), l.getNodeInput());
+        flipConnection(s1.getOneAndOnlyOutput(), a1.getNodeInput(0));
+        flipConnection(s2.getOneAndOnlyOutput(), a1.getNodeInput(1));
+        flipConnection(a1.getOneAndOnlyOutput(), o1.getNodeInput(0));
+        flipConnection(s3.getOneAndOnlyOutput(), o1.getNodeInput(1));
+        flipConnection(o1.getOneAndOnlyOutput(), l.getNodeInput());
         s1.powerSwitch();
         s2.powerSwitch();
         s1.powerSwitch();

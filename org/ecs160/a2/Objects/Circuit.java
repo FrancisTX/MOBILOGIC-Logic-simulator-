@@ -2,17 +2,20 @@ package org.ecs160.a2.Objects;
 import com.codename1.ui.Graphics;
 import org.ecs160.a2.Objects.Interface.Node;
 import org.ecs160.a2.Objects.Interface.Selectable;
+import org.ecs160.a2.Objects.Interface.Widget;
 import org.ecs160.a2.Utilities.Config;
 import org.ecs160.a2.Objects.Interface.LogicGate;
 
 import java.util.ArrayList;
 
-public class Circuit extends Selectable {
+public class Circuit extends Widget {
     private ArrayList<Circuit> subCircuits;
     private ArrayList<Switch> switches;
     private ArrayList<Led> leds;
     private ArrayList<LogicGate> gates;
     private boolean isMainCircuit;
+
+    private int indexOfCalcOutput;
 
     public Circuit(int x, int y) {
         super(x, y,
@@ -34,39 +37,42 @@ public class Circuit extends Selectable {
         this.leds = circuit.leds;
         this.gates = circuit.gates;
         this.isMainCircuit = isMainCircuit;
+        if (!isMainCircuit) {
+            populateInput(this.switches.size());
+            populateOutput(this.leds.size());
+        };
+
     }
+
+    @Override
+    public boolean getComputedOutput() {
+        return leds.get(indexOfCalcOutput).getComputedOutput();
+    }
+    @Override
+    public void update() {
+        if (isMainCircuit) return;
+        // TODO: Implement this
+        // multiple outputs update
+        for (int i = 0; i < outputs.size(); i++) {
+            indexOfCalcOutput = i;
+            outputs.get(i).update(getComputedOutput());
+        }
+        indexOfCalcOutput = 0;
+    }
+
+    @Override
+    public int getMinInputsNum() { return 0; }
+
+    @Override
+    public int getMaxInputsNum() { return 7; }
+
+    @Override
+    public int getMinOutputNum() { return 0; }
 
     public ArrayList<Node> getAllNodes() {
         ArrayList<Node> all = new ArrayList<>();
-        for (Switch sw : switches) all.add(sw.getNodeInput());
-        for (Led led : leds) all.add(led.getNodeOutput());
+        // TODO: Implement this
         return all;
-    }
-
-    public void connectSwitch(NodeOutput output, Switch sw) {
-        if (isMainCircuit) {
-            // switch connection is hidden in main circuit
-            return;
-        }
-        for (Switch _sw : switches) {
-            if (sw != _sw) continue;
-            output.connect(sw.getNodeInput());
-            sw.getNodeInput().connect(output);
-            return;
-        }
-    }
-
-    public void connectLed(Led led, NodeInput input) {
-        if (isMainCircuit) {
-            // LED connection is hidden in main circuit
-            return;
-        }
-        for (Led _led : leds) {
-            if (led != _led) continue;
-            led.getNodeOutput().connect(input);
-            input.connect(led.getNodeOutput());
-            return;
-        }
     }
 
     @Override
