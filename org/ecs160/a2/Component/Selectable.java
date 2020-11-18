@@ -6,6 +6,7 @@ public abstract class Selectable {
     protected boolean selectStatus;
 
     public Selectable(int x, int y, int width, int height) {
+        // set coordinates and width and height for the hit box
         this.x = x;
         this.y = y;
         this.width = width;

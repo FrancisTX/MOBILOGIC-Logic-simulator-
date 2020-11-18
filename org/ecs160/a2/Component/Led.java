@@ -1,10 +1,13 @@
 package org.ecs160.a2.Component;
 
 import com.codename1.ui.Graphics;
+import org.ecs160.a2.Utilities.Config;
 
 public class Led extends Widget {
     public Led(int x, int y) {
-        super(x, y, 100, 100);
+        super(x, y,
+                Config.getInstance().ledWidth,
+                Config.getInstance().ledHeight);
     }
 
     @Override
