@@ -35,6 +35,9 @@ public abstract class Widget extends Selectable {
         all.addAll(outputs);
         return all;
     }
+    public ArrayList<Node> getAllOutputNodes() {
+        return new ArrayList<>(outputs);
+    }
 
     @Override
     public void setCoordinates(int x, int y) {

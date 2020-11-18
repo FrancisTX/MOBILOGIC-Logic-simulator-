@@ -2,21 +2,22 @@ package org.ecs160.a2;
 
 import com.codename1.ui.Container;
 import com.codename1.ui.Graphics;
+import java.util.AbstractMap.SimpleEntry;
 import org.ecs160.a2.Objects.*;
 import org.ecs160.a2.Objects.Gate.*;
 import org.ecs160.a2.Objects.Interface.*;
+import org.ecs160.a2.Utilities.WorkspaceUtil;
 
 import java.util.ArrayList;
 
 public class ViewWorkspace extends Container {
     private ArrayList<Selectable> selectables;
     private Selectable highlighted;
+    private final WorkspaceUtil util = WorkspaceUtil.getInstance();
 
     public ViewWorkspace() {
         super();
         selectables = new ArrayList<>();
-        this.selectables.add(new Testing(200, 40));
-        this.selectables.add(new Testing(400, 200));
         this.selectables.add(new GateAND(300, 600));
         this.addClickListener();
 
@@ -27,15 +28,14 @@ public class ViewWorkspace extends Container {
         GateOR o1 = new GateOR(60,70);
         Led l = new Led(88, 88);
 
-        flipConnection(s1.getOneAndOnlyOutput(), a1.getNodeInput(0));
-        flipConnection(s2.getOneAndOnlyOutput(), a1.getNodeInput(1));
-        flipConnection(a1.getOneAndOnlyOutput(), o1.getNodeInput(0));
-        flipConnection(s3.getOneAndOnlyOutput(), o1.getNodeInput(1));
-        flipConnection(o1.getOneAndOnlyOutput(), l.getNodeInput());
+        util.flipConnection(s1.getOneAndOnlyOutput(), a1.getNodeInput(0));
+        util.flipConnection(s2.getOneAndOnlyOutput(), a1.getNodeInput(1));
+        util.flipConnection(a1.getOneAndOnlyOutput(), o1.getNodeInput(0));
+        util.flipConnection(s3.getOneAndOnlyOutput(), o1.getNodeInput(1));
+        util.flipConnection(o1.getOneAndOnlyOutput(), l.getNodeInput());
         s1.powerSwitch();
         s2.powerSwitch();
         s1.powerSwitch();
-        s3.powerSwitch();
         l.testing();
     }
 
@@ -43,31 +43,6 @@ public class ViewWorkspace extends Container {
     public void paint(Graphics g){
         for (Selectable selectable : selectables) {
             selectable.draw(g);
-        }
-    }
-
-    public void flipConnection(Node first, Node second) {
-        NodeInput input;
-        NodeOutput output;
-
-        if (first instanceof NodeInput && second instanceof NodeOutput) {
-            input = (NodeInput)first;
-            output = (NodeOutput)second;
-        } else if (second instanceof NodeInput && first instanceof NodeOutput) {
-            input = (NodeInput)second;
-            output = (NodeOutput)first;
-        } else return;
-
-        if (input.connected()) {
-            // connected, disconnect now
-            // System.out.println("disconnect");
-            output.disconnect(input);
-            input.disconnect();
-        } else {
-            // not connected, connect now
-            // System.out.println("connect");
-            output.connect(input);
-            input.connect(output);
         }
     }
 
@@ -92,11 +67,6 @@ public class ViewWorkspace extends Container {
         return null;
     }
 
-    public boolean oneInputoneOutput(Selectable first, Selectable second) {
-        return (first instanceof NodeInput && second instanceof NodeOutput) ||
-                (first instanceof NodeOutput && second instanceof NodeInput);
-    }
-
     public void addClickListener() {
         this.addPointerPressedListener(evt -> {
             Selectable clicked = getSelectable(this.selectables, evt.getX(), evt.getY());
@@ -107,16 +77,19 @@ public class ViewWorkspace extends Container {
                 // if we click something when we have highlighted selectable
                 if (clicked != highlighted) {
                     // two different selected component!
-                    if (oneInputoneOutput(highlighted, clicked)) {
-                        // unselect current node
-                        // then make connection
-                        this.highlighted = null;
-                        flipConnection((Node)highlighted, (Node)clicked);
-                    } else {
-                        // normal case switch hightlighted selectable
+                    SimpleEntry<NodeInput, NodeOutput> pair = util.oneInputoneOutput(highlighted, clicked);
+                    if (pair == null || util.feedBackDetected(highlighted, clicked)) {
+                        // is not one input one output situation
+                        // OR maybe we have feedback in the same widget
+                        // switch hightlighted selectable
                         highlighted.flipSelected();
                         clicked.flipSelected();
                         highlighted = clicked;
+                    } else {
+                        // unselect current node
+                        // then make connection
+                        this.highlighted = null;
+                        util.flipConnection((Node)highlighted, (Node)clicked);
                     }
                 } else {
                     // unselect a component
