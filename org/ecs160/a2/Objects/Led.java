@@ -1,6 +1,7 @@
 package org.ecs160.a2.Objects;
 
 import com.codename1.ui.Graphics;
+import org.ecs160.a2.Objects.Interface.Widget;
 import org.ecs160.a2.Utilities.Config;
 
 public class Led extends Widget {

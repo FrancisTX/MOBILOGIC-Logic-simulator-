@@ -4,6 +4,8 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Graphics;
 import org.ecs160.a2.Objects.*;
 import org.ecs160.a2.Objects.Gate.GateAND;
+import org.ecs160.a2.Objects.Interface.Node;
+import org.ecs160.a2.Objects.Interface.Selectable;
 
 import java.util.ArrayList;
 

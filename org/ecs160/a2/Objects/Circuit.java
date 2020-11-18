@@ -1,7 +1,8 @@
 package org.ecs160.a2.Objects;
 import com.codename1.ui.Graphics;
+import org.ecs160.a2.Objects.Interface.Selectable;
 import org.ecs160.a2.Utilities.Config;
-import org.ecs160.a2.Objects.Gate.LogicGate;
+import org.ecs160.a2.Objects.Interface.LogicGate;
 
 import java.util.ArrayList;
 

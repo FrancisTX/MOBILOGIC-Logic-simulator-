@@ -1,5 +1,6 @@
 package org.ecs160.a2.Objects.Gate;
 import com.codename1.ui.Graphics;
+import org.ecs160.a2.Objects.Interface.LogicGate;
 import org.ecs160.a2.Objects.NodeInput;
 import org.ecs160.a2.Utilities.Config;
 

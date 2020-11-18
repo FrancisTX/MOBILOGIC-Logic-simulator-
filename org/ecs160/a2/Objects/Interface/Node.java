@@ -1,4 +1,4 @@
-package org.ecs160.a2.Objects;
+package org.ecs160.a2.Objects.Interface;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.GeneralPath;
 import org.ecs160.a2.Utilities.Config;

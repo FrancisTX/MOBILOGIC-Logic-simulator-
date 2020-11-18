@@ -1,4 +1,7 @@
-package org.ecs160.a2.Objects;
+package org.ecs160.a2.Objects.Interface;
+
+import org.ecs160.a2.Objects.NodeInput;
+import org.ecs160.a2.Objects.NodeOutput;
 
 import java.util.ArrayList;
 

@@ -1,5 +1,8 @@
 package org.ecs160.a2.Objects;
 
+import org.ecs160.a2.Objects.Interface.Node;
+import org.ecs160.a2.Objects.Interface.Widget;
+
 public class NodeInput extends Node {
     private NodeOutput prev; // previous output connected
 

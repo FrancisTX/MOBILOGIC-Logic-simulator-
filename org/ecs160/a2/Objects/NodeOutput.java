@@ -1,4 +1,7 @@
 package org.ecs160.a2.Objects;
+import org.ecs160.a2.Objects.Interface.Node;
+import org.ecs160.a2.Objects.Interface.Widget;
+
 import java.util.ArrayList;
 
 public class NodeOutput extends Node {
@@ -10,7 +13,7 @@ public class NodeOutput extends Node {
         super(widget, x, y);
         this.val = false;
     }
-    protected void update(boolean val) {
+    public void update(boolean val) {
         this.val = val;
         for (NodeInput input: nextInputs) {
             input.update();
