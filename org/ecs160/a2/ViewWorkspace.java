@@ -71,13 +71,22 @@ public class ViewWorkspace extends Container {
         }
     }
 
-    public Selectable getSelectable(int x, int y) {
-        for (Selectable component : selectables) {
-            if (component.hitBoxHas(
-                    x-getParent().getAbsoluteX(),
-                    y-getParent().getAbsoluteY()))
-            {
-                return component;
+    public Selectable getSelectable(ArrayList<Selectable> selectables, int _x, int _y) {
+        int x = _x - getParent().getAbsoluteX();
+        int y = _y - getParent().getAbsoluteY();
+        for (Selectable selectable : selectables) {
+            if (selectable.hitBoxHas(x, y)) {
+                return selectable;
+            }
+            if (selectable instanceof Widget) {
+                for (Selectable node : ((Widget) selectable).getAllNodes()) {
+                    if (node.hitBoxHas(x, y)) return node;
+                }
+            }
+            if (selectable instanceof Circuit) {
+                for (Selectable node : ((Circuit) selectable).getAllNodes()) {
+                    if (node.hitBoxHas(x, y)) return node;
+                }
             }
         }
         return null;
@@ -90,7 +99,7 @@ public class ViewWorkspace extends Container {
 
     public void addClickListener() {
         this.addPointerPressedListener(evt -> {
-            Selectable clicked = getSelectable(evt.getX(), evt.getY());
+            Selectable clicked = getSelectable(this.selectables, evt.getX(), evt.getY());
             if (highlighted == null && clicked == null) {
                 return;
             }
@@ -120,6 +129,7 @@ public class ViewWorkspace extends Container {
                 highlighted.flipSelected();
             } else {
                 // we have highlighted, but click nothing
+                if (highlighted instanceof Node) return;
                 highlighted.setCoordinates(evt.getX()-getParent().getAbsoluteX(),
                         evt.getY()-getParent().getAbsoluteY());
             }

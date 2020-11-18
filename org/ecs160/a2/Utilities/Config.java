@@ -2,8 +2,8 @@ package org.ecs160.a2.Utilities;
 
 public class Config {
 
-    public final int logicGateWidth = 100;
-    public final int logicGateHeight = 100;
+    public final int logicGateWidth = 200;
+    public final int logicGateHeight = 150;
 
     public final int nodeWidth = 20;
     public final int nodeHeight = 20;

@@ -1,5 +1,6 @@
 package org.ecs160.a2.Objects;
 import com.codename1.ui.Graphics;
+import org.ecs160.a2.Objects.Interface.Node;
 import org.ecs160.a2.Objects.Interface.Selectable;
 import org.ecs160.a2.Utilities.Config;
 import org.ecs160.a2.Objects.Interface.LogicGate;
@@ -33,6 +34,13 @@ public class Circuit extends Selectable {
         this.leds = circuit.leds;
         this.gates = circuit.gates;
         this.isMainCircuit = isMainCircuit;
+    }
+
+    public ArrayList<Node> getAllNodes() {
+        ArrayList<Node> all = new ArrayList<>();
+        for (Switch sw : switches) all.add(sw.getNodeInput());
+        for (Led led : leds) all.add(led.getNodeOutput());
+        return all;
     }
 
     public void connectSwitch(NodeOutput output, Switch sw) {

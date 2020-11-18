@@ -16,13 +16,6 @@ public abstract class LogicGate extends Widget {
                 Config.getInstance().logicGateHeight);
     }
 
-    public void drawNodes(Graphics g) {
-        for (NodeInput input : inputs) {
-            input.draw(g);
-        }
-        output.draw(g);
-    }
-
     public NodeInput getNodeInput(int i) {
         if (i < 0 || i >= inputs.size()) {
             return null;
