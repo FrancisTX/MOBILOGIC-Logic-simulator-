@@ -3,9 +3,8 @@ package org.ecs160.a2;
 import com.codename1.ui.Container;
 import com.codename1.ui.Graphics;
 import org.ecs160.a2.Objects.*;
-import org.ecs160.a2.Objects.Gate.GateAND;
-import org.ecs160.a2.Objects.Interface.Node;
-import org.ecs160.a2.Objects.Interface.Selectable;
+import org.ecs160.a2.Objects.Gate.*;
+import org.ecs160.a2.Objects.Interface.*;
 
 import java.util.ArrayList;
 
@@ -20,21 +19,24 @@ public class ViewWorkspace extends Container {
         this.selectables.add(new Testing(400, 200));
         this.selectables.add(new GateAND(300, 600));
         this.addClickListener();
-//        Switch s1 = new Switch(20, 20);
-//        Switch s2 = new Switch(20, 20);
-//        Switch s3 = new Switch(20, 20);
-//        GateAND a1 = new GateAND(40, 40);
-//        GateOR o1 = new GateOR(60,70);
-//        Led l = new Led(88, 88);
-//
-//        connect(s1.getNodeOutput(), a1.getNodeInput(0));
-//        connect(s2.getNodeOutput(), a1.getNodeInput(1));
-//        connect(a1.getNodeOutput(), o1.getNodeInput(0));
-//        connect(s3.getNodeOutput(), o1.getNodeInput(1));
-//        connect(o1.getNodeOutput(), l.getNodeInput());
-//        s1.powerSwitch();
-//        s2.powerSwitch();
-//        l.testing();
+
+        Switch s1 = new Switch(20, 20);
+        Switch s2 = new Switch(20, 20);
+        Switch s3 = new Switch(20, 20);
+        GateAND a1 = new GateAND(40, 40);
+        GateOR o1 = new GateOR(60,70);
+        Led l = new Led(88, 88);
+
+        flipConnection(s1.getNodeOutput(), a1.getNodeInput(0));
+        flipConnection(s2.getNodeOutput(), a1.getNodeInput(1));
+        flipConnection(a1.getNodeOutput(), o1.getNodeInput(0));
+        flipConnection(s3.getNodeOutput(), o1.getNodeInput(1));
+        flipConnection(o1.getNodeOutput(), l.getNodeInput());
+        s1.powerSwitch();
+        s2.powerSwitch();
+        s1.powerSwitch();
+        s3.powerSwitch();
+        l.testing();
     }
 
     @Override
@@ -58,10 +60,12 @@ public class ViewWorkspace extends Container {
 
         if (input.connected()) {
             // connected, disconnect now
+            // System.out.println("disconnect");
             output.disconnect(input);
             input.disconnect();
         } else {
             // not connected, connect now
+            // System.out.println("connect");
             output.connect(input);
             input.connect(output);
         }
