@@ -37,21 +37,4 @@ public abstract class LogicGate extends Widget {
         this.inputs = new ArrayList<NodeInput>();
         populateInput(inputSize);
     }
-
-    private int calcInputX(int index) {
-        // TODO: Implement X COORDINATES FOR INPUT
-        return this.getX();
-    }
-    private int calcInputY(int index) {
-        // TODO: Implement Y COORDINATES FOR INPUT
-        return this.getY();
-    }
-    private int calcOutputX(){
-        // TODO: Implement X COORDINATES FOR OUTPUT
-        return this.getX();
-    }
-    private int calcOutputY(){
-        // TODO: Implement Y COORDINATES FOR OUTPUT
-        return this.getY();
-    }
 }
