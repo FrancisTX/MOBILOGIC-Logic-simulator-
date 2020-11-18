@@ -1,26 +1,32 @@
-package org.ecs160.a2.Component.Gate;
+package org.ecs160.a2.Objects.Gate;
 
 import com.codename1.ui.Graphics;
+import org.ecs160.a2.Objects.NodeInput;
 import org.ecs160.a2.Utilities.Config;
 
-public class GateNOT extends LogicGate {
-    public GateNOT(int x, int y) {
+public class GateOR extends LogicGate {
+
+    public GateOR(int x, int y) {
         super(x, y);
     }
 
     @Override
     public int getMinInputSize() {
-        return 1;
+        return NORMALGATE_INPUT_MINSIZE;
     }
 
     @Override
     public int getMaxInputSize() {
-        return 1;
+        return NORMALGATE_INPUT_MAXSIZE;
     }
 
     @Override
     public boolean getComputedOutput() {
-        return !inputs.get(0).getVal();
+        boolean res = false;
+        for (NodeInput input : inputs) {
+            res |= input.getVal();
+        }
+        return res;
     }
 
     @Override

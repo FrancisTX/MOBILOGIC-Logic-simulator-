@@ -2,8 +2,8 @@ package org.ecs160.a2;
 
 import com.codename1.ui.Container;
 import com.codename1.ui.Graphics;
-import org.ecs160.a2.Component.*;
-import org.ecs160.a2.Component.Gate.GateAND;
+import org.ecs160.a2.Objects.*;
+import org.ecs160.a2.Objects.Gate.GateAND;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package org.ecs160.a2.Component;
+package org.ecs160.a2.Objects;
 
 import java.util.ArrayList;
 

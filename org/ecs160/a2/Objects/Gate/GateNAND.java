@@ -1,11 +1,11 @@
-package org.ecs160.a2.Component.Gate;
+package org.ecs160.a2.Objects.Gate;
+
 import com.codename1.ui.Graphics;
-import org.ecs160.a2.Component.NodeInput;
+import org.ecs160.a2.Objects.NodeInput;
 import org.ecs160.a2.Utilities.Config;
 
-public class GateAND extends LogicGate {
-
-    public GateAND(int x, int y) {
+public class GateNAND extends LogicGate {
+    public GateNAND(int x, int y) {
         super(x, y);
     }
 
@@ -25,8 +25,9 @@ public class GateAND extends LogicGate {
         for (NodeInput input : inputs) {
             res &= input.getVal();
         }
-        return res;
+        return !res;
     }
+
     @Override
     public void draw(Graphics g) {
         int color = selectStatus ?

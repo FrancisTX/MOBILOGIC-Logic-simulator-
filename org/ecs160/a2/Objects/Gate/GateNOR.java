@@ -1,11 +1,11 @@
-package org.ecs160.a2.Component.Gate;
+package org.ecs160.a2.Objects.Gate;
 
 import com.codename1.ui.Graphics;
-import org.ecs160.a2.Component.NodeInput;
+import org.ecs160.a2.Objects.NodeInput;
 import org.ecs160.a2.Utilities.Config;
 
-public class GateXOR extends LogicGate {
-    public GateXOR(int x, int y) {
+public class GateNOR extends LogicGate {
+    public GateNOR(int x, int y) {
         super(x, y);
     }
 
@@ -21,13 +21,11 @@ public class GateXOR extends LogicGate {
 
     @Override
     public boolean getComputedOutput() {
-        int counter = 0;
+        boolean res = false;
         for (NodeInput input : inputs) {
-            if (input.getVal()) {
-                counter += 1;
-            }
+            res |= input.getVal();
         }
-        return counter % 2 == 1;
+        return !res;
     }
 
     @Override

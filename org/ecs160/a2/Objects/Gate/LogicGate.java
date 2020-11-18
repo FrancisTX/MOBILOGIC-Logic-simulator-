@@ -1,8 +1,8 @@
-package org.ecs160.a2.Component.Gate;
+package org.ecs160.a2.Objects.Gate;
 import com.codename1.ui.*;
 import org.ecs160.a2.Utilities.Config;
-import org.ecs160.a2.Component.NodeInput;
-import org.ecs160.a2.Component.Widget;
+import org.ecs160.a2.Objects.NodeInput;
+import org.ecs160.a2.Objects.Widget;
 
 import java.util.*;
 
