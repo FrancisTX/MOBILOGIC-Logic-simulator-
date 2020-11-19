@@ -77,11 +77,11 @@ public abstract class Widget extends Selectable {
     }
     private int calcInputX(int index){
         int gap = this.width / (this.inputs.size() + 1);
-        return this.x + gap * (index + 1) - Config.getInstance().nodeWidth / 2;
+        return this.x + gap * (index + 1) - Config.getInstance().nodeRadius;
     }
     private int calcOutputX(int index){
         int gap = this.width / (this.outputs.size() + 1);
-        return this.x + gap * (index + 1) - Config.getInstance().nodeWidth / 2;
+        return this.x + gap * (index + 1) - Config.getInstance().nodeRadius;
     }
     private int calcOutputY(){
         return this.getY() + this.height;
