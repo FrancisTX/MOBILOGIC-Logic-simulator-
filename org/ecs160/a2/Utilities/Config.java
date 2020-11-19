@@ -7,6 +7,7 @@ public class Config {
 
     public final int nodeWidth = 20;
     public final int nodeHeight = 20;
+    public final int nodeRadius = nodeWidth / 2;
 
     public final int ledWidth = 100;
     public final int ledHeight = 100;
@@ -27,6 +28,9 @@ public class Config {
     public final int selectedNodeColor = 0x52BE80;
     public final int unselectedNodeLineWidth = 3;
     public final int selectedNodeLineWidth = 10;
+
+    public final int wireOffColor = 0x0000ff;
+    public final int wireOnColor = 0x52BE80;
 
     private static final Config instance = new Config();
     private Config() {}

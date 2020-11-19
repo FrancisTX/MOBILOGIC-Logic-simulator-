@@ -11,57 +11,52 @@ import org.ecs160.a2.Utilities.WorkspaceUtil;
 import java.util.ArrayList;
 
 public class ViewWorkspace extends Container {
-    private ArrayList<Selectable> selectables;
+    private ArrayList<Widget> widgets;
     private Selectable highlighted;
     private final WorkspaceUtil util = WorkspaceUtil.getInstance();
 
     public ViewWorkspace() {
         super();
-        selectables = new ArrayList<>();
-        this.selectables.add(new GateAND(300, 600));
+        widgets = new ArrayList<>();
         this.addClickListener();
 
-        Switch s1 = new Switch(20, 20);
-        Switch s2 = new Switch(20, 20);
-        Switch s3 = new Switch(20, 20);
-        GateAND a1 = new GateAND(40, 40);
-        GateOR o1 = new GateOR(60,70);
-        Led l = new Led(88, 88);
-
-        util.flipConnection(s1.getOneAndOnlyOutput(), a1.getNodeInput(0));
-        util.flipConnection(s2.getOneAndOnlyOutput(), a1.getNodeInput(1));
-        util.flipConnection(a1.getOneAndOnlyOutput(), o1.getNodeInput(0));
-        util.flipConnection(s3.getOneAndOnlyOutput(), o1.getNodeInput(1));
-        util.flipConnection(o1.getOneAndOnlyOutput(), l.getNodeInput());
-        s1.powerSwitch();
-        s2.powerSwitch();
-        s1.powerSwitch();
-        l.testing();
+        this.widgets.add(new GateAND(200, 400));
+        this.widgets.add(new GateOR(400, 800));
+//        Switch s1 = new Switch(20, 20);
+//        Switch s2 = new Switch(20, 20);
+//        Switch s3 = new Switch(20, 20);
+//        GateAND a1 = new GateAND(40, 40);
+//        GateOR o1 = new GateOR(60,70);
+//        Led l = new Led(88, 88);
+//
+//        util.flipConnection(s1.getOneAndOnlyOutput(), a1.getNodeInput(0));
+//        util.flipConnection(s2.getOneAndOnlyOutput(), a1.getNodeInput(1));
+//        util.flipConnection(a1.getOneAndOnlyOutput(), o1.getNodeInput(0));
+//        util.flipConnection(s3.getOneAndOnlyOutput(), o1.getNodeInput(1));
+//        util.flipConnection(o1.getOneAndOnlyOutput(), l.getNodeInput());
+//        s1.powerSwitch();
+//        s2.powerSwitch();
+//        s1.powerSwitch();
+//        l.testing();
     }
 
     @Override
     public void paint(Graphics g){
-        for (Selectable selectable : selectables) {
-            selectable.draw(g);
+        for (Widget widget : widgets) {
+            widget.draw(g);
+            util.drawWire(g, widget, getParent().getAbsoluteX(), getParent().getAbsoluteY());
         }
     }
 
-    public Selectable getSelectable(ArrayList<Selectable> selectables, int _x, int _y) {
+    public Selectable getSelectable(int _x, int _y) {
         int x = _x - getParent().getAbsoluteX();
         int y = _y - getParent().getAbsoluteY();
-        for (Selectable selectable : selectables) {
-            if (selectable.hitBoxHas(x, y)) {
-                return selectable;
+        for (Widget widget : this.widgets) {
+            if (widget.hitBoxHas(x, y)) {
+                return widget;
             }
-            if (selectable instanceof Widget) {
-                for (Selectable node : ((Widget) selectable).getAllNodes()) {
-                    if (node.hitBoxHas(x, y)) return node;
-                }
-            }
-            if (selectable instanceof Circuit) {
-                for (Selectable node : ((Circuit) selectable).getAllNodes()) {
-                    if (node.hitBoxHas(x, y)) return node;
-                }
+            for (Node node : widget.getAllNodes()) {
+                if (node.hitBoxHas(x, y)) return node;
             }
         }
         return null;
@@ -69,7 +64,7 @@ public class ViewWorkspace extends Container {
 
     public void addClickListener() {
         this.addPointerPressedListener(evt -> {
-            Selectable clicked = getSelectable(this.selectables, evt.getX(), evt.getY());
+            Selectable clicked = getSelectable(evt.getX(), evt.getY());
             if (highlighted == null && clicked == null) {
                 return;
             }
@@ -88,8 +83,9 @@ public class ViewWorkspace extends Container {
                     } else {
                         // unselect current node
                         // then make connection
-                        this.highlighted = null;
                         util.flipConnection((Node)highlighted, (Node)clicked);
+                        highlighted.flipSelected();
+                        this.highlighted = null;
                     }
                 } else {
                     // unselect a component

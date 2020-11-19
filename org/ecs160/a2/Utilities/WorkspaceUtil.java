@@ -1,5 +1,6 @@
 package org.ecs160.a2.Utilities;
 
+import com.codename1.ui.Graphics;
 import org.ecs160.a2.Objects.Interface.Node;
 import org.ecs160.a2.Objects.Interface.Selectable;
 import org.ecs160.a2.Objects.Interface.Widget;
@@ -19,7 +20,7 @@ public class WorkspaceUtil {
         NodeInput input = pair.getKey();
         NodeOutput output = pair.getValue();
         Widget widget = input.getWidget();
-        for (Node node : widget.getAllOutputNodes()) {
+        for (NodeOutput node : widget.getAllOutputNodes()) {
             if (node == output) return true;
         }
         return false;
@@ -48,6 +49,21 @@ public class WorkspaceUtil {
             // System.out.println("connect");
             output.connect(input);
             input.connect(output);
+        }
+    }
+
+    public void drawWire(Graphics g, Widget widget, int parentX, int parentY) {
+        for (NodeInput input : widget.getAllInputNodes()) {
+            NodeOutput output = input.getConnectedOutput();
+            if (output == null) continue;
+            int color = output.getVal() ?
+                    Config.getInstance().wireOnColor :
+                    Config.getInstance().wireOffColor;
+            g.setColor(color);
+            g.drawLine(input.getX()+Config.getInstance().nodeRadius,
+                    input.getY(),
+                    output.getX()+Config.getInstance().nodeRadius,
+                    output.getY());
         }
     }
 }

@@ -22,6 +22,15 @@ public class NodeInput extends Node {
             return prev.getVal();
         }
     }
+
+    public NodeOutput getConnectedOutput() {
+        if (prev == null) {
+            return null;
+        } else {
+            return prev;
+        }
+    }
+
     public void connect(NodeOutput output) {
         prev = output;
     }
