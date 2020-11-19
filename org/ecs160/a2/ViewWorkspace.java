@@ -44,27 +44,15 @@ public class ViewWorkspace extends Container {
     public void paint(Graphics g){
         for (Widget widget : widgets) {
             widget.draw(g);
-            util.drawWire(g, widget, getParent().getAbsoluteX(), getParent().getAbsoluteY());
+            util.drawWire(g, widget);
         }
-    }
-
-    public Selectable getSelectable(int _x, int _y) {
-        int x = _x - getParent().getAbsoluteX();
-        int y = _y - getParent().getAbsoluteY();
-        for (Widget widget : this.widgets) {
-            if (widget.hitBoxHas(x, y)) {
-                return widget;
-            }
-            for (Node node : widget.getAllNodes()) {
-                if (node.hitBoxHas(x, y)) return node;
-            }
-        }
-        return null;
     }
 
     public void addClickListener() {
         this.addPointerPressedListener(evt -> {
-            Selectable clicked = getSelectable(evt.getX(), evt.getY());
+            Selectable clicked = util.getSelectable(this.widgets,
+                    evt.getX()-getParent().getAbsoluteX(),
+                    evt.getY()-getParent().getAbsoluteY());
             if (highlighted == null && clicked == null) {
                 return;
             }

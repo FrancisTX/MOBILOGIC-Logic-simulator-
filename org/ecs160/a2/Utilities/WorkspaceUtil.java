@@ -8,6 +8,7 @@ import org.ecs160.a2.Objects.NodeInput;
 import org.ecs160.a2.Objects.NodeOutput;
 
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
 
 public class WorkspaceUtil {
     private static final WorkspaceUtil instance = new WorkspaceUtil();
@@ -52,7 +53,7 @@ public class WorkspaceUtil {
         }
     }
 
-    public void drawWire(Graphics g, Widget widget, int parentX, int parentY) {
+    public void drawWire(Graphics g, Widget widget) {
         for (NodeInput input : widget.getAllInputNodes()) {
             NodeOutput output = input.getConnectedOutput();
             if (output == null) continue;
@@ -65,5 +66,17 @@ public class WorkspaceUtil {
                     output.getX()+Config.getInstance().nodeRadius,
                     output.getY());
         }
+    }
+
+    public Selectable getSelectable(ArrayList<Widget> widgets, int x, int y) {
+        for (Widget widget : widgets) {
+            if (widget.hitBoxHas(x, y)) {
+                return widget;
+            }
+            for (Node node : widget.getAllNodes()) {
+                if (node.hitBoxHas(x, y)) return node;
+            }
+        }
+        return null;
     }
 }
