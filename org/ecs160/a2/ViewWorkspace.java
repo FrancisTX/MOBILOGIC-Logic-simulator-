@@ -42,6 +42,5 @@ public class ViewWorkspace extends Container {
                     this.widgets);
             this.repaint();
         });
-        this.repaint();
     }
 }
