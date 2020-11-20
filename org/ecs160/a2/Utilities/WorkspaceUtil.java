@@ -1,19 +1,72 @@
 package org.ecs160.a2.Utilities;
-
 import com.codename1.ui.Graphics;
 import org.ecs160.a2.Objects.Interface.Node;
 import org.ecs160.a2.Objects.Interface.Selectable;
 import org.ecs160.a2.Objects.Interface.Widget;
 import org.ecs160.a2.Objects.NodeInput;
 import org.ecs160.a2.Objects.NodeOutput;
+import org.ecs160.a2.Objects.SwitchButton;
+import org.ecs160.a2.UI.Grid;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
 public class WorkspaceUtil {
+    private Selectable highlighted;
     private static final WorkspaceUtil instance = new WorkspaceUtil();
     private WorkspaceUtil() {}
     public static WorkspaceUtil getInstance() { return instance; }
+
+    public void handleClick(Grid grid, int x, int y, ArrayList<Widget> widgets) {
+        {
+            Selectable clicked = getSelectable(widgets, x, y);
+            if (highlighted == null && clicked == null) {
+                return;
+            }
+            if (clicked instanceof SwitchButton) {
+                handleClickSwitchButton((SwitchButton)clicked);
+                return;
+            }
+            if (highlighted != null && clicked != null) {
+                // if we click something when we have highlighted selectable
+                if (clicked != highlighted) {
+                    // two different selected component!
+                    SimpleEntry<NodeInput, NodeOutput> pair = oneInputoneOutput(highlighted, clicked);
+                    if (pair == null || feedBackDetected(highlighted, clicked)) {
+                        // is not one input one output situation
+                        // OR maybe we have feedback in the same widget
+                        // switch hightlighted selectable
+                        highlighted.flipSelected();
+                        clicked.flipSelected();
+                        highlighted = clicked;
+                    } else {
+                        // unselect current node
+                        // then make connection
+                        flipConnection((Node)highlighted, (Node)clicked);
+                        highlighted.flipSelected();
+                        this.highlighted = null;
+                    }
+                } else {
+                    // unselect a component
+                    highlighted.flipSelected();
+                    highlighted = null;
+                }
+            } else if (highlighted == null){
+                // we don't have highlighted initially, but we click something
+                this.highlighted = clicked;
+                highlighted.flipSelected();
+            } else {
+                // we have highlighted, but click nothing
+                if (highlighted instanceof Node) return;
+                highlighted.setCoordinates(grid.convertCoordAbstoGrid(x, 'x'),
+                        grid.convertCoordAbstoGrid(y, 'y'));
+            }
+        }
+    }
+
+    public void handleClickSwitchButton(SwitchButton clicked) {
+        clicked.powerSwitch();
+    }
 
     public boolean feedBackDetected(Selectable first, Selectable second) {
         SimpleEntry<NodeInput, NodeOutput> pair = oneInputoneOutput(first, second);
@@ -79,4 +132,6 @@ public class WorkspaceUtil {
         }
         return null;
     }
+
+
 }

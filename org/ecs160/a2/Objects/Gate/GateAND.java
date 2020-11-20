@@ -31,8 +31,8 @@ public class GateAND extends LogicGate {
     @Override
     public void draw(Graphics g) {
         int color = selectStatus ?
-                Config.getInstance().selectedLogicGateColor :
-                Config.getInstance().unselectedLogicGateColor;
+                Config.getInstance().selectedWidgetColor :
+                Config.getInstance().unselectedWidgetColor;
         g.setColor(color);
         // TODO: Implement Gate Drawing
         char[] data = {'A', 'N', 'D'};

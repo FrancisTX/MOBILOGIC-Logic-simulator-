@@ -34,8 +34,8 @@ public class GateXNOR extends LogicGate {
     @Override
     public void draw(Graphics g) {
         int color = selectStatus ?
-                Config.getInstance().selectedLogicGateColor :
-                Config.getInstance().unselectedLogicGateColor;
+                Config.getInstance().selectedWidgetColor :
+                Config.getInstance().unselectedWidgetColor;
         g.setColor(color);
         // TODO: Implement Gate Drawing
         g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());

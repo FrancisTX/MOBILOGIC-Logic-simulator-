@@ -14,12 +14,15 @@ public class Config {
 
     public final int switchWidth = 100;
     public final int switchHeight = 100;
+    public final int switchButtonWidth = 100;
+    public final int switchButtonHeight = 100;
+    public final int switchButtonRadius = switchButtonWidth / 2;
 
     public final int subCircuitWidth = 100;
     public final int subCircuitHeight = 100;
 
-    public final int unselectedLogicGateColor = 0x0000ff;
-    public final int selectedLogicGateColor = 0x52BE80;
+    public final int unselectedWidgetColor = 0x0000ff;
+    public final int selectedWidgetColor = 0x52BE80;
     public final int unselectedLogicGateLineWidth = 3;
     public final int selectedLogicGateLineWidth = 10;
 

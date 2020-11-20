@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class ViewWorkspace extends Container {
     private Grid grid;
     private ArrayList<Widget> widgets;
-    private Selectable highlighted;
     private final WorkspaceUtil util = WorkspaceUtil.getInstance();
 
     public ViewWorkspace() {
@@ -23,8 +22,8 @@ public class ViewWorkspace extends Container {
         widgets = new ArrayList<>();
         this.addClickListener();
 
-        this.widgets.add(new GateAND(grid.convertCoordAbstoGrid(200, 'x'), grid.convertCoordAbstoGrid(400, 'y'))));
-        this.widgets.add(new GateOR(grid.convertCoordAbstoGrid(400, 'x'), grid.convertCoordAbstoGrid(800, 'y'))));
+        this.widgets.add(new GateAND(grid.convertCoordAbstoGrid(200, 'x'), grid.convertCoordAbstoGrid(400, 'y')));
+        this.widgets.add(new GateOR(grid.convertCoordAbstoGrid(400, 'x'), grid.convertCoordAbstoGrid(800, 'y')));
 //        Switch s1 = new Switch(20, 20);
 //        Switch s2 = new Switch(20, 20);
 //        Switch s3 = new Switch(20, 20);
@@ -54,47 +53,13 @@ public class ViewWorkspace extends Container {
 
     public void addClickListener() {
         this.addPointerPressedListener(evt -> {
-            Selectable clicked = util.getSelectable(this.widgets,
+            util.handleClick(
+                    grid,
                     evt.getX()-getParent().getAbsoluteX(),
-                    evt.getY()-getParent().getAbsoluteY());
-            if (highlighted == null && clicked == null) {
-                return;
-            }
-            if (highlighted != null && clicked != null) {
-                // if we click something when we have highlighted selectable
-                if (clicked != highlighted) {
-                    // two different selected component!
-                    SimpleEntry<NodeInput, NodeOutput> pair = util.oneInputoneOutput(highlighted, clicked);
-                    if (pair == null || util.feedBackDetected(highlighted, clicked)) {
-                        // is not one input one output situation
-                        // OR maybe we have feedback in the same widget
-                        // switch hightlighted selectable
-                        highlighted.flipSelected();
-                        clicked.flipSelected();
-                        highlighted = clicked;
-                    } else {
-                        // unselect current node
-                        // then make connection
-                        util.flipConnection((Node)highlighted, (Node)clicked);
-                        highlighted.flipSelected();
-                        this.highlighted = null;
-                    }
-                } else {
-                    // unselect a component
-                    highlighted.flipSelected();
-                    highlighted = null;
-                }
-            } else if (highlighted == null){
-                // we don't have highlighted initially, but we click something
-                this.highlighted = clicked;
-                highlighted.flipSelected();
-            } else {
-                // we have highlighted, but click nothing
-                if (highlighted instanceof Node) return;
-                highlighted.setCoordinates(grid.convertCoordAbstoGrid(evt.getX()-getParent().getAbsoluteX(), 'x'),
-                        grid.convertCoordAbstoGrid(evt.getY()-getParent().getAbsoluteY(), 'y'));
-            }
+                    evt.getY()-getParent().getAbsoluteY(),
+                    this.widgets);
             this.repaint();
         });
+        this.repaint();
     }
 }

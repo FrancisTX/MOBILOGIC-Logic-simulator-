@@ -3,7 +3,7 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.geom.GeneralPath;
 import org.ecs160.a2.Utilities.Config;
 
-public class Node extends Selectable {
+public abstract class Node extends Selectable {
     GeneralPath p = new GeneralPath();
     private final Widget widget;
 
