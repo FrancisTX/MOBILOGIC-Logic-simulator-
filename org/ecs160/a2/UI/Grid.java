@@ -4,15 +4,17 @@ package org.ecs160.a2.UI;
 import com.codename1.ui.Component;
 import com.codename1.ui.Display;
 import com.codename1.ui.Graphics;
+import org.ecs160.a2.Utilities.Config;
 
 public class Grid {
+    private static final Grid instance = new Grid();
     //in the future, gridblocksize, numGridBlocksWide, and numGridBlocksHigh may not be final
     private final int gridblocksize;
     private final int deviceWidth, deviceHeight;
     private final int numGridBlocksWide, numGridBlocksHigh;
-
+    public static Grid getInstance() { return instance; }
     //Constructor
-    public Grid(){
+    private Grid(){
         deviceWidth = Display.getInstance().getDisplayWidth();
         deviceHeight = Display.getInstance().getDisplayHeight();
         //this is default, we can change it with zooming implementation
@@ -20,6 +22,7 @@ public class Grid {
         gridblocksize = deviceWidth/numGridBlocksWide;
         numGridBlocksHigh = deviceHeight/gridblocksize;
     }
+
     //this will draw the grid
     public void draw(Graphics g){
         g.setColor(0xFFFFFF);

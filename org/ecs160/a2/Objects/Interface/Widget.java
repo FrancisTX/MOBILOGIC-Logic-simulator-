@@ -3,6 +3,7 @@ package org.ecs160.a2.Objects.Interface;
 import com.codename1.ui.Graphics;
 import org.ecs160.a2.Objects.NodeInput;
 import org.ecs160.a2.Objects.NodeOutput;
+import org.ecs160.a2.UI.Grid;
 import org.ecs160.a2.Utilities.Config;
 
 import java.util.ArrayList;
@@ -10,9 +11,13 @@ import java.util.ArrayList;
 public abstract class Widget extends Selectable {
     protected ArrayList<NodeInput> inputs;
     protected ArrayList<NodeOutput> outputs;
+    private final Grid grid = Grid.getInstance();
 
     public Widget(int x, int y, int width, int height) {
-        super(x, y, width, height);
+        super(
+                Grid.getInstance().convertCoordAbstoGrid(x, 'x'),
+                Grid.getInstance().convertCoordAbstoGrid(y, 'y'),
+                width, height);
         populateInput(getMinInputsNum());
         populateOutput(getMinOutputNum());
         setCoordinates(x, y);
@@ -44,8 +49,8 @@ public abstract class Widget extends Selectable {
 
     @Override
     public void setCoordinates(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.x = Grid.getInstance().convertCoordAbstoGrid(x, 'x');
+        this.y = Grid.getInstance().convertCoordAbstoGrid(y, 'y');
         for (int i = 0; i < inputs.size(); i++) {
             inputs.get(i).setCoordinates(calcInputX(i), calcInputY());
         }

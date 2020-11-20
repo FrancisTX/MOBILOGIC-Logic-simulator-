@@ -13,11 +13,12 @@ import java.util.ArrayList;
 
 public class WorkspaceUtil {
     private Selectable highlighted;
+    private final Grid grid = Grid.getInstance();
     private static final WorkspaceUtil instance = new WorkspaceUtil();
     private WorkspaceUtil() {}
     public static WorkspaceUtil getInstance() { return instance; }
 
-    public void handleClick(Grid grid, int x, int y, ArrayList<Widget> widgets) {
+    public void handleClick(int x, int y, ArrayList<Widget> widgets) {
         {
             Selectable clicked = getSelectable(widgets, x, y);
             if (highlighted == null && clicked == null) {
@@ -58,8 +59,7 @@ public class WorkspaceUtil {
             } else {
                 // we have highlighted, but click nothing
                 if (highlighted instanceof Node) return;
-                highlighted.setCoordinates(grid.convertCoordAbstoGrid(x, 'x'),
-                        grid.convertCoordAbstoGrid(y, 'y'));
+                highlighted.setCoordinates(x, y);
             }
         }
     }

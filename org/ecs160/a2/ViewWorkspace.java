@@ -12,34 +12,17 @@ import org.ecs160.a2.UI.Grid;
 import java.util.ArrayList;
 
 public class ViewWorkspace extends Container {
-    private Grid grid;
+    private final Grid grid = Grid.getInstance();
     private ArrayList<Widget> widgets;
     private final WorkspaceUtil util = WorkspaceUtil.getInstance();
 
     public ViewWorkspace() {
         super();
-        grid = new Grid();
         widgets = new ArrayList<>();
         this.addClickListener();
 
-        this.widgets.add(new GateAND(grid.convertCoordAbstoGrid(200, 'x'), grid.convertCoordAbstoGrid(400, 'y')));
-        this.widgets.add(new GateOR(grid.convertCoordAbstoGrid(400, 'x'), grid.convertCoordAbstoGrid(800, 'y')));
-//        Switch s1 = new Switch(20, 20);
-//        Switch s2 = new Switch(20, 20);
-//        Switch s3 = new Switch(20, 20);
-//        GateAND a1 = new GateAND(40, 40);
-//        GateOR o1 = new GateOR(60,70);
-//        Led l = new Led(88, 88);
-//
-//        util.flipConnection(s1.getOneAndOnlyOutput(), a1.getNodeInput(0));
-//        util.flipConnection(s2.getOneAndOnlyOutput(), a1.getNodeInput(1));
-//        util.flipConnection(a1.getOneAndOnlyOutput(), o1.getNodeInput(0));
-//        util.flipConnection(s3.getOneAndOnlyOutput(), o1.getNodeInput(1));
-//        util.flipConnection(o1.getOneAndOnlyOutput(), l.getNodeInput());
-//        s1.powerSwitch();
-//        s2.powerSwitch();
-//        s1.powerSwitch();
-//        l.testing();
+        this.widgets.add(new GateAND(200, 400));
+        this.widgets.add(new GateOR(400, 800));
     }
 
     @Override
@@ -54,7 +37,6 @@ public class ViewWorkspace extends Container {
     public void addClickListener() {
         this.addPointerPressedListener(evt -> {
             util.handleClick(
-                    grid,
                     evt.getX()-getParent().getAbsoluteX(),
                     evt.getY()-getParent().getAbsoluteY(),
                     this.widgets);
