@@ -7,21 +7,24 @@ import org.ecs160.a2.Objects.*;
 import org.ecs160.a2.Objects.Gate.*;
 import org.ecs160.a2.Objects.Interface.*;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
+import org.ecs160.a2.UI.Grid;
 
 import java.util.ArrayList;
 
 public class ViewWorkspace extends Container {
+    private Grid grid;
     private ArrayList<Widget> widgets;
     private Selectable highlighted;
     private final WorkspaceUtil util = WorkspaceUtil.getInstance();
 
     public ViewWorkspace() {
         super();
+        grid = new Grid();
         widgets = new ArrayList<>();
         this.addClickListener();
 
-        this.widgets.add(new GateAND(200, 400));
-        this.widgets.add(new GateOR(400, 800));
+        this.widgets.add(new GateAND(grid.convertCoordAbstoGrid(200, 'x'), grid.convertCoordAbstoGrid(400, 'y'))));
+        this.widgets.add(new GateOR(grid.convertCoordAbstoGrid(400, 'x'), grid.convertCoordAbstoGrid(800, 'y'))));
 //        Switch s1 = new Switch(20, 20);
 //        Switch s2 = new Switch(20, 20);
 //        Switch s3 = new Switch(20, 20);
@@ -42,6 +45,7 @@ public class ViewWorkspace extends Container {
 
     @Override
     public void paint(Graphics g){
+        grid.draw(g);
         for (Widget widget : widgets) {
             widget.draw(g);
             util.drawWire(g, widget);
@@ -87,8 +91,8 @@ public class ViewWorkspace extends Container {
             } else {
                 // we have highlighted, but click nothing
                 if (highlighted instanceof Node) return;
-                highlighted.setCoordinates(evt.getX()-getParent().getAbsoluteX(),
-                        evt.getY()-getParent().getAbsoluteY());
+                highlighted.setCoordinates(grid.convertCoordAbstoGrid(evt.getX()-getParent().getAbsoluteX(), 'x'),
+                        grid.convertCoordAbstoGrid(evt.getY()-getParent().getAbsoluteY(), 'y'));
             }
             this.repaint();
         });
