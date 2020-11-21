@@ -35,8 +35,8 @@ public abstract class Widget extends Selectable {
     public NodeOutput getOneAndOnlyOutput() {
         return outputs.get(0);
     }
-    public ArrayList<Node> getAllNodes() {
-        ArrayList<Node> all = new ArrayList<>(inputs);
+    public ArrayList<Selectable> getAllAccessories() {
+        ArrayList<Selectable> all = new ArrayList<>(inputs);
         all.addAll(outputs);
         return all;
     }

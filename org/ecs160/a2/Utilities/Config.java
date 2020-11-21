@@ -3,19 +3,21 @@ package org.ecs160.a2.Utilities;
 public class Config {
 
     public final int logicGateWidth = 200;
-    public final int logicGateHeight = 150;
+    public final int logicGateHeight = 170;
 
-    public final int nodeWidth = 20;
-    public final int nodeHeight = 20;
+    public final int nodeWidth = 30;
+    public final int nodeHeight = 30;
     public final int nodeRadius = nodeWidth / 2;
 
-    public final int ledWidth = 100;
-    public final int ledHeight = 100;
+    public final int ledWidth = 130;
+    public final int ledHeight = 130;
+    public final int ledIndicatorWidth = 70;
+    public final int ledIndicatorHeight = 70;
 
-    public final int switchWidth = 100;
-    public final int switchHeight = 100;
-    public final int switchButtonWidth = 100;
-    public final int switchButtonHeight = 100;
+    public final int switchWidth = 170;
+    public final int switchHeight = 170;
+    public final int switchButtonWidth = 60;
+    public final int switchButtonHeight = 60;
     public final int switchButtonRadius = switchButtonWidth / 2;
 
     public final int subCircuitWidth = 100;
@@ -34,6 +36,10 @@ public class Config {
 
     public final int wireOffColor = 0x0000ff;
     public final int wireOnColor = 0x52BE80;
+    public final int wireWidth = 5;
+
+    public final int ledIndicatorOnColor = 0x58D68D;
+    public final int ledIndicatorOffColor = 0xEC7063;
 
     private static final Config instance = new Config();
     private Config() {}

@@ -29,15 +29,32 @@ public class Led extends Widget {
     public boolean getComputedOutput() {
         return this.inputs.get(0).getVal();
     }
-
     public NodeInput getNodeInput() { return this.inputs.get(0); }
 
-    public void testing() {
-        System.out.println(this.getComputedOutput());
+    private int calcIndicatorX(){
+        return x + width / 2 - Config.getInstance().ledIndicatorWidth / 2;
+    }
+    private int calcIndicatorY(){
+        return y + height / 2 - Config.getInstance().ledIndicatorHeight / 2;
     }
 
     @Override
     public void draw(Graphics g) {
+        int borderColor = selectStatus ?
+                Config.getInstance().selectedWidgetColor :
+                Config.getInstance().unselectedWidgetColor;
+        g.setColor(borderColor);
+        // TODO: Implement Gate Drawing
+        g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
+        drawNodes(g);
 
+        int indicatorColor = this.getComputedOutput() ?
+                Config.getInstance().ledIndicatorOnColor :
+                Config.getInstance().ledIndicatorOffColor;
+        g.setColor(indicatorColor);
+        // TODO: Implement Gate Drawing
+        g.drawRect(calcIndicatorX(), calcIndicatorY(),
+                Config.getInstance().ledIndicatorWidth,
+                Config.getInstance().ledIndicatorHeight);
     }
 }

@@ -1,5 +1,7 @@
 package org.ecs160.a2.Utilities;
 import com.codename1.ui.Graphics;
+import com.codename1.ui.Stroke;
+import com.codename1.ui.geom.GeneralPath;
 import org.ecs160.a2.Objects.Interface.Node;
 import org.ecs160.a2.Objects.Interface.Selectable;
 import org.ecs160.a2.Objects.Interface.Widget;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 
 public class WorkspaceUtil {
     private Selectable highlighted;
+    GeneralPath p = new GeneralPath();
     private final Grid grid = Grid.getInstance();
     private static final WorkspaceUtil instance = new WorkspaceUtil();
     private WorkspaceUtil() {}
@@ -114,6 +117,13 @@ public class WorkspaceUtil {
                     Config.getInstance().wireOnColor :
                     Config.getInstance().wireOffColor;
             g.setColor(color);
+//            Stroke stroke = new Stroke(
+//                    Config.getInstance().wireWidth,
+//                    Stroke.CAP_BUTT,
+//                    Stroke.JOIN_ROUND, 1f
+//            );
+//            p.moveTo(input.getX()+Config.getInstance().nodeRadius, input.getY());
+//            p.lineTo(output.getX()+Config.getInstance().nodeRadius, output.getY());
             g.drawLine(input.getX()+Config.getInstance().nodeRadius,
                     input.getY(),
                     output.getX()+Config.getInstance().nodeRadius,
@@ -123,11 +133,11 @@ public class WorkspaceUtil {
 
     public Selectable getSelectable(ArrayList<Widget> widgets, int x, int y) {
         for (Widget widget : widgets) {
+            for (Selectable accessory : widget.getAllAccessories()) {
+                if (accessory.hitBoxHas(x, y)) return accessory;
+            }
             if (widget.hitBoxHas(x, y)) {
                 return widget;
-            }
-            for (Node node : widget.getAllNodes()) {
-                if (node.hitBoxHas(x, y)) return node;
             }
         }
         return null;

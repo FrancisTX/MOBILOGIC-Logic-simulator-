@@ -21,8 +21,12 @@ public class ViewWorkspace extends Container {
         widgets = new ArrayList<>();
         this.addClickListener();
 
-        this.widgets.add(new GateAND(200, 400));
-        this.widgets.add(new GateOR(400, 800));
+        this.widgets.add(new GateAND(200, 550));
+        this.widgets.add(new GateOR(400, 900));
+        this.widgets.add(new Switch(100, 200));
+        this.widgets.add(new Switch(500, 200));
+        this.widgets.add(new Switch(900, 200));
+        this.widgets.add(new Led(500, 1500));
     }
 
     @Override
