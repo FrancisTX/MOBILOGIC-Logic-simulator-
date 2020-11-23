@@ -9,7 +9,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class GateExternalized implements Externalizable {
-    private String gateType;
     private LogicGate gate;
     public GateExternalized(LogicGate gate) { this.gate = gate; }
 
@@ -20,13 +19,13 @@ public class GateExternalized implements Externalizable {
 
     @Override
     public void externalize(DataOutputStream out) throws IOException {
-        out.writeUTF(gateType);
+        out.writeUTF(gate.getType());
         out.writeInt(gate.getAllInputNodes().size());
     }
 
     @Override
     public void internalize(int version, DataInputStream in) throws IOException {
-        gateType = in.readUTF();
+        String gateType = in.readUTF();
         switch (gateType) {
             case "GateAND":
                 gate = new GateAND(Integer.MAX_VALUE, Integer.MAX_VALUE);

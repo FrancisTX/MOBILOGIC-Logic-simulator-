@@ -13,6 +13,7 @@ public abstract class LogicGate extends Widget {
                 Config.getInstance().logicGateWidth,
                 Config.getInstance().logicGateHeight);
     }
+    public abstract String getType();
 
     public NodeInput getNodeInput(int i) {
         if (i < 0 || i >= inputs.size()) {

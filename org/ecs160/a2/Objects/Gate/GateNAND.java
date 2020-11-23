@@ -9,6 +9,7 @@ public class GateNAND extends LogicGate {
     public GateNAND(int x, int y) {
         super(x, y);
     }
+    public String getType() { return "GateNAND"; }
 
     @Override
     public int getMinInputsNum() {

@@ -8,6 +8,7 @@ public class GateNOT extends LogicGate {
     public GateNOT(int x, int y) {
         super(x, y);
     }
+    public String getType() { return "GateNOT"; }
 
     @Override
     public int getMinInputsNum() {

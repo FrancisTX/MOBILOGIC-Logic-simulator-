@@ -9,6 +9,7 @@ public class GateXNOR extends LogicGate {
     public GateXNOR(int x, int y) {
         super(x, y);
     }
+    public String getType() { return "GateXNOR"; }
 
     @Override
     public int getMinInputsNum() {

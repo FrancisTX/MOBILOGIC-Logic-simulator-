@@ -10,6 +10,7 @@ public class GateOR extends LogicGate {
     public GateOR(int x, int y) {
         super(x, y);
     }
+    public String getType() { return "GateOR"; }
 
     @Override
     public int getMinInputsNum() {
