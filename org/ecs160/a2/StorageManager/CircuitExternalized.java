@@ -2,12 +2,9 @@ package org.ecs160.a2.StorageManager;
 import com.codename1.io.Externalizable;
 import com.codename1.io.Util;
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
-import org.ecs160.a2.Objects.Circuit;
+import org.ecs160.a2.Objects.*;
 import org.ecs160.a2.Objects.Interface.LogicGate;
 import org.ecs160.a2.Objects.Interface.Widget;
-import org.ecs160.a2.Objects.NodeInput;
-import org.ecs160.a2.Objects.Switch;
-import org.ecs160.a2.Objects.Led;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -76,13 +73,56 @@ public class CircuitExternalized implements Externalizable {
             ArrayList<NodeInput> inputs = keyWidget.getAllInputNodes();
             for (int j = 0; j < inputs.size(); j++) {
                 // key
-                SimpleEntry<Integer, Integer> indices = new SimpleEntry<>(i, j);
+                SimpleEntry<Integer, Integer> inputIndices = new SimpleEntry<>(i, j);
                 SimpleEntry<String, SimpleEntry<Integer, Integer>> key =
-                        new SimpleEntry<>(keyString, indices);
+                        new SimpleEntry<>(keyString, inputIndices);
                 // value
-                // TODO: get indices of output Node
+                NodeInput input = inputs.get(j);
+                NodeOutput output = input.getConnectedOutput();
+                if (output == null)
+                    continue;
+                // TODO: get address of output Node
+                SimpleEntry<String, SimpleEntry<Integer, Integer>> outputAddress = getOutputAddress(output);
             }
         }
         return connectivity;
+    }
+
+    public SimpleEntry<String, SimpleEntry<Integer, Integer>> getOutputAddress(NodeOutput target) {
+        SimpleEntry<String, SimpleEntry<Integer, Integer>> address = null;
+        SimpleEntry<Integer, Integer> indices = null;
+
+        ArrayList<Circuit> subCircuits = circuit.getSubCircuits();
+        ArrayList<Switch> switches = circuit.getSwitches();
+        ArrayList<LogicGate> gates = circuit.getGates();
+
+        for (int i = 0; i < subCircuits.size(); i++) {
+            ArrayList<NodeOutput> outputNodes = subCircuits.get(i).getAllOutputNodes();
+            for (int j = 0; j < outputNodes.size(); j++)
+                if (target == outputNodes.get(j)) {
+                    indices = new SimpleEntry<>(i, j);
+                    address = new SimpleEntry<>("Circuit", indices);
+                    return address;
+                }
+        }
+        for (int i = 0; i < switches.size(); i++) {
+            ArrayList<NodeOutput> outputNodes = switches.get(i).getAllOutputNodes();
+            for (int j = 0; j < outputNodes.size(); j++)
+                if (target == outputNodes.get(j)) {
+                    indices = new SimpleEntry<>(i, j);
+                    address = new SimpleEntry<>("Switch", indices);
+                    return address;
+                }
+        }
+        for (int i = 0; i < gates.size(); i++) {
+            ArrayList<NodeOutput> outputNodes = gates.get(i).getAllOutputNodes();
+            for (int j = 0; j < outputNodes.size(); j++)
+                if (target == outputNodes.get(j)) {
+                    indices = new SimpleEntry<>(i, j);
+                    address = new SimpleEntry<>("LogicGate", indices);
+                    return address;
+                }
+        }
+        return null;
     }
 }
