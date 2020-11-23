@@ -1,4 +1,5 @@
 package org.ecs160.a2.Objects;
+import com.codename1.io.Storage;
 import com.codename1.ui.Graphics;
 import org.ecs160.a2.Objects.Interface.Node;
 import org.ecs160.a2.Objects.Interface.Selectable;
@@ -14,8 +15,6 @@ public class Circuit extends Widget {
     private ArrayList<Led> leds;
     private ArrayList<LogicGate> gates;
     private boolean isMainCircuit;
-
-    private int indexOfCalcOutput;
 
     public Circuit(int x, int y) {
         super(x, y,
@@ -40,43 +39,69 @@ public class Circuit extends Widget {
         if (!isMainCircuit) {
             populateInput(this.switches.size());
             populateOutput(this.leds.size());
-        };
-
+        }
     }
 
-    @Override
-    public boolean getComputedOutput() {
-        return leds.get(indexOfCalcOutput).getComputedOutput();
-    }
     @Override
     public void update() {
         if (isMainCircuit) return;
         // TODO: Implement this
-        // multiple outputs update
-        for (int i = 0; i < outputs.size(); i++) {
-            indexOfCalcOutput = i;
-            outputs.get(i).update(getComputedOutput());
-        }
-        indexOfCalcOutput = 0;
+        for (int i = 0; i < switches.size(); i++)
+            switches.get(i).update(inputs.get(i).getVal());
+        for (int i = 0; i < outputs.size(); i++)
+            outputs.get(i).update(leds.get(i).getComputedOutput());
     }
 
+    @Override // DUMMY FUNCTION, DON'T TOUCH, thanks
+    public boolean getComputedOutput() { return false; }
     @Override
     public int getMinInputsNum() { return 0; }
-
     @Override
     public int getMaxInputsNum() { return 7; }
-
     @Override
     public int getMinOutputNum() { return 0; }
 
-    public ArrayList<Node> getAllNodes() {
-        ArrayList<Node> all = new ArrayList<>();
-        // TODO: Implement this
-        return all;
+    public void save(String circuitName) {
+        Storage.getInstance().writeObject(circuitName, this);
+    }
+
+    public void load(String circuitName) {
+        Circuit subCircuit = (Circuit)Storage.getInstance().readObject(circuitName);
+        if (subCircuit == null) return;
+        System.out.println("Found Circuit: ".concat(circuitName));
+        subCircuits.add(subCircuit);
+    }
+
+    public void add(Widget item) {
+        if (item instanceof Circuit) {
+            subCircuits.add((Circuit) item);
+        } else if (item instanceof Switch) {
+            switches.add((Switch) item);
+        } else if (item instanceof Led) {
+            leds.add((Led)item);
+        } else if (item instanceof LogicGate) {
+            gates.add((LogicGate)item);
+        }
+    }
+
+    public void remove(Widget item) {
+        if (item instanceof Circuit) {
+            subCircuits.remove(item);
+        } else if (item instanceof Switch) {
+            switches.remove(item);
+        } else if (item instanceof Led) {
+            leds.remove(item);
+        } else if (item instanceof LogicGate) {
+            gates.remove(item);
+        }
     }
 
     @Override
     public void draw(Graphics g) {
-
+        // Draw in sub-circuit Mode
+        char[] data = {'S', 'U', 'B'};
+        g.drawChars(data, 0, 3, x + getWidth() / 5, y + getHeight() / 5);
+        g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
+        drawNodes(g);
     }
 }
