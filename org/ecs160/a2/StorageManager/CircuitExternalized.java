@@ -8,7 +8,9 @@ import org.ecs160.a2.Objects.Switch;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CircuitExternalized implements Externalizable {
     private Circuit circuit;
@@ -32,10 +34,9 @@ public class CircuitExternalized implements Externalizable {
         ArrayList<GateExternalized> gatesExternalized =  new ArrayList<>();
         for (LogicGate gate: circuit.getGates())
             gatesExternalized.add(new GateExternalized(gate));
-
         // Start to write connectivity
-        
-
+        HashMap<SimpleEntry<String, SimpleEntry<Integer, Integer>>,
+                SimpleEntry<String, SimpleEntry<Integer, Integer>>> connectivity = new HashMap<>();
     }
 
     @Override

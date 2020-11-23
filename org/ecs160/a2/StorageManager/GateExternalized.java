@@ -1,14 +1,15 @@
 package org.ecs160.a2.StorageManager;
 import com.codename1.io.Externalizable;
-import com.codename1.io.Log;
-import org.ecs160.a2.Objects.Circuit;
+import com.codename1.io.Util;
 import org.ecs160.a2.Objects.Interface.LogicGate;
+import org.ecs160.a2.Objects.Gate.*;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class GateExternalized implements Externalizable {
+    private String gateType;
     private LogicGate gate;
     public GateExternalized(LogicGate gate) { this.gate = gate; }
 
@@ -19,16 +20,44 @@ public class GateExternalized implements Externalizable {
 
     @Override
     public void externalize(DataOutputStream out) throws IOException {
-
+        out.writeUTF(gateType);
+        out.writeInt(gate.getAllInputNodes().size());
     }
 
     @Override
     public void internalize(int version, DataInputStream in) throws IOException {
-
+        gateType = in.readUTF();
+        switch (gateType) {
+            case "GateAND":
+                gate = new GateAND(Integer.MAX_VALUE, Integer.MAX_VALUE);
+                break;
+            case "GateNAND":
+                gate = new GateNAND(Integer.MAX_VALUE, Integer.MAX_VALUE);
+                break;
+            case "GateNOR":
+                gate = new GateNOR(Integer.MAX_VALUE, Integer.MAX_VALUE);
+                break;
+            case "GateNOT":
+                gate = new GateNOT(Integer.MAX_VALUE, Integer.MAX_VALUE);
+                break;
+            case "GateOR":
+                gate = new GateOR(Integer.MAX_VALUE, Integer.MAX_VALUE);
+                break;
+            case "GateXNOR":
+                gate = new GateXNOR(Integer.MAX_VALUE, Integer.MAX_VALUE);
+                break;
+            case "GateXOR":
+                gate = new GateXOR(Integer.MAX_VALUE, Integer.MAX_VALUE);
+                break;
+            default:
+                System.out.println("Class ".concat(gateType).concat(" NOT FOUND"));
+        }
+        int numInputs = in.readInt();
+        gate.changeInputSize(numInputs);
     }
 
     @Override
     public String getObjectId() {
-        return null;
+        return "GateExternalized";
     }
 }
