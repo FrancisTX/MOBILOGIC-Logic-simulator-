@@ -1,12 +1,15 @@
 package org.ecs160.a2.Objects;
+import com.codename1.io.Externalizable;
 import com.codename1.io.Storage;
+import com.codename1.io.Util;
 import com.codename1.ui.Graphics;
-import org.ecs160.a2.Objects.Interface.Node;
-import org.ecs160.a2.Objects.Interface.Selectable;
 import org.ecs160.a2.Objects.Interface.Widget;
 import org.ecs160.a2.Utilities.Config;
 import org.ecs160.a2.Objects.Interface.LogicGate;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Circuit extends Widget {
@@ -97,6 +100,10 @@ public class Circuit extends Widget {
         }
     }
 
+    public ArrayList<Circuit> getSubCircuits() {return subCircuits;}
+    public ArrayList<Switch> getSwitches() {return switches;}
+    public ArrayList<Led> getLeds() {return leds;}
+    public ArrayList<LogicGate> getGates() {return gates;}
     public ArrayList<Widget> getAllWidgets() {
         ArrayList<Widget> all = new ArrayList<>(subCircuits);
         all.addAll(switches);

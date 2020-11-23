@@ -31,16 +31,16 @@ public class ViewWorkspace extends Container {
         mainCircuit.add(new Switch(900, 200));
         mainCircuit.add(new Led(500, 1500));
 
-        mainCircuit.save("TESTING");
-
-        mainCircuit = new Circuit(0, 0);
-        mainCircuit.load("TESTING", 500, 900);
-        mainCircuit.add(new Switch(100, 200));
-        mainCircuit.add(new Switch(500, 200));
-        mainCircuit.add(new Switch(900, 200));
-        mainCircuit.add(new Led(500, 1500));
-
-        Storage.getInstance().deleteStorageFile("TESTING");
+//        mainCircuit.save("TESTING");
+//
+//        mainCircuit = new Circuit(0, 0);
+//        mainCircuit.load("TESTING", 500, 900);
+//        mainCircuit.add(new Switch(100, 200));
+//        mainCircuit.add(new Switch(500, 200));
+//        mainCircuit.add(new Switch(900, 200));
+//        mainCircuit.add(new Led(500, 1500));
+//
+//        Storage.getInstance().deleteStorageFile("TESTING");
     }
 
     @Override
