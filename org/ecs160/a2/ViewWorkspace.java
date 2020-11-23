@@ -1,5 +1,7 @@
 package org.ecs160.a2;
 
+import com.codename1.io.Storage;
+import com.codename1.io.Util;
 import com.codename1.ui.Container;
 import com.codename1.ui.Graphics;
 import java.util.AbstractMap.SimpleEntry;
@@ -13,26 +15,38 @@ import java.util.ArrayList;
 
 public class ViewWorkspace extends Container {
     private final Grid grid = Grid.getInstance();
-    private ArrayList<Widget> widgets;
+    private Circuit mainCircuit;
     private final WorkspaceUtil util = WorkspaceUtil.getInstance();
 
     public ViewWorkspace() {
         super();
-        widgets = new ArrayList<>();
+        Util.register("Circuit", Circuit.class);
+        mainCircuit = new Circuit(0, 0);
         this.addClickListener();
 
-        this.widgets.add(new GateAND(200, 550));
-        this.widgets.add(new GateOR(400, 900));
-        this.widgets.add(new Switch(100, 200));
-        this.widgets.add(new Switch(500, 200));
-        this.widgets.add(new Switch(900, 200));
-        this.widgets.add(new Led(500, 1500));
+        mainCircuit.add(new GateAND(200, 550));
+        mainCircuit.add(new GateOR(400, 900));
+        mainCircuit.add(new Switch(100, 200));
+        mainCircuit.add(new Switch(500, 200));
+        mainCircuit.add(new Switch(900, 200));
+        mainCircuit.add(new Led(500, 1500));
+
+        mainCircuit.save("TESTING");
+
+        mainCircuit = new Circuit(0, 0);
+        mainCircuit.load("TESTING", 500, 900);
+        mainCircuit.add(new Switch(100, 200));
+        mainCircuit.add(new Switch(500, 200));
+        mainCircuit.add(new Switch(900, 200));
+        mainCircuit.add(new Led(500, 1500));
+
+        Storage.getInstance().deleteStorageFile("TESTING");
     }
 
     @Override
     public void paint(Graphics g){
         grid.draw(g);
-        for (Widget widget : widgets) {
+        for (Widget widget : mainCircuit.getAllWidgets()) {
             widget.draw(g);
             util.drawWire(g, widget);
         }
@@ -43,7 +57,7 @@ public class ViewWorkspace extends Container {
             util.handleClick(
                     evt.getX()-getParent().getAbsoluteX(),
                     evt.getY()-getParent().getAbsoluteY(),
-                    this.widgets);
+                    mainCircuit.getAllWidgets());
             this.repaint();
         });
     }

@@ -40,6 +40,7 @@ public class Circuit extends Widget {
             populateInput(this.switches.size());
             populateOutput(this.leds.size());
         }
+        super.setCoordinates(x, y);
     }
 
     @Override
@@ -65,11 +66,11 @@ public class Circuit extends Widget {
         Storage.getInstance().writeObject(circuitName, this);
     }
 
-    public void load(String circuitName) {
+    public void load(String circuitName, int x, int y) {
         Circuit subCircuit = (Circuit)Storage.getInstance().readObject(circuitName);
         if (subCircuit == null) return;
         System.out.println("Found Circuit: ".concat(circuitName));
-        subCircuits.add(subCircuit);
+        subCircuits.add(new Circuit(x, y, subCircuit, false));
     }
 
     public void add(Widget item) {
@@ -96,9 +97,21 @@ public class Circuit extends Widget {
         }
     }
 
+    public ArrayList<Widget> getAllWidgets() {
+        ArrayList<Widget> all = new ArrayList<>(subCircuits);
+        all.addAll(switches);
+        all.addAll(leds);
+        all.addAll(gates);
+        return all;
+    }
+
     @Override
     public void draw(Graphics g) {
         // Draw in sub-circuit Mode
+        int color = selectStatus ?
+                Config.getInstance().selectedWidgetColor :
+                Config.getInstance().unselectedWidgetColor;
+        g.setColor(color);
         char[] data = {'S', 'U', 'B'};
         g.drawChars(data, 0, 3, x + getWidth() / 5, y + getHeight() / 5);
         g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());

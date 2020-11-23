@@ -20,8 +20,8 @@ public class Config {
     public final int switchButtonHeight = 60;
     public final int switchButtonRadius = switchButtonWidth / 2;
 
-    public final int subCircuitWidth = 100;
-    public final int subCircuitHeight = 100;
+    public final int subCircuitWidth = 200;
+    public final int subCircuitHeight = 200;
 
     public final int unselectedWidgetColor = 0x0000ff;
     public final int selectedWidgetColor = 0x52BE80;
