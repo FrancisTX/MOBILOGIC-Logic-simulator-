@@ -11,7 +11,7 @@ public class WidgetFactory {
         if (typeName.equals("GateAND"))
             return new GateAND(x, y);
         else if (typeName.equals("GateOR"))
-            return new GateAND(x, y);
+            return new GateOR(x, y);
         return null;
     }
 }
