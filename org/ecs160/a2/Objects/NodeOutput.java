@@ -26,6 +26,7 @@ public class NodeOutput extends Node {
         disconnect(input);
         nextInputs.add(input);
     }
+    public ArrayList<NodeInput> getAllConnectedInputs() { return this.nextInputs; }
     public void disconnect(NodeInput input) {
         while(nextInputs.remove(input)) { }
     }

@@ -5,6 +5,7 @@ import org.ecs160.a2.Objects.NodeInput;
 import org.ecs160.a2.Objects.NodeOutput;
 import org.ecs160.a2.UI.Grid;
 import org.ecs160.a2.Utilities.Config;
+import org.ecs160.a2.Utilities.WorkspaceUtil;
 
 import java.util.ArrayList;
 
@@ -93,5 +94,14 @@ public abstract class Widget extends Selectable {
     }
     private int calcInputY() {
         return this.y - Config.getInstance().nodeHeight;
+    }
+
+    public void removeAllConnections() {
+        for (NodeInput input : inputs) {
+            WorkspaceUtil.getInstance().disconnect(input, input.getConnectedOutput());
+        }
+        for (NodeOutput output : outputs)
+            for (NodeInput input : output.getAllConnectedInputs())
+                WorkspaceUtil.getInstance().disconnect(input, output);
     }
 }

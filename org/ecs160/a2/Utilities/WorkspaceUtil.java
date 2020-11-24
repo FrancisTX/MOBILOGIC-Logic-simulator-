@@ -116,6 +116,13 @@ public class WorkspaceUtil {
         input.connect(output);
     }
 
+    public void disconnect(NodeInput input, NodeOutput output) {
+        if (input == null || output == null) return;
+        if (!input.connected()) return;
+        output.disconnect(input);
+        input.disconnect();
+    }
+
     public void drawWire(Graphics g, Widget widget) {
         for (NodeInput input : widget.getAllInputNodes()) {
             NodeOutput output = input.getConnectedOutput();
