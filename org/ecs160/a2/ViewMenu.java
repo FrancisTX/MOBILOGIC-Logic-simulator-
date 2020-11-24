@@ -26,11 +26,16 @@ public class ViewMenu extends Container {
         });
         this.add(deleteButton);
 
-        Button addButton = new Button("And Gate");
-        addButton.addActionListener((evt) -> {
-            WorkspaceUtil.getInstance().flipAddMode();
-            WorkspaceUtil.getInstance().setWidgetToAdd("GateAnd");
+        Button addANDButton = new Button("And Gate");
+        addANDButton.addActionListener((evt) -> {
+            WorkspaceUtil.getInstance().setWidgetToAdd("GateAND");
         });
-        this.add(addButton);
+        this.add(addANDButton);
+
+        Button addORButton = new Button("Or Gate");
+        addORButton.addActionListener((evt) -> {
+            WorkspaceUtil.getInstance().setWidgetToAdd("GateOR");
+        });
+        this.add(addORButton);
     }
 }

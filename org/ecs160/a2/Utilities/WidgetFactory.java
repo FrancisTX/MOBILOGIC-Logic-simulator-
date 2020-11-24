@@ -8,7 +8,9 @@ public class WidgetFactory {
     public static WidgetFactory getInstance() { return instance; }
 
     public Widget createWidget(String typeName, int x, int y) {
-        if (typeName.equals("GateAnd"))
+        if (typeName.equals("GateAND"))
+            return new GateAND(x, y);
+        else if (typeName.equals("GateOR"))
             return new GateAND(x, y);
         return null;
     }
