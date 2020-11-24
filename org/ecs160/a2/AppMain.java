@@ -21,9 +21,6 @@ public class AppMain {
     private Resources theme;
 
     public void init(Object context) {
-        Util.register("CircuitSavable", CircuitSavable.class);
-        Util.register("GateSavable", GateSavable.class);
-
         // use two network threads instead of one
         updateNetworkThreadCount(2);
         theme = UIManager.initFirstTheme("/theme");
@@ -42,7 +39,10 @@ public class AppMain {
             }
             Log.sendLogAsync();
             Dialog.show("Connection Error", "There was a networking error in the connection to " + err.getConnectionRequest().getUrl(), "OK", null);
-        });        
+        });
+
+        Util.register("CircuitSavable", CircuitSavable.class);
+        Util.register("GateSavable", GateSavable.class);
     }
     
     public void start() {

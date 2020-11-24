@@ -67,6 +67,7 @@ public class Circuit extends Widget {
     public int getMinOutputNum() { return 0; }
 
     public void save(String circuitName) {
+        System.out.println("Saving: ".concat(circuitName));
         StorageManager.getInstance().save(circuitName, this);
     }
 

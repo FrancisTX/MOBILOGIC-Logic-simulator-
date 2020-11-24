@@ -9,12 +9,12 @@ import org.ecs160.a2.Utilities.WorkspaceUtil;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CircuitSavable implements Externalizable {
     private Circuit circuit;
+    public CircuitSavable() {}
     public CircuitSavable(Circuit circuit) { this.circuit = circuit; }
     public Circuit extractCircuit() { return circuit; }
 
@@ -63,7 +63,8 @@ public class CircuitSavable implements Externalizable {
 
         HashMap<HashMap<String, ArrayList<Integer>>,
                 HashMap<String, ArrayList<Integer>>> connectivity =
-                (HashMap)Util.readObject(in);
+                (HashMap<HashMap<String, ArrayList<Integer>>,
+                        HashMap<String, ArrayList<Integer>>>)Util.readObject(in);
         for (HashMap<String, ArrayList<Integer>> inputAddress : connectivity.keySet()) {
             HashMap<String, ArrayList<Integer>> outputAddress = connectivity.get(inputAddress);
 
@@ -72,7 +73,7 @@ public class CircuitSavable implements Externalizable {
 
             int outputJ = extractOutputIndex(outputAddress);
             NodeOutput output = getWidgetFrom(outputAddress).getAllOutputNodes().get(outputJ);
-            
+
             WorkspaceUtil.getInstance().connect(input, output);
         }
     }
@@ -99,43 +100,46 @@ public class CircuitSavable implements Externalizable {
         HashMap<HashMap<String, ArrayList<Integer>>,
                 HashMap<String, ArrayList<Integer>>> connectivity = new HashMap<>();
         // connectivity: NodeInput => NodeOutput
-        ArrayList<Widget> widgets = circuit.getAllWidgets();
-        for (int i = 0; i < widgets.size(); i++) {
-            Widget keyWidget = widgets.get(i);
-            String keyString;
-            if (keyWidget instanceof Circuit)
-                keyString = "Circuit";
-            else if (keyWidget instanceof Switch)
-                keyString = "Switch";
-            else if (keyWidget instanceof Led)
-                keyString = "Led";
-            else if (keyWidget instanceof LogicGate)
-                keyString = "LogicGate";
-            else
-                throw new IllegalArgumentException("Unknown Object Type");
+        ArrayList<Circuit> subCircuits = circuit.getSubCircuits();
+        for (int i = 0; i < subCircuits.size(); i++)
+            addConnectivity(connectivity, subCircuits.get(i), "Circuit", i);
+        ArrayList<Led> leds = circuit.getLeds();
+        for (int i = 0; i < leds.size(); i++)
+            addConnectivity(connectivity, leds.get(i), "Led", i);
+        ArrayList<LogicGate> gates = circuit.getGates();
+        for (int i = 0; i < gates.size(); i++)
+            addConnectivity(connectivity, gates.get(i), "LogicGate", i);
 
-            ArrayList<NodeInput> inputs = keyWidget.getAllInputNodes();
-            for (int j = 0; j < inputs.size(); j++) {
-                // key
-                ArrayList<Integer> inputIndices = new ArrayList<>();
-                inputIndices.add(i);
-                inputIndices.add(j);
 
-                HashMap<String, ArrayList<Integer>> key =
-                        new HashMap<>();
-                key.put(keyString, inputIndices);
-                // value
-                NodeInput input = inputs.get(j);
-                if (!input.connected())
-                    continue;
-                NodeOutput output = input.getConnectedOutput();
-                HashMap<String, ArrayList<Integer>> value = getOutputAddress(output);
-                if (value == null)
-                    continue;
-                connectivity.put(key, value);
-            }
-        }
         return connectivity;
+    }
+
+    public void addConnectivity(HashMap<HashMap<String, ArrayList<Integer>>,
+            HashMap<String, ArrayList<Integer>>> connectivity
+            , Widget keyWidget, String keyString, int i) {
+        ArrayList<NodeInput> inputs = keyWidget.getAllInputNodes();
+        for (int j = 0; j < inputs.size(); j++) {
+            // key
+            ArrayList<Integer> inputIndices = new ArrayList<>();
+            inputIndices.add(i);
+            inputIndices.add(j);
+            System.out.println("Connect");
+
+            HashMap<String, ArrayList<Integer>> key =
+                    new HashMap<>();
+            key.put(keyString, inputIndices);
+            // value
+            NodeInput input = inputs.get(j);
+            if (!input.connected())
+                continue;
+            NodeOutput output = input.getConnectedOutput();
+            HashMap<String, ArrayList<Integer>> value = getOutputAddress(output);
+            if (value == null)
+                continue;
+            debug(key);
+            debug(value);
+            connectivity.put(key, value);
+        }
     }
 
     public HashMap<String, ArrayList<Integer>> getOutputAddress(NodeOutput target) {
@@ -188,6 +192,12 @@ public class CircuitSavable implements Externalizable {
         for (String key : address.keySet())
             return address.get(key).get(1);
         return -1;
+    }
+    public void debug(HashMap<String, ArrayList<Integer>> address) {
+        for (String key : address.keySet())
+            System.out.println(key
+                    .concat(Integer.toString(address.get(key).get(0)).concat(" ")
+                    .concat(Integer.toString(address.get(key).get(1)))));
     }
 
     @Override

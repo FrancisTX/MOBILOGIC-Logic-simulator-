@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class GateSavable implements Externalizable {
     private LogicGate gate;
+    public GateSavable() {}
     public GateSavable(LogicGate gate) { this.gate = gate; }
     public LogicGate extractGate() { return this.gate; }
 
