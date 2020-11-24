@@ -109,6 +109,13 @@ public class WorkspaceUtil {
         }
     }
 
+    public void connect(NodeInput input, NodeOutput output) {
+        if (input == null || output == null) return;
+        if (input.connected()) return;
+        output.connect(input);
+        input.connect(output);
+    }
+
     public void drawWire(Graphics g, Widget widget) {
         for (NodeInput input : widget.getAllInputNodes()) {
             NodeOutput output = input.getConnectedOutput();

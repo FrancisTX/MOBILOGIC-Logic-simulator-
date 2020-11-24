@@ -4,6 +4,7 @@ import com.codename1.io.Storage;
 import com.codename1.io.Util;
 import com.codename1.ui.Graphics;
 import org.ecs160.a2.Objects.Interface.Widget;
+import org.ecs160.a2.StorageManager.StorageManager;
 import org.ecs160.a2.Utilities.Config;
 import org.ecs160.a2.Objects.Interface.LogicGate;
 
@@ -66,11 +67,11 @@ public class Circuit extends Widget {
     public int getMinOutputNum() { return 0; }
 
     public void save(String circuitName) {
-        Storage.getInstance().writeObject(circuitName, this);
+        StorageManager.getInstance().save(circuitName, this);
     }
 
     public void load(String circuitName, int x, int y) {
-        Circuit subCircuit = (Circuit)Storage.getInstance().readObject(circuitName);
+        Circuit subCircuit = StorageManager.getInstance().load(circuitName);
         if (subCircuit == null) return;
         System.out.println("Found Circuit: ".concat(circuitName));
         subCircuits.add(new Circuit(x, y, subCircuit, false));

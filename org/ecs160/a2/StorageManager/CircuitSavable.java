@@ -1,10 +1,10 @@
 package org.ecs160.a2.StorageManager;
 import com.codename1.io.Externalizable;
 import com.codename1.io.Util;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 import org.ecs160.a2.Objects.*;
 import org.ecs160.a2.Objects.Interface.LogicGate;
 import org.ecs160.a2.Objects.Interface.Widget;
+import org.ecs160.a2.Utilities.WorkspaceUtil;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -13,9 +13,10 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CircuitExternalized implements Externalizable {
+public class CircuitSavable implements Externalizable {
     private Circuit circuit;
-    public CircuitExternalized(Circuit circuit) { this.circuit = circuit; }
+    public CircuitSavable(Circuit circuit) { this.circuit = circuit; }
+    public Circuit extractCircuit() { return circuit; }
 
     @Override
     public int getVersion() {
@@ -24,30 +25,72 @@ public class CircuitExternalized implements Externalizable {
 
     @Override
     public void externalize(DataOutputStream out) throws IOException {
-        ArrayList<CircuitExternalized> subCircuitsExternalized =  new ArrayList<>();
+        ArrayList<CircuitSavable> savableCircuits =  new ArrayList<>();
         for (Circuit subCircuit : circuit.getSubCircuits())
-            subCircuitsExternalized.add(new CircuitExternalized(subCircuit));
-        Util.writeObject(subCircuitsExternalized, out);
+            savableCircuits.add(new CircuitSavable(subCircuit));
+        Util.writeObject(savableCircuits, out);
 
         out.writeInt(circuit.getSwitches().size());
         out.writeInt(circuit.getLeds().size());
 
-        ArrayList<GateExternalized> gatesExternalized =  new ArrayList<>();
+        ArrayList<GateSavable> savableGates =  new ArrayList<>();
         for (LogicGate gate: circuit.getGates())
-            gatesExternalized.add(new GateExternalized(gate));
+            savableGates.add(new GateSavable(gate));
+        Util.writeObject(savableGates, out);
+
         // Start to write connectivity
         Util.writeObject(getConnectivityGraph(), out);
     }
 
     @Override
     public void internalize(int version, DataInputStream in) throws IOException {
-        ArrayList<CircuitExternalized> subCircuitsExternalized = (ArrayList<CircuitExternalized>)Util.readObject(in);
+        // TODO: Internalize
+        circuit = new Circuit(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        ArrayList<CircuitSavable> savablesSubcircuits = (ArrayList<CircuitSavable>)Util.readObject(in);
+        for (CircuitSavable savableCircuit : savablesSubcircuits)
+            circuit.getSubCircuits().add(savableCircuit.extractCircuit());
 
+        int numSwitches = in.readInt();
+        for (int i = 0; i < numSwitches; i++)
+            circuit.getSwitches().add(new Switch(Integer.MAX_VALUE, Integer.MAX_VALUE));
+        int numLeds = in.readInt();
+        for (int i = 0; i < numLeds; i++)
+            circuit.getLeds().add(new Led(Integer.MAX_VALUE, Integer.MAX_VALUE));
+
+        ArrayList<GateSavable> savableGates = (ArrayList<GateSavable>)Util.readObject(in);
+        for (GateSavable savableGate : savableGates)
+            circuit.getGates().add(savableGate.extractGate());
+
+        HashMap<SimpleEntry<String, SimpleEntry<Integer, Integer>>,
+                SimpleEntry<String, SimpleEntry<Integer, Integer>>> connectivity =
+                (HashMap)Util.readObject(in);
+        for (SimpleEntry<String, SimpleEntry<Integer, Integer>> inputAddress : connectivity.keySet()) {
+            SimpleEntry<String, SimpleEntry<Integer, Integer>> outputAddress = connectivity.get(inputAddress);
+
+            int inputJ = inputAddress.getValue().getValue();
+            NodeInput input = getWidgetFrom(inputAddress).getAllInputNodes().get(inputJ);
+
+            int outputJ = outputAddress.getValue().getValue();
+            NodeOutput output = getWidgetFrom(outputAddress).getAllOutputNodes().get(outputJ);
+
+            WorkspaceUtil.getInstance().connect(input, output);
+        }
     }
 
-    @Override
-    public String getObjectId() {
-        return "CircuitExternalized";
+    public Widget getWidgetFrom(SimpleEntry<String, SimpleEntry<Integer, Integer>> address) {
+        int i = address.getValue().getKey();
+        switch (address.getKey()) {
+            case "Circuit":
+                return circuit.getSubCircuits().get(i);
+            case "Switch":
+                return circuit.getSwitches().get(i);
+            case "Led":
+                return circuit.getLeds().get(i);
+            case "LogicGate":
+                return circuit.getGates().get(i);
+            default:
+                throw new IllegalArgumentException("Unknown Object Type");
+        }
     }
 
     public HashMap<SimpleEntry<String, SimpleEntry<Integer, Integer>>,
@@ -61,14 +104,14 @@ public class CircuitExternalized implements Externalizable {
             String keyString;
             if (keyWidget instanceof Circuit)
                 keyString = "Circuit";
-            if (keyWidget instanceof Switch)
+            else if (keyWidget instanceof Switch)
                 keyString = "Switch";
-            if (keyWidget instanceof Led)
+            else if (keyWidget instanceof Led)
                 keyString = "Led";
-            if (keyWidget instanceof LogicGate)
+            else if (keyWidget instanceof LogicGate)
                 keyString = "LogicGate";
             else
-                throw new ValueException("Unknown Object Type");
+                throw new IllegalArgumentException("Unknown Object Type");
 
             ArrayList<NodeInput> inputs = keyWidget.getAllInputNodes();
             for (int j = 0; j < inputs.size(); j++) {
@@ -78,11 +121,13 @@ public class CircuitExternalized implements Externalizable {
                         new SimpleEntry<>(keyString, inputIndices);
                 // value
                 NodeInput input = inputs.get(j);
-                NodeOutput output = input.getConnectedOutput();
-                if (output == null)
+                if (!input.connected())
                     continue;
-                // TODO: get address of output Node
-                SimpleEntry<String, SimpleEntry<Integer, Integer>> outputAddress = getOutputAddress(output);
+                NodeOutput output = input.getConnectedOutput();
+                SimpleEntry<String, SimpleEntry<Integer, Integer>> value = getOutputAddress(output);
+                if (value == null)
+                    continue;
+                connectivity.put(key, value);
             }
         }
         return connectivity;
@@ -124,5 +169,10 @@ public class CircuitExternalized implements Externalizable {
                 }
         }
         return null;
+    }
+
+    @Override
+    public String getObjectId() {
+        return "CircuitSavable";
     }
 }

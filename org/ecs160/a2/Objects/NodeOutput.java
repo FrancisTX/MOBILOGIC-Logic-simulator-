@@ -23,9 +23,10 @@ public class NodeOutput extends Node {
         return val;
     }
     public void connect(NodeInput input) {
+        disconnect(input);
         nextInputs.add(input);
     }
     public void disconnect(NodeInput input) {
-        nextInputs.remove(input);
+        while(nextInputs.remove(input)) { }
     }
 }

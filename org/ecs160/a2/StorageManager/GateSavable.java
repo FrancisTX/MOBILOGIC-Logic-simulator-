@@ -1,6 +1,5 @@
 package org.ecs160.a2.StorageManager;
 import com.codename1.io.Externalizable;
-import com.codename1.io.Util;
 import org.ecs160.a2.Objects.Interface.LogicGate;
 import org.ecs160.a2.Objects.Gate.*;
 
@@ -8,9 +7,10 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class GateExternalized implements Externalizable {
+public class GateSavable implements Externalizable {
     private LogicGate gate;
-    public GateExternalized(LogicGate gate) { this.gate = gate; }
+    public GateSavable(LogicGate gate) { this.gate = gate; }
+    public LogicGate extractGate() { return this.gate; }
 
     @Override
     public int getVersion() {
@@ -57,6 +57,6 @@ public class GateExternalized implements Externalizable {
 
     @Override
     public String getObjectId() {
-        return "GateExternalized";
+        return "GateSavable";
     }
 }
