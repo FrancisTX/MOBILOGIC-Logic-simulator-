@@ -73,13 +73,14 @@ public class CircuitSavable implements Externalizable {
             HashMap<String, ArrayList<Integer>> outputAddress = connectivity.get(inputAddress);
 
             int inputJ = extractOutputIndex(inputAddress);
-//            System.out.println("Connect");
-//            debug(inputAddress);
-//            debug(outputAddress);
             NodeInput input = getWidgetFrom(inputAddress).getAllInputNodes().get(inputJ);
 
             int outputJ = extractOutputIndex(outputAddress);
             NodeOutput output = getWidgetFrom(outputAddress).getAllOutputNodes().get(outputJ);
+
+//            System.out.println("Internalize Connect");
+//            debug(inputAddress);
+//            debug(outputAddress);
 
             WorkspaceUtil.getInstance().connect(input, output);
         }
@@ -130,7 +131,6 @@ public class CircuitSavable implements Externalizable {
             ArrayList<Integer> inputIndices = new ArrayList<>();
             inputIndices.add(i);
             inputIndices.add(j);
-            System.out.println("Connect");
 
             HashMap<String, ArrayList<Integer>> key =
                     new HashMap<>();
@@ -143,6 +143,8 @@ public class CircuitSavable implements Externalizable {
             HashMap<String, ArrayList<Integer>> value = getOutputAddress(output);
             if (value == null)
                 continue;
+
+            System.out.println("Externalizing Connect");
             debug(key);
             debug(value);
             connectivity.put(key, value);
