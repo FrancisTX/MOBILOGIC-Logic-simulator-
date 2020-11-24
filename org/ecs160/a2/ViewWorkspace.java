@@ -25,7 +25,7 @@ public class ViewWorkspace extends Container {
         this.addClickListener();
 
         mainCircuit.add(new GateAND(200, 550));
-        mainCircuit.add(new GateOR(400, 900));
+        mainCircuit.add(new GateAND(400, 900));
         mainCircuit.add(new Switch(100, 200));
         mainCircuit.add(new Switch(500, 200));
         mainCircuit.add(new Switch(900, 200));
@@ -50,6 +50,9 @@ public class ViewWorkspace extends Container {
 
     public void addClickListener() {
         this.addPointerPressedListener(evt -> {
+            util.handleAdd(evt.getX()-getParent().getAbsoluteX(),
+                    evt.getY()-getParent().getAbsoluteY(),
+                    mainCircuit);
             util.handleClick(
                     evt.getX()-getParent().getAbsoluteX(),
                     evt.getY()-getParent().getAbsoluteY(),

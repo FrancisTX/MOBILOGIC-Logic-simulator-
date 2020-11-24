@@ -2,6 +2,7 @@ package org.ecs160.a2.Utilities;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Stroke;
 import com.codename1.ui.geom.GeneralPath;
+import org.ecs160.a2.Objects.Circuit;
 import org.ecs160.a2.Objects.Interface.Node;
 import org.ecs160.a2.Objects.Interface.Selectable;
 import org.ecs160.a2.Objects.Interface.Widget;
@@ -15,14 +16,25 @@ import java.util.ArrayList;
 
 public class WorkspaceUtil {
     private Selectable highlighted;
+    private boolean addMode = false;
+    private String typeToAdd;
     GeneralPath p = new GeneralPath();
     private final Grid grid = Grid.getInstance();
     private static final WorkspaceUtil instance = new WorkspaceUtil();
     private WorkspaceUtil() {}
     public static WorkspaceUtil getInstance() { return instance; }
 
+    public void handleAdd(int x, int y, Circuit mainCircuit) {
+        Selectable clicked = getSelectable(mainCircuit.getAllWidgets(), x, y);
+        if (typeToAdd == null || clicked != null || !addMode) return;
+        mainCircuit.add(WidgetFactory.getInstance().createWidget(typeToAdd, x, y));
+    }
+    public void flipAddMode() { addMode = !addMode; }
+    public void setWidgetToAdd(String newItemType) { typeToAdd = newItemType; }
+
     public void handleClick(int x, int y, ArrayList<Widget> widgets) {
         {
+            if (addMode) return;
             Selectable clicked = getSelectable(widgets, x, y);
             if (highlighted == null && clicked == null) {
                 return;
