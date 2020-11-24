@@ -59,7 +59,9 @@ public class ViewWorkspace extends Container {
     }
 
     public Circuit getMainCircuit() { return mainCircuit; }
+
     public void removeHighlighted() {
         mainCircuit.remove(WorkspaceUtil.getInstance().getHighlightedWidget());
+        WorkspaceUtil.getInstance().resetHighlighted();
     }
 }

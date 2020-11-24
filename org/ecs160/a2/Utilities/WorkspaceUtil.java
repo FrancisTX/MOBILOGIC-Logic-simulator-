@@ -162,4 +162,8 @@ public class WorkspaceUtil {
             return null;
         return (Widget)this.highlighted;
     }
+
+    public void resetHighlighted() {
+        this.highlighted = null;
+    }
 }
