@@ -101,11 +101,13 @@ public class WorkspaceUtil {
             // System.out.println("disconnect");
             output.disconnect(input);
             input.disconnect();
+            input.update();
         } else {
             // not connected, connect now
             // System.out.println("connect");
             output.connect(input);
             input.connect(output);
+            input.update();
         }
     }
 
@@ -114,6 +116,7 @@ public class WorkspaceUtil {
         if (input.connected()) return;
         output.connect(input);
         input.connect(output);
+        input.update();
     }
 
     public void disconnect(NodeInput input, NodeOutput output) {
@@ -121,6 +124,7 @@ public class WorkspaceUtil {
         if (!input.connected()) return;
         output.disconnect(input);
         input.disconnect();
+        input.update();
     }
 
     public void drawWire(Graphics g, Widget widget) {

@@ -33,11 +33,9 @@ public class NodeInput extends Node {
 
     public void connect(NodeOutput output) {
         prev = output;
-        update();
     }
     public void disconnect() {
         prev = null;
-        update();
     }
     public boolean connected() {
         return prev != null;
