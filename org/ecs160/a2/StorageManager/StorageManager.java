@@ -16,7 +16,6 @@ public class StorageManager {
     public Circuit load(String circuitName) {
         CircuitSavable savable = (CircuitSavable)Storage.getInstance().readObject(circuitName);
         if (savable == null) return null;
-        System.out.println("Found Circuit: ".concat(circuitName));
         return savable.extractCircuit();
     }
 }

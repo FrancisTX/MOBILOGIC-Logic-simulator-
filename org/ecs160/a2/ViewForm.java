@@ -6,6 +6,10 @@ public class ViewForm extends Form {
     public ViewForm() {
         super(new BorderLayout());
         ViewWorkspace workspace = new ViewWorkspace();
-        this.add(BorderLayout.NORTH, "Arrange The Titles").add(BorderLayout.CENTER, workspace);
+        Button testingSaveButton = new Button("Save");
+        testingSaveButton.addActionListener((evt) -> {
+            workspace.mainCircuit.save("Testing");
+        });
+        this.add(BorderLayout.NORTH, testingSaveButton).add(BorderLayout.CENTER, workspace);
     }
 }

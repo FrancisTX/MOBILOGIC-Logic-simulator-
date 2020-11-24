@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class ViewWorkspace extends Container {
     private final Grid grid = Grid.getInstance();
-    private Circuit mainCircuit;
+    public Circuit mainCircuit;
     private final WorkspaceUtil util = WorkspaceUtil.getInstance();
 
     public ViewWorkspace() {
@@ -31,16 +31,14 @@ public class ViewWorkspace extends Container {
         mainCircuit.add(new Switch(900, 200));
         mainCircuit.add(new Led(500, 1500));
 
-        mainCircuit.save("TESTING");
-
-        mainCircuit = new Circuit(0, 0);
-        mainCircuit.load("TESTING", 500, 900);
-        mainCircuit.add(new Switch(100, 200));
-        mainCircuit.add(new Switch(500, 200));
-        mainCircuit.add(new Switch(900, 200));
-        mainCircuit.add(new Led(500, 1500));
-
-        Storage.getInstance().deleteStorageFile("TESTING");
+//        mainCircuit = new Circuit(0, 0);
+//        mainCircuit.load("TESTING", 500, 900);
+//        mainCircuit.add(new Switch(100, 200));
+//        mainCircuit.add(new Switch(500, 200));
+//        mainCircuit.add(new Switch(900, 200));
+//        mainCircuit.add(new Led(500, 1500));
+//
+//        Storage.getInstance().deleteStorageFile("TESTING");
     }
 
     @Override
