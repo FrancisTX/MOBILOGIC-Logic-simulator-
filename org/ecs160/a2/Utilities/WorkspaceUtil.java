@@ -157,5 +157,9 @@ public class WorkspaceUtil {
         return null;
     }
 
-
+    public Widget getHighlightedWidget() {
+        if (!(this.highlighted instanceof Widget))
+            return null;
+        return (Widget)this.highlighted;
+    }
 }
