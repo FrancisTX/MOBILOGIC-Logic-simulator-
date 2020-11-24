@@ -2,6 +2,7 @@ package org.ecs160.a2;
 
 import com.codename1.io.Storage;
 import com.codename1.io.Util;
+import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Graphics;
 import java.util.AbstractMap.SimpleEntry;
@@ -17,19 +18,22 @@ public class ViewWorkspace extends Container {
     private final Grid grid = Grid.getInstance();
     public Circuit mainCircuit;
     private final WorkspaceUtil util = WorkspaceUtil.getInstance();
+    private ViewTaskbar taskbarRef;
 
-    public ViewWorkspace() {
+    public ViewWorkspace(ViewTaskbar taskbarRef) {
         super();
+        this.taskbarRef = taskbarRef;
         Util.register("Circuit", Circuit.class);
         mainCircuit = new Circuit(0, 0, true);
         this.addClickListener();
+        this.addGateListener();
 
-        mainCircuit.add(new GateAND(200, 550));
-        mainCircuit.add(new GateOR(400, 900));
-        mainCircuit.add(new Switch(100, 200));
-        mainCircuit.add(new Switch(500, 200));
-        mainCircuit.add(new Switch(900, 200));
-        mainCircuit.add(new Led(500, 1500));
+        //mainCircuit.add(new GateAND(200, 550));
+        //mainCircuit.add(new GateOR(400, 900));
+        //mainCircuit.add(new Switch(100, 200));
+        //mainCircuit.add(new Switch(500, 200));
+        //mainCircuit.add(new Switch(900, 200));
+        //mainCircuit.add(new Led(500, 1500));
 
 //        mainCircuit = new Circuit(0, 0, true);
 //        mainCircuit.load("TESTING", 500, 900);
@@ -58,10 +62,11 @@ public class ViewWorkspace extends Container {
         });
     }
 
-    public Circuit getMainCircuit() { return mainCircuit; }
-
-    public void removeHighlighted() {
-        mainCircuit.remove(WorkspaceUtil.getInstance().getHighlightedWidget());
-        WorkspaceUtil.getInstance().resetHighlighted();
+    public void addGateListener() {
+        Button button1 = this.taskbarRef.getButton("AND");
+        button1.addActionListener((evt) -> {
+            mainCircuit.add(new GateAND(750, 750));
+            return;
+        });
     }
 }

@@ -8,7 +8,6 @@ import org.ecs160.a2.Utilities.Config;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public abstract class Widget extends Selectable {
     protected ArrayList<NodeInput> inputs;
@@ -101,17 +100,8 @@ public abstract class Widget extends Selectable {
         for (NodeInput input : inputs) {
             WorkspaceUtil.getInstance().disconnect(input, input.getConnectedOutput());
         }
-        for (NodeOutput output : outputs) {
-            for (NodeInput input : output.getAllConnectedInputs()){
-                input.disconnect();
-                input.update();
-            }
-        }
-
-        Iterator<NodeOutput> iter = outputs.iterator();
-        while (iter.hasNext()) {
-            NodeOutput output = iter.next();
-            output.purgeAllInputs();
-        }
+        for (NodeOutput output : outputs)
+            for (NodeInput input : output.getAllConnectedInputs())
+                WorkspaceUtil.getInstance().disconnect(input, output);
     }
 }

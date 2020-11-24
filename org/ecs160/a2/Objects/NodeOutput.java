@@ -30,5 +30,4 @@ public class NodeOutput extends Node {
     public void disconnect(NodeInput input) {
         while(nextInputs.remove(input)) { }
     }
-    public void purgeAllInputs() { this.nextInputs = new ArrayList<>();}
 }
