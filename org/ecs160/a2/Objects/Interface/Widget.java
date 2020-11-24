@@ -104,7 +104,6 @@ public abstract class Widget extends Selectable {
         for (NodeOutput output : outputs) {
             for (NodeInput input : output.getAllConnectedInputs()){
                 input.disconnect();
-                input.update();
             }
         }
 
