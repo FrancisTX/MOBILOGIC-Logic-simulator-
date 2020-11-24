@@ -20,7 +20,7 @@ public class Circuit extends Widget {
     private ArrayList<LogicGate> gates;
     private boolean isMainCircuit;
 
-    public Circuit(int x, int y) {
+    public Circuit(int x, int y, boolean isMainCircuit) {
         super(x, y,
                 Config.getInstance().subCircuitWidth,
                 Config.getInstance().subCircuitHeight);
@@ -28,7 +28,7 @@ public class Circuit extends Widget {
         this.switches = new ArrayList<Switch>();
         this.leds = new ArrayList<Led>();
         this.gates = new ArrayList<LogicGate>();
-        this.isMainCircuit = true;
+        this.isMainCircuit = isMainCircuit;
     }
 
     public Circuit(int x, int y, Circuit circuit, boolean isMainCircuit) {
@@ -39,6 +39,8 @@ public class Circuit extends Widget {
         this.switches = circuit.switches;
         this.leds = circuit.leds;
         this.gates = circuit.gates;
+        this.inputs = circuit.inputs;
+        this.outputs = circuit.outputs;
         this.isMainCircuit = isMainCircuit;
         if (!isMainCircuit) {
             populateInput(this.switches.size());

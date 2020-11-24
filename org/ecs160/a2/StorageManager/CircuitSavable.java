@@ -45,10 +45,14 @@ public class CircuitSavable implements Externalizable {
     @Override
     public void internalize(int version, DataInputStream in) throws IOException {
         // TODO: Internalize
-        circuit = new Circuit(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        circuit = new Circuit(Integer.MAX_VALUE, Integer.MAX_VALUE, false);
         ArrayList<CircuitSavable> savablesSubcircuits = (ArrayList<CircuitSavable>)Util.readObject(in);
-        for (CircuitSavable savableCircuit : savablesSubcircuits)
-            circuit.getSubCircuits().add(savableCircuit.extractCircuit());
+        for (CircuitSavable savableCircuit : savablesSubcircuits) {
+            Circuit subCircuitExtracted = savableCircuit.extractCircuit();
+            subCircuitExtracted.populateInput(subCircuitExtracted.getSwitches().size());
+            subCircuitExtracted.populateOutput(subCircuitExtracted.getLeds().size());
+            circuit.getSubCircuits().add(subCircuitExtracted);
+        }
 
         int numSwitches = in.readInt();
         for (int i = 0; i < numSwitches; i++)
@@ -69,6 +73,9 @@ public class CircuitSavable implements Externalizable {
             HashMap<String, ArrayList<Integer>> outputAddress = connectivity.get(inputAddress);
 
             int inputJ = extractOutputIndex(inputAddress);
+//            System.out.println("Connect");
+//            debug(inputAddress);
+//            debug(outputAddress);
             NodeInput input = getWidgetFrom(inputAddress).getAllInputNodes().get(inputJ);
 
             int outputJ = extractOutputIndex(outputAddress);
