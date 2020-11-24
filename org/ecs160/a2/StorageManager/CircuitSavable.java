@@ -144,9 +144,9 @@ public class CircuitSavable implements Externalizable {
             if (value == null)
                 continue;
 
-            System.out.println("Externalizing Connect");
-            debug(key);
-            debug(value);
+//            System.out.println("Externalizing Connect");
+//            debug(key);
+//            debug(value);
             connectivity.put(key, value);
         }
     }
