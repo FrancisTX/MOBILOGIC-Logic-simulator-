@@ -93,6 +93,8 @@ public class Circuit extends Widget {
     }
 
     public void remove(Widget item) {
+        if (!isMainCircuit) return;
+        // only main circuit could remove items
         item.removeAllConnections();
         if (item instanceof Circuit) {
             subCircuits.remove(item);
