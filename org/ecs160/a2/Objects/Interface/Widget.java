@@ -102,8 +102,10 @@ public abstract class Widget extends Selectable {
             WorkspaceUtil.getInstance().disconnect(input, input.getConnectedOutput());
         }
         for (NodeOutput output : outputs) {
-            for (NodeInput input : output.getAllConnectedInputs())
+            for (NodeInput input : output.getAllConnectedInputs()){
                 input.disconnect();
+                input.update();
+            }
         }
 
         Iterator<NodeOutput> iter = outputs.iterator();
