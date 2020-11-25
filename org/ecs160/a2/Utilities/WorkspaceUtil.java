@@ -35,6 +35,9 @@ public class WorkspaceUtil {
             widgetAddingType = newItemType;
         }
     }
+    public String getWidgetAddingType() {
+        return widgetAddingType;
+    }
 
     public void handleClick(int x, int y, ArrayList<Widget> widgets) {
         {
