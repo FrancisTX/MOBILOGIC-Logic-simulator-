@@ -4,6 +4,7 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import org.ecs160.a2.Objects.Gate.GateAND;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
+import org.ecs160.a2.UI.TrashCan;
 
 public class ViewMenu extends Container {
     private ViewWorkspace workspace;
@@ -19,12 +20,7 @@ public class ViewMenu extends Container {
         });
         this.add(testingSaveButton);
 
-        Button deleteButton = new Button("Trash");
-        deleteButton.addActionListener((evt) -> {
-            workspace.removeHighlighted();
-            workspace.repaint();
-        });
-        this.add(deleteButton);
+        this.add(new TrashCan(workspace));
 
         Button addANDButton = new Button("And Gate");
         addANDButton.addActionListener((evt) -> {
