@@ -28,13 +28,13 @@ public class ViewMenu extends Container {
 
         Button addANDButton = new Button("And Gate");
         addANDButton.addActionListener((evt) -> {
-            WorkspaceUtil.getInstance().setWidgetToAdd("GateAND");
+            WorkspaceUtil.getInstance().setWidgetAddingStrategy("GateAND");
         });
         this.add(addANDButton);
 
         Button addORButton = new Button("Or Gate");
         addORButton.addActionListener((evt) -> {
-            WorkspaceUtil.getInstance().setWidgetToAdd("GateOR");
+            WorkspaceUtil.getInstance().setWidgetAddingStrategy("GateOR");
         });
         this.add(addORButton);
     }

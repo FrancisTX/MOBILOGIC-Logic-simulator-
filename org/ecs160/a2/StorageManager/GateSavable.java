@@ -1,7 +1,7 @@
 package org.ecs160.a2.StorageManager;
 import com.codename1.io.Externalizable;
 import org.ecs160.a2.Objects.Interface.LogicGate;
-import org.ecs160.a2.Objects.Gate.*;
+import org.ecs160.a2.Utilities.WidgetFactory;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -27,31 +27,16 @@ public class GateSavable implements Externalizable {
     @Override
     public void internalize(int version, DataInputStream in) throws IOException {
         String gateType = in.readUTF();
-        switch (gateType) {
-            case "GateAND":
-                gate = new GateAND(Integer.MAX_VALUE, Integer.MAX_VALUE);
-                break;
-            case "GateNAND":
-                gate = new GateNAND(Integer.MAX_VALUE, Integer.MAX_VALUE);
-                break;
-            case "GateNOR":
-                gate = new GateNOR(Integer.MAX_VALUE, Integer.MAX_VALUE);
-                break;
-            case "GateNOT":
-                gate = new GateNOT(Integer.MAX_VALUE, Integer.MAX_VALUE);
-                break;
-            case "GateOR":
-                gate = new GateOR(Integer.MAX_VALUE, Integer.MAX_VALUE);
-                break;
-            case "GateXNOR":
-                gate = new GateXNOR(Integer.MAX_VALUE, Integer.MAX_VALUE);
-                break;
-            case "GateXOR":
-                gate = new GateXOR(Integer.MAX_VALUE, Integer.MAX_VALUE);
-                break;
-            default:
-                System.out.println("Class ".concat(gateType).concat(" NOT FOUND"));
+        if (!gateType.equals("GateAND")
+                && !gateType.equals("GateNAND")
+                && !gateType.equals("GateNOR")
+                && !gateType.equals("GateNOT")
+                && !gateType.equals("GateOR")
+                && !gateType.equals("GateXNOR")
+                && !gateType.equals("GateXOR")) {
+            throw new IllegalArgumentException("Class ".concat(gateType).concat(" NOT FOUND"));
         }
+        gate = (LogicGate) WidgetFactory.getInstance().createWidget(gateType, Integer.MAX_VALUE, Integer.MAX_VALUE);
         int numInputs = in.readInt();
         gate.changeInputSize(numInputs);
     }

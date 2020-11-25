@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class WorkspaceUtil {
     private Selectable highlighted;
-    private String typeToAdd;
+    private String widgetAddingType;
     GeneralPath p = new GeneralPath();
     private final Grid grid = Grid.getInstance();
     private static final WorkspaceUtil instance = new WorkspaceUtil();
@@ -25,20 +25,20 @@ public class WorkspaceUtil {
 
     public void handleAdd(int x, int y, Circuit mainCircuit) {
         Selectable clicked = getSelectable(mainCircuit.getAllWidgets(), x, y);
-        if (typeToAdd == null || clicked != null) return;
-        mainCircuit.add(WidgetFactory.getInstance().createWidget(typeToAdd, x, y));
+        if (widgetAddingType == null || clicked != null) return;
+        mainCircuit.add(WidgetFactory.getInstance().createWidget(widgetAddingType, x, y));
     }
-    public void setWidgetToAdd(String newItemType) {
-        if (newItemType.equals(typeToAdd)) {
-            typeToAdd = null;
+    public void setWidgetAddingStrategy(String newItemType) {
+        if (newItemType.equals(widgetAddingType)) {
+            widgetAddingType = null;
         } else {
-            typeToAdd = newItemType;
+            widgetAddingType = newItemType;
         }
     }
 
     public void handleClick(int x, int y, ArrayList<Widget> widgets) {
         {
-            if (typeToAdd != null) return;
+            if (widgetAddingType != null) return;
             Selectable clicked = getSelectable(widgets, x, y);
             if (highlighted == null && clicked == null) {
                 return;
