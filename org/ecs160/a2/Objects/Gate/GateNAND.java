@@ -37,9 +37,15 @@ public class GateNAND extends LogicGate {
                 Config.getInstance().unselectedWidgetColor;
         g.setColor(color);
         // TODO: Implement Gate Drawing
-        char[] data = {'N', 'A', 'N', 'D'};
-        g.drawChars(data, 0, 4, x + getWidth() / 5, y + getHeight() / 5);
-        g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
+//        char[] data = {'N', 'A', 'N', 'D'};
+//        g.drawChars(data, 0, 4, x + getWidth() / 5, y + getHeight() / 5);
+//        g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
+
+        g.drawLine(this.x, this.y, this.x+getWidth(), this.y); //top
+        g.drawLine(this.x, this.y, this.x, this.y+getHeight()/2); //left
+        g.drawLine(this.x+getWidth(), this.y, this.x+getWidth(), this.y+getHeight()/2); //right
+        g.drawArc(this.x, this.y, this.getWidth(), this.getHeight(), 0,-180); //arc
+        g.drawArc(this.x+getWidth()/3, this.y+getHeight()- 10, 50, 50, 0,360); //circle to display not association
         drawNodes(g);
     }
 }
