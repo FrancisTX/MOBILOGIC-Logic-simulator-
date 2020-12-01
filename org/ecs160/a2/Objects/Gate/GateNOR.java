@@ -37,6 +37,8 @@ public class GateNOR extends LogicGate {
                 Config.getInstance().unselectedWidgetColor;
         g.setColor(color);
         // TODO: Implement Gate Drawing
+        char[] data = {'N', 'O', 'R'};
+        g.drawChars(data, 0, 3, x + getWidth() / 5, y + getHeight() / 5);
         g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
         drawNodes(g);
     }

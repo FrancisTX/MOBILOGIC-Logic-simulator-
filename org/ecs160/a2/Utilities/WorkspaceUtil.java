@@ -2,6 +2,7 @@ package org.ecs160.a2.Utilities;
 import com.codename1.ui.Graphics;
 import com.codename1.ui.Stroke;
 import com.codename1.ui.geom.GeneralPath;
+import org.ecs160.a2.Objects.Circuit;
 import org.ecs160.a2.Objects.Interface.Node;
 import org.ecs160.a2.Objects.Interface.Selectable;
 import org.ecs160.a2.Objects.Interface.Widget;
@@ -15,14 +16,32 @@ import java.util.ArrayList;
 
 public class WorkspaceUtil {
     private Selectable highlighted;
+    private String widgetAddingType;
     GeneralPath p = new GeneralPath();
     private final Grid grid = Grid.getInstance();
     private static final WorkspaceUtil instance = new WorkspaceUtil();
     private WorkspaceUtil() {}
     public static WorkspaceUtil getInstance() { return instance; }
 
+    public void handleAdd(int x, int y, Circuit mainCircuit) {
+        Selectable clicked = getSelectable(mainCircuit.getAllWidgets(), x, y);
+        if (widgetAddingType == null || clicked != null) return;
+        mainCircuit.add(WidgetFactory.getInstance().createWidget(widgetAddingType, x, y));
+    }
+    public void setWidgetAddingStrategy(String newItemType) {
+        if (newItemType.equals(widgetAddingType)) {
+            widgetAddingType = null;
+        } else {
+            widgetAddingType = newItemType;
+        }
+    }
+    public String getWidgetAddingType() {
+        return widgetAddingType;
+    }
+
     public void handleClick(int x, int y, ArrayList<Widget> widgets) {
         {
+            if (widgetAddingType != null) return;
             Selectable clicked = getSelectable(widgets, x, y);
             if (highlighted == null && clicked == null) {
                 return;
@@ -101,11 +120,13 @@ public class WorkspaceUtil {
             // System.out.println("disconnect");
             output.disconnect(input);
             input.disconnect();
+            input.update();
         } else {
             // not connected, connect now
             // System.out.println("connect");
             output.connect(input);
             input.connect(output);
+            input.update();
         }
     }
 
@@ -114,6 +135,7 @@ public class WorkspaceUtil {
         if (input.connected()) return;
         output.connect(input);
         input.connect(output);
+        input.update();
     }
 
     public void disconnect(NodeInput input, NodeOutput output) {
@@ -121,6 +143,7 @@ public class WorkspaceUtil {
         if (!input.connected()) return;
         output.disconnect(input);
         input.disconnect();
+        input.update();
     }
 
     public void drawWire(Graphics g, Widget widget) {
@@ -157,5 +180,13 @@ public class WorkspaceUtil {
         return null;
     }
 
+    public Widget getHighlightedWidget() {
+        if (!(this.highlighted instanceof Widget))
+            return null;
+        return (Widget)this.highlighted;
+    }
 
+    public void resetHighlighted() {
+        this.highlighted = null;
+    }
 }

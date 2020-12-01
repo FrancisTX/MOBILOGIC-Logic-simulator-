@@ -5,15 +5,10 @@ import com.codename1.ui.layouts.*;
 public class ViewForm extends Form {
     public ViewForm() {
         super(new BorderLayout());
-        ViewTaskbar taskbar = new ViewTaskbar();
-        ViewWorkspace workspace = new ViewWorkspace(taskbar);
-        Button testingSaveButton = new Button("Save");
-        testingSaveButton.addActionListener((evt) -> {
-            workspace.mainCircuit.save("Testing");
-        });
-        this.add(BorderLayout.NORTH, testingSaveButton).add(BorderLayout.CENTER, workspace);
+        ViewWorkspace workspace = new ViewWorkspace();
+        ViewTaskbar taskbar = new ViewTaskbar(workspace);
+        super.getToolbar().add(BorderLayout.WEST, new ViewMenu(workspace));
+        this.add(BorderLayout.CENTER, workspace);
         this.add(BorderLayout.SOUTH, taskbar);
     }
-
-
 }

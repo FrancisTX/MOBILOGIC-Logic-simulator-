@@ -73,13 +73,6 @@ public class Circuit extends Widget {
         StorageManager.getInstance().save(circuitName, this);
     }
 
-    public void load(String circuitName, int x, int y) {
-        Circuit subCircuit = StorageManager.getInstance().load(circuitName);
-        if (subCircuit == null) return;
-        System.out.println("Found Circuit: ".concat(circuitName));
-        subCircuits.add(new Circuit(x, y, subCircuit, false));
-    }
-
     public void add(Widget item) {
         if (item instanceof Circuit) {
             subCircuits.add((Circuit) item);
@@ -93,7 +86,7 @@ public class Circuit extends Widget {
     }
 
     public void remove(Widget item) {
-        if (!isMainCircuit) return;
+        if (!isMainCircuit || item == null) return;
         // only main circuit could remove items
         item.removeAllConnections();
         if (item instanceof Circuit) {

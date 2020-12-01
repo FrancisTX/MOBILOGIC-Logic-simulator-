@@ -18,22 +18,21 @@ public class ViewWorkspace extends Container {
     private final Grid grid = Grid.getInstance();
     public Circuit mainCircuit;
     private final WorkspaceUtil util = WorkspaceUtil.getInstance();
-    private ViewTaskbar taskbarRef;
+    //public ViewTaskbar taskbarRef;
 
-    public ViewWorkspace(ViewTaskbar taskbarRef) {
+    public ViewWorkspace() {
         super();
-        this.taskbarRef = taskbarRef;
+        //this.taskbarRef = taskbarRef;
         Util.register("Circuit", Circuit.class);
         mainCircuit = new Circuit(0, 0, true);
         this.addClickListener();
-        this.addGateListener();
 
-        //mainCircuit.add(new GateAND(200, 550));
-        //mainCircuit.add(new GateOR(400, 900));
-        //mainCircuit.add(new Switch(100, 200));
-        //mainCircuit.add(new Switch(500, 200));
-        //mainCircuit.add(new Switch(900, 200));
-        //mainCircuit.add(new Led(500, 1500));
+//        mainCircuit.add(new GateAND(200, 550));
+//        mainCircuit.add(new GateAND(400, 900));
+//        mainCircuit.add(new Switch(100, 200));
+//        mainCircuit.add(new Switch(500, 200));
+//        mainCircuit.add(new Switch(900, 200));
+//        mainCircuit.add(new Led(500, 1500));
 
 //        mainCircuit = new Circuit(0, 0, true);
 //        mainCircuit.load("TESTING", 500, 900);
@@ -54,6 +53,9 @@ public class ViewWorkspace extends Container {
 
     public void addClickListener() {
         this.addPointerPressedListener(evt -> {
+            util.handleAdd(evt.getX()-getParent().getAbsoluteX(),
+                    evt.getY()-getParent().getAbsoluteY(),
+                    mainCircuit);
             util.handleClick(
                     evt.getX()-getParent().getAbsoluteX(),
                     evt.getY()-getParent().getAbsoluteY(),
@@ -62,11 +64,11 @@ public class ViewWorkspace extends Container {
         });
     }
 
-    public void addGateListener() {
-        Button button1 = this.taskbarRef.getButton("AND");
-        button1.addActionListener((evt) -> {
-            mainCircuit.add(new GateAND(750, 750));
-            return;
-        });
+
+    public Circuit getMainCircuit() { return mainCircuit; }
+
+    public void removeHighlighted() {
+        mainCircuit.remove(WorkspaceUtil.getInstance().getHighlightedWidget());
+        WorkspaceUtil.getInstance().resetHighlighted();
     }
 }
