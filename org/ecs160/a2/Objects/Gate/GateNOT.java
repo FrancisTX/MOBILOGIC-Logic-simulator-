@@ -32,9 +32,7 @@ public class GateNOT extends LogicGate {
                 Config.getInstance().unselectedWidgetColor;
         g.setColor(color);
         // TODO: Implement Gate Drawing
-//        char[] data = {'N', 'O', 'T'};
-//        g.drawChars(data, 0, 3, x + getWidth() / 5, y + getHeight() / 5);
-//        g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
+        //g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
         g.drawLine(this.x, this.y, this.x+getWidth(), this.y); //top
         g.drawLine(this.x, this.y, this.x+getWidth()/2, this.y+getHeight()); //left
         g.drawLine(this.x+getWidth(), this.y, this.x+getWidth()/2, this.y+getHeight()); //right

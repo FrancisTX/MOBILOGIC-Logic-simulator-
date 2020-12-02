@@ -74,6 +74,7 @@ public class Circuit extends Widget {
     }
 
     public void add(Widget item) {
+        if (item == null) return;
         if (item instanceof Circuit) {
             subCircuits.add((Circuit) item);
         } else if (item instanceof Switch) {

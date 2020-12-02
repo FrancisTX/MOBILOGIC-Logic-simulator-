@@ -2,7 +2,6 @@ package org.ecs160.a2;
 
 import com.codename1.io.Storage;
 import com.codename1.io.Util;
-import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Graphics;
 import java.util.AbstractMap.SimpleEntry;
@@ -18,11 +17,9 @@ public class ViewWorkspace extends Container {
     private final Grid grid = Grid.getInstance();
     public Circuit mainCircuit;
     private final WorkspaceUtil util = WorkspaceUtil.getInstance();
-    //public ViewTaskbar taskbarRef;
 
     public ViewWorkspace() {
         super();
-        //this.taskbarRef = taskbarRef;
         Util.register("Circuit", Circuit.class);
         mainCircuit = new Circuit(0, 0, true);
         this.addClickListener();
@@ -63,7 +60,6 @@ public class ViewWorkspace extends Container {
             this.repaint();
         });
     }
-
 
     public Circuit getMainCircuit() { return mainCircuit; }
 

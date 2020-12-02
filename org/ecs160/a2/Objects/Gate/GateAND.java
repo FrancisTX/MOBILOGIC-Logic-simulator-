@@ -36,18 +36,13 @@ public class GateAND extends LogicGate {
                 Config.getInstance().unselectedWidgetColor;
         g.setColor(color);
         // TODO: Implement Gate Drawing
-        //char[] data = {'A', 'N', 'D'};
-        //g.drawChars(data, 0, 3, x + getWidth() / 5, y + getHeight() / 5);
-        //g.setColor(0xe3e3e3);
-        //g.drawRect(this.x, this.y, this.getWidth(), this.getHeight()/2);
-
+//        char[] data = {'A', 'N', 'D'};
+//        g.drawChars(data, 0, 3, x + getWidth() / 5, y + getHeight() / 5);
+//        g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
         g.drawLine(this.x, this.y, this.x+getWidth(), this.y); //top
         g.drawLine(this.x, this.y, this.x, this.y+getHeight()/2); //left
         g.drawLine(this.x+getWidth(), this.y, this.x+getWidth(), this.y+getHeight()/2); //right
         g.drawArc(this.x, this.y, this.getWidth(), this.getHeight(), 0,-180); //arc
-
-        //g.fillArc(this.x, this.y, this.getWidth(), this.getHeight(), 180,180);
-        //g.fillRect(this.x, this.y, this.getWidth(), this.getHeight()/2);
 
         drawNodes(g);
     }

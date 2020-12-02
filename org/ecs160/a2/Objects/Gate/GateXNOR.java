@@ -39,9 +39,7 @@ public class GateXNOR extends LogicGate {
                 Config.getInstance().unselectedWidgetColor;
         g.setColor(color);
         // TODO: Implement Gate Drawing
-        char[] data = {'X', 'N', 'O', 'R'};
-//        g.drawChars(data, 0, 4, x + getWidth() / 5, y + getHeight() / 5);
-//        g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
+        //g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
         g.drawArc(this.x, this.y-getHeight()/2, this.getWidth(), this.getHeight()/2, 0,-180); //top-most arc
         g.drawArc(this.x, this.y-getHeight()/3, this.getWidth(), this.getHeight()/2, 0,-180); //top arc
         g.drawArc(this.x, this.y - getHeight()- (int)(getHeight()*(1/1.7)), this.getWidth(), this.getHeight()+ (int)(getHeight()*1.765) , 0,-180); //bottom arc
