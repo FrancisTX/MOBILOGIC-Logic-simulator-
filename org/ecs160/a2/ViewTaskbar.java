@@ -20,8 +20,8 @@ public class ViewTaskbar extends Container {
     private ViewWorkspace workspace;
 
     private String[] buttonNames =
-            {       "AND", "OR", "NAND", "NOR",
-                    "NOT", "XOR", "XNOR", "DMMY"};
+            {       "OR", "AND", "XOR", "SWI", "NOT",
+                    "NOR","NAND","XNOR", "LED", "DMY"};
 
     private Hashtable<String, Button> buttons = new Hashtable<String, Button>();
 
@@ -29,7 +29,7 @@ public class ViewTaskbar extends Container {
         super();
         this.workspace = workspace;
 
-        this.setLayout(new GridLayout(2, 4));
+        this.setLayout(new GridLayout(2, 5));
         for (String buttonName : buttonNames) {
             Button button = new Button(buttonName);
             buttons.put(buttonName, button);
@@ -69,6 +69,16 @@ public class ViewTaskbar extends Container {
         Button addXNORButton = getButton("XNOR");
         addXNORButton.addActionListener((evt) -> {
             WorkspaceUtil.getInstance().setWidgetAddingStrategy("GateXNOR");
+        });
+
+        Button addSWITCHButton = getButton("SWI");
+        addSWITCHButton.addActionListener((evt) -> {
+            WorkspaceUtil.getInstance().setWidgetAddingStrategy("Switch");
+        });
+
+        Button addLEDButton = getButton("LED");
+        addLEDButton.addActionListener((evt) -> {
+            WorkspaceUtil.getInstance().setWidgetAddingStrategy("Led");
         });
 
 
