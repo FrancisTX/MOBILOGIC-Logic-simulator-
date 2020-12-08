@@ -17,6 +17,7 @@ public class GateXNOR extends LogicGate {
     public GateXNOR(int x, int y) {
         super(x, y);
     }
+    public String getType() { return "GateXNOR"; }
 
     @Override
     public int getMinInputsNum() {
@@ -46,7 +47,11 @@ public class GateXNOR extends LogicGate {
                 Config.getInstance().unselectedWidgetColor;
         g.setColor(color);
         // TODO: Implement Gate Drawing
-        g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
+        //g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
+        g.drawArc(this.x, this.y-getHeight()/2, this.getWidth(), this.getHeight()/2, 0,-180); //top-most arc
+        g.drawArc(this.x, this.y-getHeight()/3, this.getWidth(), this.getHeight()/2, 0,-180); //top arc
+        g.drawArc(this.x, this.y - getHeight()- (int)(getHeight()*(1/1.7)), this.getWidth(), this.getHeight()+ (int)(getHeight()*1.765) , 0,-180); //bottom arc
+        g.drawArc(this.x+getWidth()/3, this.y+getHeight()- 10, 50, 50, 0,360); //circle to display not association
         drawNodes(g);
     }
 }

@@ -10,9 +10,9 @@ public class ViewForm extends Form {
     public ViewForm() {
         super(new BorderLayout());
         ViewWorkspace workspace = new ViewWorkspace();
-        this.add(BorderLayout.NORTH, "Arrange The Titles").add(BorderLayout.CENTER, workspace);
-
-        Container Menu = new ViewMenu();
-        this.add(BorderLayout.SOUTH, Menu);
+        ViewTaskbar taskbar = new ViewTaskbar(workspace);
+        super.getToolbar().add(BorderLayout.WEST, new ViewMenu(workspace));
+        this.add(BorderLayout.CENTER, workspace);
+        this.add(BorderLayout.SOUTH, taskbar);
     }
 }

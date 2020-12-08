@@ -5,13 +5,14 @@ import org.ecs160.a2.Objects.NodeInput;
 import org.ecs160.a2.Objects.NodeOutput;
 import org.ecs160.a2.UI.Grid;
 import org.ecs160.a2.Utilities.Config;
+import org.ecs160.a2.Utilities.WorkspaceUtil;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public abstract class Widget extends Selectable {
     protected ArrayList<NodeInput> inputs;
     protected ArrayList<NodeOutput> outputs;
-    private final Grid grid = Grid.getInstance();
 
     public Widget(){super();}
     public Widget(int x, int y, int width, int height) {
@@ -94,5 +95,23 @@ public abstract class Widget extends Selectable {
     }
     private int calcInputY() {
         return this.y - Config.getInstance().nodeHeight;
+    }
+
+    public void removeAllConnections() {
+        for (NodeInput input : inputs) {
+            WorkspaceUtil.getInstance().disconnect(input, input.getConnectedOutput());
+        }
+        for (NodeOutput output : outputs) {
+            for (NodeInput input : output.getAllConnectedInputs()){
+                input.disconnect();
+                input.update();
+            }
+        }
+
+        Iterator<NodeOutput> iter = outputs.iterator();
+        while (iter.hasNext()) {
+            NodeOutput output = iter.next();
+            output.purgeAllInputs();
+        }
     }
 }

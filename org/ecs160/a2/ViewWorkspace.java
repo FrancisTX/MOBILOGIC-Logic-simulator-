@@ -1,6 +1,7 @@
 package org.ecs160.a2;
 
-import com.codename1.io.Log;
+import com.codename1.io.Storage;
+import com.codename1.io.Util;
 import com.codename1.ui.Container;
 import com.codename1.ui.Graphics;
 import java.util.AbstractMap.SimpleEntry;
@@ -9,6 +10,7 @@ import com.codename1.ui.Image;
 import org.ecs160.a2.Objects.*;
 import org.ecs160.a2.Objects.Gate.*;
 import org.ecs160.a2.Objects.Interface.*;
+import org.ecs160.a2.StorageManager.StorageManager;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
 import org.ecs160.a2.UI.Grid;
 
@@ -17,26 +19,34 @@ import java.util.ArrayList;
 
 public class ViewWorkspace extends Container {
     private final Grid grid = Grid.getInstance();
-    private ArrayList<Widget> widgets;
+    public Circuit mainCircuit;
     private final WorkspaceUtil util = WorkspaceUtil.getInstance();
     private int x, y;
     public ViewWorkspace() {
         super();
-        widgets = new ArrayList<>();
+        Util.register("Circuit", Circuit.class);
+        mainCircuit = new Circuit(0, 0, true);
         this.addClickListener();
-        this.addTaskBarListener();
-        this.widgets.add(new GateAND(200, 550));
-        this.widgets.add(new GateOR(400, 900));
-        this.widgets.add(new Switch(100, 200));
-        this.widgets.add(new Switch(500, 200));
-        this.widgets.add(new Switch(900, 200));
-        this.widgets.add(new Led(500, 1500));
+
+//        mainCircuit.add(new GateAND(200, 550));
+//        mainCircuit.add(new GateAND(400, 900));
+//        mainCircuit.add(new Switch(100, 200));
+//        mainCircuit.add(new Switch(500, 200));
+//        mainCircuit.add(new Switch(900, 200));
+//        mainCircuit.add(new Led(500, 1500));
+
+//        mainCircuit = new Circuit(0, 0, true);
+//        mainCircuit.load("TESTING", 500, 900);
+//        mainCircuit.add(new Switch(100, 200));
+//        mainCircuit.add(new Switch(500, 200));
+//        mainCircuit.add(new Switch(900, 200));
+//        mainCircuit.add(new Led(500, 1500));
     }
 
     @Override
     public void paint(Graphics g){
         grid.draw(g);
-        for (Widget widget : widgets) {
+        for (Widget widget : mainCircuit.getAllWidgets()) {
             widget.draw(g);
             util.drawWire(g, widget);
         }
@@ -52,12 +62,28 @@ public class ViewWorkspace extends Container {
 
     public void addClickListener() {
         this.addPointerPressedListener(evt -> {
+            util.handleAdd(evt.getX()-getParent().getAbsoluteX(),
+                    evt.getY()-getParent().getAbsoluteY(),
+                    mainCircuit);
             util.handleClick(
                     evt.getX()-getParent().getAbsoluteX(),
                     evt.getY()-getParent().getAbsoluteY(),
-                    this.widgets);
+                    mainCircuit.getAllWidgets());
             this.repaint();
         });
+    }
+
+    public Circuit getMainCircuit() { return mainCircuit; }
+
+    public void removeHighlighted() {
+        mainCircuit.remove(WorkspaceUtil.getInstance().getHighlightedWidget());
+        WorkspaceUtil.getInstance().resetHighlighted();
+    }
+
+    public void loadMain(String circuitName) {
+        WorkspaceUtil.getInstance().resetHighlighted();
+        this.mainCircuit = StorageManager.getInstance().loadMain(circuitName);
+        repaint();
     }
 
     public void addTaskBarListener() {
