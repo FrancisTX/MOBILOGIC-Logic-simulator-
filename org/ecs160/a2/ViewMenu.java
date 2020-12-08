@@ -1,8 +1,7 @@
 package org.ecs160.a2;
+import com.codename1.components.MultiButton;
 import com.codename1.ui.*;
-import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
-import org.ecs160.a2.Objects.Gate.GateAND;
 import com.codename1.ui.Command;
 import org.ecs160.a2.Utilities.WidgetFactory;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
@@ -18,62 +17,58 @@ public class ViewMenu extends Container {
         this.workspace = workspace;
 
         this.setLayout(new BoxLayout(BoxLayout.X_AXIS));
-        Button testingSaveButton = new Button("Save");
-        testingSaveButton.addActionListener((evt) -> {
+
+        Button SaveButton = new Button("Save");
+        SaveButton.addActionListener((evt) -> {
             TextField circuitName = new TextField("", "Circuit Name", 20, TextArea.ANY);
             Command enter = new Command("Ok");
             if(Dialog.show("Save the Circuit", circuitName, enter, new Command("Cancel")) == enter){
-                workspace.mainCircuit.save(circuitName.getText());
+                if(circuitName.getText() != "") {
+                    workspace.mainCircuit.save(circuitName.getText());
+                }
             }
         });
-        this.add(testingSaveButton);
+        this.add(SaveButton);
 
-        //Image canImg;
-        //String url = System.getProperty("user.dir") + "/src/Images/trash_can.jpg";
-        //try {
-            //canImg = Image.createImage("file:" + url);
-            Button Trash = new Button("trash");
-            //now add a click listener that will remove the selected widget
-            Trash.addActionListener(evt -> {
-                workspace.removeHighlighted();
-                workspace.repaint();
+        Button LoadButton = new Button("Load");
+        LoadButton.addActionListener((evt)->{
+            String[] files = workspace.getFiles();
+            Dialog circuitSelect = new Dialog("Load the Circuit", BoxLayout.y());
+            Container fileSelectorContainer = new Container(BoxLayout.y());
+            fileSelectorContainer.setScrollableY(true);
+            Button cancel = new Button("Cancel");
+            cancel.addActionListener(evt2->{
+                circuitSelect.dispose();
             });
-            this.add(Trash);
-       // } catch (IOException e) {
-       //     e.printStackTrace();
-        //}
-
-//        Button addANDButton = new Button("And Gate");
-//        addANDButton.addActionListener((evt) -> {
-//            WorkspaceUtil.getInstance().setWidgetAddingStrategy("GateAND");
-//        });
-//        this.add(addANDButton);
-//
-//        Button addORButton = new Button("Or Gate");
-//        addORButton.addActionListener((evt) -> {
-//            WorkspaceUtil.getInstance().setWidgetAddingStrategy("GateOR");
-//        });
-//        this.add(addORButton);
-
-        this.add(new EditButton(workspace));
-
-        Button testingSave = new Button("S(Test)");
-        testingSave.addActionListener((evt) -> {
-            workspace.mainCircuit.save("Testing");
+            for(int iter = 0; iter < files.length; iter++){
+                MultiButton fileSelector = new MultiButton(files[iter]);
+                String circuitName = files[iter];
+                fileSelector.addActionListener((evt1)->{
+                    workspace.loadMain(circuitName);
+                    circuitSelect.dispose();
+                });
+                fileSelectorContainer.add(fileSelector);
+            }
+            circuitSelect.add(fileSelectorContainer);
+            circuitSelect.add(cancel);
+            circuitSelect.show();
         });
-        //this.add(testingSave);
+        this.add(LoadButton);
 
-        Button testingLoad = new Button("L(Test)");
-        testingLoad.addActionListener((evt) -> {
-            workspace.loadMain("Testing");
-        });
-        //this.add(testingLoad);
+        Button Trash = new Button("Delete");
+        Trash.addActionListener(evt -> {
+            workspace.removeHighlighted();
+            workspace.repaint();
+        });this.add(Trash);
 
-        Button testingLoadSub = new Button("LS(Test)");
-        testingLoadSub.addActionListener((evt) -> {
-            WorkspaceUtil.getInstance().setWidgetAddingStrategy("Circuit");
-            WidgetFactory.getInstance().setCircuitName("Testing");
+        //this button not actually operable yet
+        Button setSub = new Button("setName");
+        setSub.addActionListener((evt) -> {
+            TextField circuitName = new TextField("", "Subcircuit Name", 20, TextArea.ANY);
+            Command enter = new Command("Ok");
+            if(Dialog.show("Set Subcircuit Name", circuitName, enter, new Command("Cancel")) == enter){
+            }
         });
-        //this.add(testingLoadSub);
+        this.add(setSub);
     }
 }
