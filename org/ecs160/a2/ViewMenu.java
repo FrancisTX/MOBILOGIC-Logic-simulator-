@@ -7,7 +7,10 @@ import org.ecs160.a2.Objects.Gate.GateAND;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
 =======
 >>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
 =======
@@ -32,6 +35,7 @@ public class ViewMenu extends Container {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             workspace.mainCircuit.save("Testing");
         });
         this.add(testingSaveButton);
@@ -45,6 +49,8 @@ public class ViewMenu extends Container {
             canImg = Image.createImage("file:" + url);
             Button Trash = new Button(canImg);
 =======
+=======
+>>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
 =======
 >>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
 =======
@@ -64,6 +70,9 @@ public class ViewMenu extends Container {
             Button Trash = new Button("trash");
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
+=======
 >>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
 =======
 >>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
@@ -75,6 +84,7 @@ public class ViewMenu extends Container {
                 workspace.repaint();
             });
             this.add(Trash);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -172,6 +182,30 @@ public class ViewMenu extends Container {
             workspace.mainCircuit.save("Testing");
         });
 >>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
+=======
+       // } catch (IOException e) {
+       //     e.printStackTrace();
+        //}
+
+//        Button addANDButton = new Button("And Gate");
+//        addANDButton.addActionListener((evt) -> {
+//            WorkspaceUtil.getInstance().setWidgetAddingStrategy("GateAND");
+//        });
+//        this.add(addANDButton);
+//
+//        Button addORButton = new Button("Or Gate");
+//        addORButton.addActionListener((evt) -> {
+//            WorkspaceUtil.getInstance().setWidgetAddingStrategy("GateOR");
+//        });
+//        this.add(addORButton);
+
+        this.add(new EditButton(workspace));
+
+        Button testingSave = new Button("S(Test)");
+        testingSave.addActionListener((evt) -> {
+            workspace.mainCircuit.save("Testing");
+        });
+>>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
         //this.add(testingSave);
 
         Button testingLoad = new Button("L(Test)");
@@ -181,6 +215,9 @@ public class ViewMenu extends Container {
         //this.add(testingLoad);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
+=======
 >>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
 =======
 >>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
@@ -192,6 +229,9 @@ public class ViewMenu extends Container {
         //this.add(testingLoadSub);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
+=======
 >>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
 =======
 >>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
