@@ -1,6 +1,5 @@
 package org.ecs160.a2.StorageManager;
 import com.codename1.io.Externalizable;
-import com.codename1.io.Log;
 import com.codename1.io.Util;
 import org.ecs160.a2.Objects.*;
 import org.ecs160.a2.Objects.Interface.LogicGate;
@@ -15,8 +14,6 @@ import java.util.HashMap;
 
 public class CircuitSavable implements Externalizable {
     private Circuit circuit;
-    public HashMap<String, ArrayList<ArrayList<Integer>>> coordinates;
-
     public CircuitSavable() {}
     public CircuitSavable(Circuit circuit) { this.circuit = circuit; }
     public Circuit extractCircuit() { return circuit; }
@@ -28,7 +25,7 @@ public class CircuitSavable implements Externalizable {
 
     @Override
     public void externalize(DataOutputStream out) throws IOException {
-        ArrayList<CircuitSavable> savableCircuits = new ArrayList<>();
+        ArrayList<CircuitSavable> savableCircuits =  new ArrayList<>();
         for (Circuit subCircuit : circuit.getSubCircuits())
             savableCircuits.add(new CircuitSavable(subCircuit));
         Util.writeObject(savableCircuits, out);
@@ -43,51 +40,6 @@ public class CircuitSavable implements Externalizable {
 
         // Start to write connectivity
         Util.writeObject(getConnectivityGraph(), out);
-
-        // get coordinates ready
-        coordinates = new HashMap<>();
-        serializeCoordinates();
-        Util.writeObject(this.coordinates, out);
-    }
-
-    public void serializeCoordinates() {
-        // store subcircuits coordinates
-        ArrayList<ArrayList<Integer>> coordinatesPairs = new ArrayList<>();
-        ArrayList<Integer> singlePair;
-        for (Circuit subCircuit : circuit.getSubCircuits()) {
-            singlePair = new ArrayList<>();
-            singlePair.add(subCircuit.getX());
-            singlePair.add(subCircuit.getY());
-            coordinatesPairs.add(singlePair);
-        }
-        coordinates.put("Circuit", coordinatesPairs);
-
-        coordinatesPairs = new ArrayList<>();
-        for (Switch sw : circuit.getSwitches()) {
-            singlePair = new ArrayList<>();
-            singlePair.add(sw.getX());
-            singlePair.add(sw.getY());
-            coordinatesPairs.add(singlePair);
-        }
-        coordinates.put("Switch", coordinatesPairs);
-
-        coordinatesPairs = new ArrayList<>();
-        for (Led led : circuit.getLeds()) {
-            singlePair = new ArrayList<>();
-            singlePair.add(led.getX());
-            singlePair.add(led.getY());
-            coordinatesPairs.add(singlePair);
-        }
-        coordinates.put("Led", coordinatesPairs);
-
-        coordinatesPairs = new ArrayList<>();
-        for (LogicGate gate : circuit.getGates()) {
-            singlePair = new ArrayList<>();
-            singlePair.add(gate.getX());
-            singlePair.add(gate.getY());
-            coordinatesPairs.add(singlePair);
-        }
-        coordinates.put("LogicGate", coordinatesPairs);
     }
 
     @Override
@@ -132,8 +84,6 @@ public class CircuitSavable implements Externalizable {
 
             WorkspaceUtil.getInstance().connect(input, output);
         }
-
-        this.coordinates = (HashMap<String, ArrayList<ArrayList<Integer>>>)Util.readObject(in);
     }
 
     public Widget getWidgetFrom(HashMap<String, ArrayList<Integer>> address) {
