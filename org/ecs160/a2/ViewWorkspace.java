@@ -67,18 +67,4 @@ public class ViewWorkspace extends Container {
         mainCircuit.remove(WorkspaceUtil.getInstance().getHighlightedWidget());
         WorkspaceUtil.getInstance().resetHighlighted();
     }
-<<<<<<< HEAD
-=======
-
-    public void loadMain(String circuitName) {
-        WorkspaceUtil.getInstance().resetHighlighted();
-        this.mainCircuit = StorageManager.getInstance().loadMain(circuitName);
-        repaint();
-    }
-
-    public void editNumOfInputs(int newNumofGates){
-        System.out.println(newNumofGates);
-        System.out.println("Works!");
-    }
->>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
 }
