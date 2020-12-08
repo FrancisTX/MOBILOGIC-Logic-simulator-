@@ -55,4 +55,8 @@ public class StorageManager {
         mainCircuit.setIsMain(true);
         return mainCircuit;
     }
+    public String[] getFiles(){
+        return Storage.getInstance().listEntries();
+       // return fileNames;
+    }
 }

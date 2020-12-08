@@ -24,20 +24,6 @@ public class ViewWorkspace extends Container {
         Util.register("Circuit", Circuit.class);
         mainCircuit = new Circuit(0, 0, true);
         this.addClickListener();
-
-//        mainCircuit.add(new GateAND(200, 550));
-//        mainCircuit.add(new GateAND(400, 900));
-//        mainCircuit.add(new Switch(100, 200));
-//        mainCircuit.add(new Switch(500, 200));
-//        mainCircuit.add(new Switch(900, 200));
-//        mainCircuit.add(new Led(500, 1500));
-
-//        mainCircuit = new Circuit(0, 0, true);
-//        mainCircuit.load("TESTING", 500, 900);
-//        mainCircuit.add(new Switch(100, 200));
-//        mainCircuit.add(new Switch(500, 200));
-//        mainCircuit.add(new Switch(900, 200));
-//        mainCircuit.add(new Led(500, 1500));
     }
 
     @Override
@@ -73,5 +59,8 @@ public class ViewWorkspace extends Container {
         WorkspaceUtil.getInstance().resetHighlighted();
         this.mainCircuit = StorageManager.getInstance().loadMain(circuitName);
         repaint();
+    }
+    public String[] getFiles(){
+        return StorageManager.getInstance().getFiles();
     }
 }
