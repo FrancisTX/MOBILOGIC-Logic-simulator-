@@ -14,6 +14,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.*;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.GridLayout;
+import org.ecs160.a2.Utilities.Config;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
 
 public class ViewTaskbar extends Container {
@@ -30,10 +31,55 @@ public class ViewTaskbar extends Container {
         this.workspace = workspace;
 
         this.setLayout(new GridLayout(2, 5));
+
+        Config.GetImage();
+
         for (String buttonName : buttonNames) {
-            Button button = new Button(buttonName);
-            buttons.put(buttonName, button);
-            this.add(button);
+            if (buttonName == "OR") {
+                Button button = new Button(Config.GateOR);
+                buttons.put(buttonName, button);
+                this.add(button);
+            }
+            if (buttonName == "XOR") {
+                Button button = new Button(Config.GateOR);
+                buttons.put(buttonName, button);
+                this.add(button);
+            }
+            if (buttonName == "AND") {
+                Button button = new Button(Config.GateAND);
+                buttons.put(buttonName, button);
+                this.add(button);
+            }
+            if (buttonName == "NOT") {
+                Button button = new Button(Config.GateNOT);
+                buttons.put(buttonName, button);
+                this.add(button);
+            }
+            if (buttonName == "NAND") {
+                Button button = new Button(Config.GateNAND);
+                buttons.put(buttonName, button);
+                this.add(button);
+            }
+            if (buttonName == "NOR") {
+                Button button = new Button(Config.GateNOR);
+                buttons.put(buttonName, button);
+                this.add(button);
+            }
+            if (buttonName == "XNOR") {
+                Button button = new Button(Config.GateXNOR);
+                buttons.put(buttonName, button);
+                this.add(button);
+            }
+            if (buttonName == "LED") {
+                Button button = new Button("LED");
+                buttons.put(buttonName, button);
+                this.add(button);
+            }
+            if (buttonName == "SWI") {
+                Button button = new Button("SWI");
+                buttons.put(buttonName, button);
+                this.add(button);
+            }
         }
 
         Button addANDButton = getButton("AND");

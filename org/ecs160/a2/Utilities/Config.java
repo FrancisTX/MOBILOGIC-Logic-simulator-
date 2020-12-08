@@ -1,9 +1,11 @@
 package org.ecs160.a2.Utilities;
 
+import com.codename1.io.Log;
 import com.codename1.ui.Button;
 import com.codename1.ui.Image;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+
 
 public class Config {
 
@@ -55,22 +57,31 @@ public class Config {
     public static Image GateXNOR;
 
     public static void GetImage() {
+
         try {
-            GateNOT = Image.createImage("/NOT_Gate.png").scaledLargerRatio(100, 100);
+            String url = System.getProperty("user.dir") + "/src/Images/NOT_GATE.png";
+            GateNOT = Image.createImage("file:" + url).scaledWidth(83).scaledHeight(83);
 
-            GateAND = Image.createImage("/AND_Gate.png").scaledLargerRatio(100, 100);
+            url = System.getProperty("user.dir") + "/src/Images/AND_GATE.png";
+            Log.p(url);
+            GateAND = Image.createImage("file:" + url).scaledWidth(80).scaledHeight(83);
 
-            GateOR = Image.createImage("/OR_Gate.png").scaledLargerRatio(100, 100);
+            url = System.getProperty("user.dir") + "/src/Images/OR_GATE.png";
+            GateOR = Image.createImage("file:" + url).scaledWidth(83).scaledHeight(83);
 
-            GateXOR = Image.createImage("/XOR_Gate.png").scaledLargerRatio(100, 100);
+            url = System.getProperty("user.dir") + "/src/Images/XOR_GATE.png";
+            GateXOR = Image.createImage("file:" + url).scaledWidth(83).scaledHeight(83);
 
-            GateNAND = Image.createImage("/NAND_Gate.png").scaledLargerRatio(100, 100);
+            url = System.getProperty("user.dir") + "/src/Images/NAND_GATE.png";
+            GateNAND = Image.createImage("file:" + url).scaledWidth(80).scaledHeight(83);
 
-            GateNOR = Image.createImage("/NOR_Gate.png").scaledLargerRatio(100, 100);
+            url = System.getProperty("user.dir") + "/src/Images/NOR_GATE.png";
+            GateNOR = Image.createImage("file:" + url).scaledWidth(83).scaledHeight(83);
 
-            GateXNOR = Image.createImage("/XNOR_Gate.png").scaledLargerRatio(100, 100);
+            url = System.getProperty("user.dir") + "/src/Images/XNOR_GATE.png";
+            GateXNOR = Image.createImage("file:" + url).scaledWidth(83).scaledHeight(83);
         } catch (java.io.IOException e) {
-            System.out.println("Fail to get SVG" + e);
+            System.out.println("Fail to get png" + e);
         }
     }
 

@@ -90,7 +90,7 @@ public class ViewWorkspace extends Container {
         this.addPointerPressedListener(evt -> {
             this.x = evt.getX();
             this.y = evt.getY();
-            Log.p("X and Y");
+            //Log.p("X and Y");
         });
     }
 
