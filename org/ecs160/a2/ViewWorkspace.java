@@ -74,9 +74,4 @@ public class ViewWorkspace extends Container {
         this.mainCircuit = StorageManager.getInstance().loadMain(circuitName);
         repaint();
     }
-
-    public void editNumOfInputs(int newNumofGates){
-        System.out.println(newNumofGates);
-        System.out.println("Works!");
-    }
 }
