@@ -13,6 +13,7 @@ public abstract class Widget extends Selectable {
     protected ArrayList<NodeOutput> outputs;
     private final Grid grid = Grid.getInstance();
 
+    public Widget(){super();}
     public Widget(int x, int y, int width, int height) {
         super(
                 Grid.getInstance().convertCoordAbstoGrid(x, 'x'),

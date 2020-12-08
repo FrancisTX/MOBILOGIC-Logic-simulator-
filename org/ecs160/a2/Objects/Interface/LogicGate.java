@@ -1,4 +1,5 @@
 package org.ecs160.a2.Objects.Interface;
+import com.codename1.ui.Image;
 import org.ecs160.a2.Utilities.Config;
 import org.ecs160.a2.Objects.NodeInput;
 
@@ -7,6 +8,12 @@ import java.util.*;
 public abstract class LogicGate extends Widget {
     protected final int NORMALGATE_INPUT_MINSIZE = 2;
     protected final int NORMALGATE_INPUT_MAXSIZE = 5;
+    //public int x, y;
+    public Image Gate;
+
+    public LogicGate(){
+        super();
+    }
 
     public LogicGate(int x, int y) {
         super(x, y,
@@ -32,4 +39,17 @@ public abstract class LogicGate extends Widget {
     public int getMinOutputNum() {
         return 1;
     }
+/**
+    public int getImage() {
+        return getGateImage();
+    }
+
+    public int getX() {
+        return getGateX();
+    }
+
+    public int getY() {
+        return getGateY();
+    }
+**/
 }

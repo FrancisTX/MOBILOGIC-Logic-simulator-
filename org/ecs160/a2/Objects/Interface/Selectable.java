@@ -1,10 +1,12 @@
 package org.ecs160.a2.Objects.Interface;
 import com.codename1.ui.Graphics;
+import com.codename1.ui.Image;
 
 public abstract class Selectable {
     protected int x, y, width, height;
     protected boolean selectStatus;
 
+    public Selectable(){}
     public Selectable(int x, int y, int width, int height) {
         // set coordinates and width and height for the hit box
         this.x = x;

@@ -1,5 +1,10 @@
 package org.ecs160.a2.Utilities;
 
+import com.codename1.ui.Button;
+import com.codename1.ui.Image;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
+
 public class Config {
 
     public final int logicGateWidth = 200;
@@ -40,6 +45,34 @@ public class Config {
 
     public final int ledIndicatorOnColor = 0x58D68D;
     public final int ledIndicatorOffColor = 0xEC7063;
+
+    public static Image GateNOT;
+    public static Image GateAND;
+    public static Image GateOR;
+    public static Image GateXOR;
+    public static Image GateNAND;
+    public static Image GateNOR;
+    public static Image GateXNOR;
+
+    public static void GetImage() {
+        try {
+            GateNOT = Image.createImage("/NOT_Gate.png").scaledLargerRatio(100, 100);
+
+            GateAND = Image.createImage("/AND_Gate.png").scaledLargerRatio(100, 100);
+
+            GateOR = Image.createImage("/OR_Gate.png").scaledLargerRatio(100, 100);
+
+            GateXOR = Image.createImage("/XOR_Gate.png").scaledLargerRatio(100, 100);
+
+            GateNAND = Image.createImage("/NAND_Gate.png").scaledLargerRatio(100, 100);
+
+            GateNOR = Image.createImage("/NOR_Gate.png").scaledLargerRatio(100, 100);
+
+            GateXNOR = Image.createImage("/XNOR_Gate.png").scaledLargerRatio(100, 100);
+        } catch (java.io.IOException e) {
+            System.out.println("Fail to get SVG" + e);
+        }
+    }
 
     private static final Config instance = new Config();
     private Config() {}

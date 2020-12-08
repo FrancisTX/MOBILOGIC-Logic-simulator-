@@ -1,13 +1,26 @@
 package org.ecs160.a2.Objects.Gate;
 import com.codename1.ui.Graphics;
+import com.codename1.ui.Image;
 import org.ecs160.a2.Objects.Interface.LogicGate;
 import org.ecs160.a2.Objects.NodeInput;
 import org.ecs160.a2.Utilities.Config;
 
 public class GateAND extends LogicGate {
+    //public int x, y;
+    public Image Gate = Config.GateAND;
 
     public GateAND(int x, int y) {
         super(x, y);
+    }
+
+    public GateAND(LogicGate l) {
+        l.Gate = Gate;
+        //l.x = x;
+        //l.y = y;
+    }
+
+    public GateAND(){
+        super();
     }
 
     @Override
@@ -40,4 +53,20 @@ public class GateAND extends LogicGate {
         g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
         drawNodes(g);
     }
+/**
+    @Override
+    protected Image getGateImage() {
+        return Gate;
+    }
+
+    @Override
+    protected int getGateX() {
+        return x;
+    }
+
+    @Override
+    protected int getGateY() {
+        return y;
+    }**/
+
 }

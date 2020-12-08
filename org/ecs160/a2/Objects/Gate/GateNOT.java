@@ -1,10 +1,18 @@
 package org.ecs160.a2.Objects.Gate;
 
 import com.codename1.ui.Graphics;
+import com.codename1.ui.Image;
 import org.ecs160.a2.Objects.Interface.LogicGate;
 import org.ecs160.a2.Utilities.Config;
 
 public class GateNOT extends LogicGate {
+    public int x, y;
+    public Image Gate = Config.GateNOT;
+
+    public GateNOT(){
+        super();
+    }
+
     public GateNOT(int x, int y) {
         super(x, y);
     }
