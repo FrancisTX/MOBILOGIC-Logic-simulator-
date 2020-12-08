@@ -13,6 +13,7 @@ import java.util.Iterator;
 public abstract class Widget extends Selectable {
     protected ArrayList<NodeInput> inputs;
     protected ArrayList<NodeOutput> outputs;
+    private final Grid grid = Grid.getInstance();
 
     public Widget(int x, int y, int width, int height) {
         super(
