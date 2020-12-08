@@ -8,7 +8,6 @@ import java.util.AbstractMap.SimpleEntry;
 import org.ecs160.a2.Objects.*;
 import org.ecs160.a2.Objects.Gate.*;
 import org.ecs160.a2.Objects.Interface.*;
-import org.ecs160.a2.StorageManager.StorageManager;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
 import org.ecs160.a2.UI.Grid;
 
@@ -67,11 +66,5 @@ public class ViewWorkspace extends Container {
     public void removeHighlighted() {
         mainCircuit.remove(WorkspaceUtil.getInstance().getHighlightedWidget());
         WorkspaceUtil.getInstance().resetHighlighted();
-    }
-
-    public void loadMain(String circuitName) {
-        WorkspaceUtil.getInstance().resetHighlighted();
-        this.mainCircuit = StorageManager.getInstance().loadMain(circuitName);
-        repaint();
     }
 }
