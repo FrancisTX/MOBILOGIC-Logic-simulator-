@@ -3,12 +3,18 @@ import com.codename1.components.MultiButton;
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BoxLayout;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.codename1.ui.Command;
 import org.ecs160.a2.Utilities.WidgetFactory;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
 import org.ecs160.a2.UI.EditButton;
 
 import java.io.IOException;
+=======
+import org.ecs160.a2.Objects.Gate.GateAND;
+import org.ecs160.a2.Utilities.WorkspaceUtil;
+import org.ecs160.a2.UI.TrashCan;
+>>>>>>> parent of 8ed356e... Load Subcircuit Added to taskbar
 =======
 import org.ecs160.a2.Objects.Gate.GateAND;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
@@ -24,6 +30,7 @@ public class ViewMenu extends Container {
 
         this.setLayout(new BoxLayout(BoxLayout.X_AXIS));
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         Button SaveButton = new Button("Save");
         SaveButton.addActionListener((evt) -> {
@@ -34,9 +41,15 @@ public class ViewMenu extends Container {
                     workspace.mainCircuit.save(circuitName.getText());
                 }
             }
+=======
+        Button testingSaveButton = new Button("Save");
+        testingSaveButton.addActionListener((evt) -> {
+            workspace.mainCircuit.save("Testing");
+>>>>>>> parent of 8ed356e... Load Subcircuit Added to taskbar
         });
         this.add(SaveButton);
 
+<<<<<<< HEAD
         Button LoadButton = new Button("Load");
         LoadButton.addActionListener((evt)->{
             String[] files = workspace.getFiles();
@@ -66,6 +79,8 @@ public class ViewMenu extends Container {
         });
         this.add(testingSaveButton);
 
+=======
+>>>>>>> parent of 8ed356e... Load Subcircuit Added to taskbar
         this.add(new TrashCan(workspace));
 
         Button addANDButton = new Button("And Gate");
