@@ -2,18 +2,12 @@ package org.ecs160.a2;
 import com.codename1.components.MultiButton;
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BoxLayout;
-<<<<<<< HEAD
 import com.codename1.ui.Command;
 import org.ecs160.a2.Utilities.WidgetFactory;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
 import org.ecs160.a2.UI.EditButton;
 
 import java.io.IOException;
-=======
-import org.ecs160.a2.Objects.Gate.GateAND;
-import org.ecs160.a2.Utilities.WorkspaceUtil;
-import org.ecs160.a2.UI.TrashCan;
->>>>>>> parent of 8ed356e... Load Subcircuit Added to taskbar
 
 public class ViewMenu extends Container {
     private ViewWorkspace workspace;
@@ -23,7 +17,6 @@ public class ViewMenu extends Container {
         this.workspace = workspace;
 
         this.setLayout(new BoxLayout(BoxLayout.X_AXIS));
-<<<<<<< HEAD
 
         Button SaveButton = new Button("Save");
         SaveButton.addActionListener((evt) -> {
@@ -59,19 +52,6 @@ public class ViewMenu extends Container {
             circuitSelect.add(fileSelectorContainer);
             circuitSelect.add(cancel);
             circuitSelect.show();
-=======
-        Button testingSaveButton = new Button("Save");
-        testingSaveButton.addActionListener((evt) -> {
-            workspace.mainCircuit.save("Testing");
-        });
-        this.add(testingSaveButton);
-
-        this.add(new TrashCan(workspace));
-
-        Button addANDButton = new Button("And Gate");
-        addANDButton.addActionListener((evt) -> {
-            WorkspaceUtil.getInstance().setWidgetAddingStrategy("GateAND");
->>>>>>> parent of 8ed356e... Load Subcircuit Added to taskbar
         });
         this.add(LoadButton);
 
