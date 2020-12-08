@@ -36,12 +36,12 @@ public class ViewTaskbar extends Container {
 
         for (String buttonName : buttonNames) {
             if (buttonName == "OR") {
-                Button button = new Button(Config.GateOR);
+                Button button = new Button(Config.GateOR, "Button");
                 buttons.put(buttonName, button);
                 this.add(button);
             }
             if (buttonName == "XOR") {
-                Button button = new Button(Config.GateOR);
+                Button button = new Button(Config.GateOR, "Button");
                 buttons.put(buttonName, button);
                 this.add(button);
             }
