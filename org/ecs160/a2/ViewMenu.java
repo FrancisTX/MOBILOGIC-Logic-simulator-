@@ -6,6 +6,7 @@ import org.ecs160.a2.Objects.Gate.GateAND;
 import com.codename1.ui.Command;
 import org.ecs160.a2.Utilities.WidgetFactory;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
+import org.ecs160.a2.UI.EditButton;
 
 import java.io.IOException;
 
@@ -27,20 +28,20 @@ public class ViewMenu extends Container {
         });
         this.add(testingSaveButton);
 
-        Image canImg;
-        String url = System.getProperty("user.dir") + "/src/Images/trash_can.jpg";
-        try {
-            canImg = Image.createImage("file:" + url);
-            Button Trash = new Button(canImg);
+        //Image canImg;
+        //String url = System.getProperty("user.dir") + "/src/Images/trash_can.jpg";
+        //try {
+            //canImg = Image.createImage("file:" + url);
+            Button Trash = new Button("trash");
             //now add a click listener that will remove the selected widget
             Trash.addActionListener(evt -> {
                 workspace.removeHighlighted();
                 workspace.repaint();
             });
             this.add(Trash);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+       // } catch (IOException e) {
+       //     e.printStackTrace();
+        //}
 
 //        Button addANDButton = new Button("And Gate");
 //        addANDButton.addActionListener((evt) -> {
@@ -54,23 +55,25 @@ public class ViewMenu extends Container {
 //        });
 //        this.add(addORButton);
 
+        this.add(new EditButton(workspace));
+
         Button testingSave = new Button("S(Test)");
         testingSave.addActionListener((evt) -> {
             workspace.mainCircuit.save("Testing");
         });
-        this.add(testingSave);
+        //this.add(testingSave);
 
         Button testingLoad = new Button("L(Test)");
         testingLoad.addActionListener((evt) -> {
             workspace.loadMain("Testing");
         });
-        this.add(testingLoad);
+        //this.add(testingLoad);
 
         Button testingLoadSub = new Button("LS(Test)");
         testingLoadSub.addActionListener((evt) -> {
             WorkspaceUtil.getInstance().setWidgetAddingStrategy("Circuit");
             WidgetFactory.getInstance().setCircuitName("Testing");
         });
-        this.add(testingLoadSub);
+        //this.add(testingLoadSub);
     }
 }
