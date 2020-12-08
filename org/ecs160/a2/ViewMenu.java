@@ -4,6 +4,7 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import org.ecs160.a2.Objects.Gate.GateAND;
 import com.codename1.ui.Command;
+import org.ecs160.a2.Utilities.WidgetFactory;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
 
 import java.io.IOException;
@@ -64,5 +65,12 @@ public class ViewMenu extends Container {
             workspace.loadMain("Testing");
         });
         this.add(testingLoad);
+
+        Button testingLoadSub = new Button("LS(Test)");
+        testingLoadSub.addActionListener((evt) -> {
+            WorkspaceUtil.getInstance().setWidgetAddingStrategy("Circuit");
+            WidgetFactory.getInstance().setCircuitName("Testing");
+        });
+        this.add(testingLoadSub);
     }
 }
