@@ -53,5 +53,8 @@ public class StorageManager {
         mainCircuit.setIsMain(true);
         return mainCircuit;
     }
+<<<<<<< HEAD
+>>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
+=======
 >>>>>>> parent of cfcdb60... Merge remote-tracking branch 'origin/Cat' into Sam
 }
