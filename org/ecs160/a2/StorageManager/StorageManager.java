@@ -52,7 +52,7 @@ public class StorageManager {
             ArrayList<Integer> pair = gatesPosPairs.get(i);
             mainCircuit.getGates().get(i).setCoordinates(pair.get(0), pair.get(1));
         }
-
+        mainCircuit.setIsMain(true);
         return mainCircuit;
     }
 }
