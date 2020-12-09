@@ -1,0 +1,21 @@
+
+/* /Users/tongxuanwang/IdeaProjects/A2Prj/css/theme.css */
+#Constants {
+    includeNativeBool: true;
+}
+
+Button {
+    border-radius: 2px;
+    background-color: #b7dcff;
+    border: 2px solid #3e16f0;
+    width: 60px;
+    height:70px;
+    margin: 0.1mm;
+    font-size: 50px;
+}
+
+Button.pressed {
+    background: #059ef7;
+    border: 2px solid #c6c6c6;
+}
+/* End /Users/tongxuanwang/IdeaProjects/A2Prj/css/theme.css */
