@@ -106,7 +106,7 @@ public class ViewTaskbar extends Container {
                 mb.addActionListener(ee->{
                     //loadSubCircuitButton.setText(mb.getText()); //Change button to name of button
                     d.dispose();
-                    WidgetFactory.getInstance().setCircuitName(mb.getText());
+                    WidgetFactory.getInstance().setSubCircuitName(mb.getText());  
                     WorkspaceUtil.getInstance().setWidgetAddingStrategy("Circuit");
                 });
             }
