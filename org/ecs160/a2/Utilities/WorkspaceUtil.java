@@ -3,6 +3,7 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.Stroke;
 import com.codename1.ui.geom.GeneralPath;
 import org.ecs160.a2.Objects.Circuit;
+import org.ecs160.a2.Objects.Interface.LogicGate;
 import org.ecs160.a2.Objects.Interface.Node;
 import org.ecs160.a2.Objects.Interface.Selectable;
 import org.ecs160.a2.Objects.Interface.Widget;

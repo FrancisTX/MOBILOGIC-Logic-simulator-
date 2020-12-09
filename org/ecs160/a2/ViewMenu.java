@@ -6,6 +6,7 @@ import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import org.ecs160.a2.Objects.Gate.GateAND;
 import com.codename1.ui.Command;
+import org.ecs160.a2.UI.EditButton;
 import org.ecs160.a2.Utilities.WidgetFactory;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
 
@@ -61,6 +62,9 @@ public class ViewMenu extends Container {
             workspace.repaint();
         });
         this.add(Trash);
+
+        EditButton editButton = new EditButton(workspace);
+        this.add(editButton);
 
 //        Button addANDButton = new Button("And Gate");
 //        addANDButton.addActionListener((evt) -> {
