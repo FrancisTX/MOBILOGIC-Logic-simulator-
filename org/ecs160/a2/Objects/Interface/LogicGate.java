@@ -1,6 +1,7 @@
 package org.ecs160.a2.Objects.Interface;
 import org.ecs160.a2.Utilities.Config;
 import org.ecs160.a2.Objects.NodeInput;
+import org.ecs160.a2.Utilities.WorkspaceUtil;
 
 import java.util.*;
 
@@ -23,6 +24,9 @@ public abstract class LogicGate extends Widget {
     }
 
     public void changeInputSize(int inputSize) {
+        for (NodeInput input : inputs) {
+            WorkspaceUtil.getInstance().disconnect(input, input.getConnectedOutput());
+        }
         if (inputSize < getMinInputsNum() || inputSize > getMaxInputsNum() || inputSize == inputs.size()) {
             return; // input size cannot be smaller than 2
         }

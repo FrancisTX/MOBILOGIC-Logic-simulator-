@@ -93,7 +93,7 @@ public class ViewTaskbar extends Container {
         });
 
 
-        Button loadSubCircuitButton = getButton("LOAD");
+        Button loadSubCircuitButton = getButton("addSub");
         String[] fileNames = Storage.getInstance().listEntries();
         loadSubCircuitButton.addActionListener((evt) ->{
             Dialog d = new Dialog();

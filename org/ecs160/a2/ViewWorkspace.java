@@ -8,6 +8,7 @@ import java.util.AbstractMap.SimpleEntry;
 import org.ecs160.a2.Objects.*;
 import org.ecs160.a2.Objects.Gate.*;
 import org.ecs160.a2.Objects.Interface.*;
+import org.ecs160.a2.StorageManager.StorageManager;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
 import org.ecs160.a2.UI.Grid;
 
@@ -20,8 +21,9 @@ public class ViewWorkspace extends Container {
 
     public ViewWorkspace() {
         super();
-        Util.register("Circuit", Circuit.class);
         mainCircuit = new Circuit(0, 0, true);
+        util.setMainCircuit(mainCircuit);
+
         this.addClickListener();
 
 //        mainCircuit.add(new GateAND(200, 550));
@@ -51,12 +53,10 @@ public class ViewWorkspace extends Container {
     public void addClickListener() {
         this.addPointerPressedListener(evt -> {
             util.handleAdd(evt.getX()-getParent().getAbsoluteX(),
-                    evt.getY()-getParent().getAbsoluteY(),
-                    mainCircuit);
+                    evt.getY()-getParent().getAbsoluteY());
             util.handleClick(
                     evt.getX()-getParent().getAbsoluteX(),
-                    evt.getY()-getParent().getAbsoluteY(),
-                    mainCircuit.getAllWidgets());
+                    evt.getY()-getParent().getAbsoluteY());
             this.repaint();
         });
     }
@@ -64,7 +64,14 @@ public class ViewWorkspace extends Container {
     public Circuit getMainCircuit() { return mainCircuit; }
 
     public void removeHighlighted() {
-        mainCircuit.remove(WorkspaceUtil.getInstance().getHighlightedWidget());
-        WorkspaceUtil.getInstance().resetHighlighted();
+        mainCircuit.remove(util.getHighlightedWidget());
+        util.resetHighlighted();
+    }
+
+    public void loadMain(String circuitName) {
+        util.resetHighlighted();
+        this.mainCircuit = StorageManager.getInstance().loadMain(circuitName);
+        util.setMainCircuit(this.mainCircuit);
+        repaint();
     }
 }

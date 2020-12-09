@@ -101,6 +101,7 @@ public class Circuit extends Widget {
         }
     }
 
+    public void setIsMain(boolean val) { this.isMainCircuit = val; }
     public ArrayList<Circuit> getSubCircuits() {return subCircuits;}
     public ArrayList<Switch> getSwitches() {return switches;}
     public ArrayList<Led> getLeds() {return leds;}
