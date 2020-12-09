@@ -76,6 +76,11 @@ public class ViewWorkspace extends Container {
     }
 
     public void editNumOfInputs(int newNumofGates){
+        Widget targetItem = WorkspaceUtil.getInstance().getHighlightedWidget();
+        if (targetItem instanceof LogicGate) {
+            ((LogicGate) targetItem).changeInputSize(newNumofGates);
+        }
+        repaint();
         System.out.println(newNumofGates);
         System.out.println("Works!");
     }
