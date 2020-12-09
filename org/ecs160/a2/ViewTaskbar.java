@@ -1,5 +1,7 @@
 package org.ecs160.a2;
 
+import com.codename1.components.MultiButton;
+import com.codename1.io.Storage;
 import com.codename1.ui.layouts.GridLayout;
 
 import java.util.*;
@@ -15,6 +17,7 @@ import com.codename1.ui.*;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.GridLayout;
 import org.ecs160.a2.Utilities.Config;
+import org.ecs160.a2.Utilities.WidgetFactory;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
 
 public class ViewTaskbar extends Container {
@@ -22,14 +25,16 @@ public class ViewTaskbar extends Container {
 
     private String[] buttonNames =
             {       "OR", "AND", "XOR", "SWI", "NOT",
-                    "NOR","NAND","XNOR", "LED", "DMY"};
+                    "NOR","NAND","XNOR", "LED", "SUB"};
+    private String[] WFnameCases =
+            {       "GateOR", "GateAND", "GateXOR", "Switch", "GateNOT",
+                    "GateNOR","GateNAND","GateXNOR", "Led", "Circuit"};
 
     private Hashtable<String, Button> buttons = new Hashtable<String, Button>();
 
     public ViewTaskbar(ViewWorkspace workspace) {
         super();
         this.workspace = workspace;
-
         this.setLayout(new GridLayout(2, 5));
 
         Config.GetImage();
@@ -128,8 +133,29 @@ public class ViewTaskbar extends Container {
         });
 
 
+        Button loadSubCircuitButton = getButton("SUB");
+        String[] fileNames = Storage.getInstance().listEntries();
+        loadSubCircuitButton.addActionListener((evt) ->{
+            Dialog d = new Dialog();
+            d.setLayout(BoxLayout.y());
+            d.getContentPane().setScrollableY(true);
+            for(int i=0; i < fileNames.length; i++){
+                System.out.print(fileNames[i]);
+                Button mb = new Button(fileNames[i]);
+                d.add(mb);
+                mb.addActionListener(ee->{
+                    //loadSubCircuitButton.setText(mb.getText()); //Change button to name of button
+                    d.dispose();
+                    WidgetFactory.getInstance().setSubCircuitName(mb.getText());  
+                    WorkspaceUtil.getInstance().setWidgetAddingStrategy("Circuit");
+                });
+            }
+            d.showPopupDialog(loadSubCircuitButton);
+        });
+
 
     }
 
     public Button getButton(String buttonName) { return buttons.get(buttonName);}
+
 }

@@ -3,6 +3,7 @@ import com.codename1.ui.Graphics;
 import com.codename1.ui.Stroke;
 import com.codename1.ui.geom.GeneralPath;
 import org.ecs160.a2.Objects.Circuit;
+import org.ecs160.a2.Objects.Interface.LogicGate;
 import org.ecs160.a2.Objects.Interface.Node;
 import org.ecs160.a2.Objects.Interface.Selectable;
 import org.ecs160.a2.Objects.Interface.Widget;
@@ -15,6 +16,7 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 
 public class WorkspaceUtil {
+    private Circuit mainCircuit;
     private Selectable highlighted;
     private String widgetAddingType;
     GeneralPath p = new GeneralPath();
@@ -23,7 +25,10 @@ public class WorkspaceUtil {
     private WorkspaceUtil() {}
     public static WorkspaceUtil getInstance() { return instance; }
 
-    public void handleAdd(int x, int y, Circuit mainCircuit) {
+    public void setMainCircuit(Circuit circuit) {
+        mainCircuit = circuit;
+    }
+    public void handleAdd(int x, int y) {
         Selectable clicked = getSelectable(mainCircuit.getAllWidgets(), x, y);
         if (widgetAddingType == null || clicked != null) return;
         mainCircuit.add(WidgetFactory.getInstance().createWidget(widgetAddingType, x, y));
@@ -39,8 +44,9 @@ public class WorkspaceUtil {
         return widgetAddingType;
     }
 
-    public void handleClick(int x, int y, ArrayList<Widget> widgets) {
+    public void handleClick(int x, int y) {
         {
+            ArrayList<Widget> widgets = mainCircuit.getAllWidgets();
             if (widgetAddingType != null) return;
             Selectable clicked = getSelectable(widgets, x, y);
             if (highlighted == null && clicked == null) {

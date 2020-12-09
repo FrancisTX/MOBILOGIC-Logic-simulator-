@@ -18,12 +18,16 @@ public class StorageManager {
     }
 
     public Circuit load(String circuitName) {
+        Storage.getInstance().clearCache();
+
         CircuitSavable savable = (CircuitSavable)Storage.getInstance().readObject(circuitName);
         if (savable == null) return null;
         return savable.extractCircuit();
     }
 
     public Circuit loadMain(String circuitName) {
+        Storage.getInstance().clearCache();
+
         CircuitSavable savable = (CircuitSavable)Storage.getInstance().readObject(circuitName);
         if (savable == null) return null;
         Circuit mainCircuit = savable.extractCircuit();
@@ -36,6 +40,7 @@ public class StorageManager {
         }
 
         ArrayList<ArrayList<Integer>> switchPosPairs = coordinates.get("Switch");
+
         for (int i = 0; i < switchPosPairs.size(); i++) {
             ArrayList<Integer> pair = switchPosPairs.get(i);
             mainCircuit.getSwitches().get(i).setCoordinates(pair.get(0), pair.get(1));
