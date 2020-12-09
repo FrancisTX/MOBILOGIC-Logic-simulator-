@@ -85,6 +85,11 @@ public class ViewTaskbar extends Container {
                 buttons.put(buttonName, button);
                 this.add(button);
             }
+            if (buttonName == "SUB") {
+                Button button = new Button("SUB");
+                buttons.put(buttonName, button);
+                this.add(button);
+            }
         }
 
         Button addANDButton = getButton("AND");
