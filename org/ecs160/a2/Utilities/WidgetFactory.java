@@ -11,7 +11,7 @@ public class WidgetFactory {
     private WidgetFactory() {}
     public static WidgetFactory getInstance() { return instance; }
     private String currentCircuitName = null;
-    public void setCircuitName(String circuitName) {
+    public void setSubCircuitName(String circuitName) {
         currentCircuitName = circuitName;
     }
 
