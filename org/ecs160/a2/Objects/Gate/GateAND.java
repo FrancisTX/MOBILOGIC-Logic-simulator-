@@ -7,22 +7,22 @@ import org.ecs160.a2.Utilities.Config;
 
 public class GateAND extends LogicGate {
     //public int x, y;
-    public Image Gate = Config.GateAND;
+    //public Image Gate = Config.GateAND;
 
     public GateAND(int x, int y) {
         super(x, y);
     }
     public String getType() { return "GateAND"; }
 
-    public GateAND(LogicGate l) {
-        l.Gate = Gate;
-        //l.x = x;
-        //l.y = y;
-    }
+//    public GateAND(LogicGate l) {
+//        l.Gate = Gate;
+//        //l.x = x;
+//        //l.y = y;
+//    }
 
-    public GateAND(){
-        super();
-    }
+//    public GateAND(){
+//        super();
+//    }
 
     @Override
     public int getMinInputsNum() {

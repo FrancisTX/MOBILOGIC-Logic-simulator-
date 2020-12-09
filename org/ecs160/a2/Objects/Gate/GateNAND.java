@@ -7,12 +7,12 @@ import org.ecs160.a2.Objects.NodeInput;
 import org.ecs160.a2.Utilities.Config;
 
 public class GateNAND extends LogicGate {
-    public int x, y;
-    public Image Gate = Config.GateNAND;
-
-    public GateNAND(){
-        super();
-    }
+//    public int x, y;
+//    public Image Gate = Config.GateNAND;
+//
+//    public GateNAND(){
+//        super();
+//    }
     public GateNAND(int x, int y) {
         super(x, y);
     }

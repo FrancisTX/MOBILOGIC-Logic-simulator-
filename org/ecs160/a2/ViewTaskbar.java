@@ -46,7 +46,7 @@ public class ViewTaskbar extends Container {
                 this.add(button);
             }
             if (buttonName == "XOR") {
-                Button button = new Button(Config.GateOR, "Button");
+                Button button = new Button(Config.GateXOR, "Button");
                 buttons.put(buttonName, button);
                 this.add(button);
             }

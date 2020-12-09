@@ -10,11 +10,11 @@ public abstract class LogicGate extends Widget {
     protected final int NORMALGATE_INPUT_MINSIZE = 2;
     protected final int NORMALGATE_INPUT_MAXSIZE = 5;
     //public int x, y;
-    public Image Gate;
+    //public Image Gate;
 
-    public LogicGate(){
-        super();
-    }
+//    public LogicGate(){
+//        super();
+//    }
 
     public LogicGate(int x, int y) {
         super(x, y,

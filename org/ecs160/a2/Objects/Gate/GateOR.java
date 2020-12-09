@@ -7,12 +7,12 @@ import org.ecs160.a2.Objects.NodeInput;
 import org.ecs160.a2.Utilities.Config;
 
 public class GateOR extends LogicGate {
-    public int x, y;
-    public Image Gate = Config.GateOR;
-
-    public GateOR(){
-        super();
-    }
+//    public int x, y;
+//    public Image Gate = Config.GateOR;
+//
+//    public GateOR(){
+//        super();
+//    }
 
     public GateOR(int x, int y) {
         super(x, y);
