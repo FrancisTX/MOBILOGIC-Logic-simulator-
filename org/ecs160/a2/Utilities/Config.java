@@ -18,11 +18,11 @@ public class Config {
 
     public final int ledWidth = 100;
     public final int ledHeight = 100;
-    public final int ledIndicatorWidth = 70;
-    public final int ledIndicatorHeight = 70;
+    public final int ledIndicatorWidth = 80;
+    public final int ledIndicatorHeight = 80;
 
-    public final int switchWidth = 100;
-    public final int switchHeight = 100;
+    public final int switchWidth = 150;
+    public final int switchHeight = 150;
     public final int switchButtonWidth = 60;
     public final int switchButtonHeight = 60;
     public final int switchButtonRadius = switchButtonWidth / 2;
