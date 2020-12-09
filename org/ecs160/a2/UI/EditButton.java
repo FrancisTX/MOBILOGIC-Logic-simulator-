@@ -12,9 +12,6 @@ import org.ecs160.a2.Objects.Interface.Widget;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
 import org.ecs160.a2.ViewWorkspace;
 
-import java.awt.*;
-import java.io.IOException;
-
 public class EditButton extends Container {
     private Button EditButton;
     public EditButton(ViewWorkspace workspace){
