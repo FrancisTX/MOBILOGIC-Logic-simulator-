@@ -29,7 +29,7 @@ public class EditButton extends Container {
     public void showEditPopup(ViewWorkspace workspace){
         Dialog numInputsEditBox = createDialogBox(workspace);
         //Label test = new Label("test");
-        numInputsEditBox.showPopupDialog(this);
+        numInputsEditBox.showPopupDialog(button);
     }
 
 
@@ -76,10 +76,10 @@ public class EditButton extends Container {
     }
 
     public void editInputError(Dialog numInputsEditBox){
-        TextArea errorMsg = new TextArea("Invalid value entered",2,12);
+        TextArea errorMsg = new TextArea("Invalid value entered",1,11);
         errorMsg.getAllStyles().setFgColor(0xff0000);
         numInputsEditBox.add(errorMsg);
-        numInputsEditBox.showModeless();
+        numInputsEditBox.showPopupDialog(button);
     }
 
     public void editNumOfInputs(int newNumofGates){
