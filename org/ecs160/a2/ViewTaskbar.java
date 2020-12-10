@@ -20,7 +20,7 @@ public class ViewTaskbar extends Container {
 					"NOR","NAND","XNOR", "LED", "SUB"};
 	private String[] strategies =
 			{       "GateOR", "GateAND", "GateXOR", "GateNOT", "Switch",
-					"GateNOR","GateNAND","GateXNOR", "Led", "SUB"};
+					"GateNOR","GateNAND","GateXNOR", "Led", "Circuit"};
 
 	private Hashtable<String, Button> buttons = new Hashtable<String, Button>();
 
@@ -63,8 +63,7 @@ public class ViewTaskbar extends Container {
 			button.addActionListener(ee ->{
 				WorkspaceUtil.getInstance().setWidgetAddingStrategy(widgetStrat);
 				int color;
-				for(int j = 0; j < buttonNames.length -1 ;j++) {
-					String currStrat = WorkspaceUtil.getInstance().getWidgetAddingType();
+				for(int j = 0; j < buttonNames.length;j++) {
 					color = (WorkspaceUtil.getInstance().getWidgetAddingType() != null && WorkspaceUtil.getInstance().getWidgetAddingType().equals(strategies[j])) ?
 							0xb7dcff : Config.getInstance().taskButtonColor;
 					getButton(buttonNames[j]).getAllStyles().setBgColor(color);
@@ -106,15 +105,21 @@ public class ViewTaskbar extends Container {
 				});
 			}
 			d.add(cancel);
-			//int color = (WorkspaceUtil.getInstance().getWidgetAddingType() != null && WorkspaceUtil.getInstance().getWidgetAddingType().equals("Circuit")) ?
-			//		0xb7dcff : Config.getInstance().taskButtonColor;
-		//	loadSubCircuitButton.getAllStyles().setBgColor(color);
+
+			 int color;
+			 for(int j = 0; j < buttonNames.length; j++) {
+			 	String currStrat = WorkspaceUtil.getInstance().getWidgetAddingType();
+			 	color = (WorkspaceUtil.getInstance().getWidgetAddingType() != null && WorkspaceUtil.getInstance().getWidgetAddingType().equals(strategies[j])) ?
+			 			0xb7dcff : Config.getInstance().taskButtonColor;
+			 	getButton(buttonNames[j]).getAllStyles().setBgColor(color);
+			 }
+			 this.revalidate();
 			if(WorkspaceUtil.getInstance().getWidgetAddingType() != null && WorkspaceUtil.getInstance().getWidgetAddingType().equals("Circuit")) {
-				loadSubCircuitButton.getAllStyles().setBgColor(0xb7dcff);
+			//	loadSubCircuitButton.getAllStyles().setBgColor(0xb7dcff);
 				d.showPopupDialog(loadSubCircuitButton);
-			}else{
+			}/*else{
 				loadSubCircuitButton.getAllStyles().setBgColor(Config.getInstance().taskButtonColor);
-			}
+			} */
 		});
 
 
