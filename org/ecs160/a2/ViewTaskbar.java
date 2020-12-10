@@ -78,8 +78,8 @@ public class ViewTaskbar extends Container {
 		buttons.put("SUB",loadSubCircuitButton);
 		this.add(loadSubCircuitButton);
 
-		String[] fileNames = Storage.getInstance().listEntries();
 		loadSubCircuitButton.addActionListener((evt) ->{
+			String[] fileNames = Storage.getInstance().listEntries();
 			WorkspaceUtil.getInstance().setWidgetAddingStrategy("Circuit");
 			Dialog d = new Dialog("Select Subcircuit");
 			d.setLayout(BoxLayout.y());
