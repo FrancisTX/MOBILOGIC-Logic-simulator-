@@ -46,7 +46,7 @@ public class Config {
     public final int wireWidth = 5;
 
     public final int ledIndicatorOnColor = 0x58D68D;
-    public final int ledIndicatorOffColor = 0xEC7063;
+    public final int ledIndicatorOffColor = 0x0000ff;
 
     public static Image GateNOT;
     public static Image GateAND;
@@ -55,6 +55,9 @@ public class Config {
     public static Image GateNAND;
     public static Image GateNOR;
     public static Image GateXNOR;
+
+    public final int taskButtonColor = 0xe1e3e1; //Includes toolbarbuttons
+    public final int cancelButtonColor = 0xb0aeae; //Includes toolbarbuttons
 
     public static void GetImage() {
 

@@ -4,9 +4,12 @@ import com.codename1.io.Storage;
 import com.codename1.ui.*;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.GridLayout;
+import com.codename1.ui.plaf.RoundRectBorder;
 import org.ecs160.a2.Objects.Gate.GateAND;
 import com.codename1.ui.Command;
 import org.ecs160.a2.UI.EditButton;
+import org.ecs160.a2.Utilities.Config;
 import org.ecs160.a2.Utilities.WidgetFactory;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
 
@@ -18,8 +21,13 @@ public class ViewMenu extends Container {
     public ViewMenu(ViewWorkspace workspace) {
         super();
         this.workspace = workspace;
+        this.setLayout(new GridLayout(1, 4));
+        this.getAllStyles().setBgColor(0xffffff);
+        //this.getAllStyles().setBgTransparency(255);
 
         Button SaveButton = new Button("Save");
+        SaveButton.getAllStyles().setBgColor(Config.getInstance().taskButtonColor);
+        SaveButton.getAllStyles().setBorder(RoundRectBorder.create());
         SaveButton.addActionListener((evt) -> {
             TextField circuitName = new TextField("", "Circuit Name", 20, TextArea.ANY);
             Command enter = new Command("Ok");
@@ -32,17 +40,23 @@ public class ViewMenu extends Container {
         this.add(SaveButton);
 
         Button LoadButton = new Button("Load");
+        LoadButton.getAllStyles().setBgColor(Config.getInstance().taskButtonColor);
+        LoadButton.getAllStyles().setBorder(RoundRectBorder.create());
         LoadButton.addActionListener((evt)->{
             String[] files = Storage.getInstance().listEntries();
             Dialog circuitSelect = new Dialog("Load the Circuit", BoxLayout.y());
             Container fileSelectorContainer = new Container(BoxLayout.y());
             fileSelectorContainer.setScrollableY(true);
             Button cancel = new Button("Cancel");
+            cancel.getAllStyles().setBgColor(Config.getInstance().cancelButtonColor);
+            cancel.getAllStyles().setBorder(RoundRectBorder.create());
             cancel.addActionListener(evt2->{
                 circuitSelect.dispose();
             });
             for(int iter = 0; iter < files.length; iter++){
                 MultiButton fileSelector = new MultiButton(files[iter]);
+                fileSelector.getAllStyles().setBgColor(Config.getInstance().taskButtonColor);
+                fileSelector.getAllStyles().setBorder(RoundRectBorder.create());
                 String circuitName = files[iter];
                 fileSelector.addActionListener((evt1)->{
                     workspace.loadMain(circuitName);
@@ -56,15 +70,24 @@ public class ViewMenu extends Container {
         });
         this.add(LoadButton);
 
-        Button Trash = new Button("RemoveSelected");
+        Button Trash = new Button("Remove");
+        Trash.getAllStyles().setBgColor(Config.getInstance().taskButtonColor);
+        Trash.getAllStyles().setBorder(RoundRectBorder.create());
         Trash.addActionListener(evt -> {
             workspace.removeHighlighted();
             workspace.repaint();
         });
         this.add(Trash);
 
-        EditButton editButton = new EditButton(workspace);
-        this.add(editButton);
+        EditButton edit = new EditButton(workspace);
+        edit.button.addActionListener(evt -> {
+            if (WorkspaceUtil.getInstance().getHighlightedWidget() == null){
+                return;
+            }
+            edit.showEditPopup(workspace);
+            //workspace.repaint();
+        });
+        this.add(edit.button);
 
 //        Button addANDButton = new Button("And Gate");
 //        addANDButton.addActionListener((evt) -> {

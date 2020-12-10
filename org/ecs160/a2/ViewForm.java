@@ -11,7 +11,7 @@ public class ViewForm extends Form {
         super(new BorderLayout());
         ViewWorkspace workspace = new ViewWorkspace();
         ViewTaskbar taskbar = new ViewTaskbar(workspace);
-        super.getToolbar().add(BorderLayout.WEST, new ViewMenu(workspace));
+        super.getToolbar().add(BorderLayout.CENTER, new ViewMenu(workspace));
         this.add(BorderLayout.CENTER, workspace);
         this.add(BorderLayout.SOUTH, taskbar);
     }

@@ -16,6 +16,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.*;
 import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.GridLayout;
+import com.codename1.ui.plaf.RoundRectBorder;
 import org.ecs160.a2.Utilities.Config;
 import org.ecs160.a2.Utilities.WidgetFactory;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
@@ -24,11 +25,11 @@ public class ViewTaskbar extends Container {
     private ViewWorkspace workspace;
 
     private String[] buttonNames =
-            {       "OR", "AND", "XOR", "SWI", "NOT",
+            {       "OR", "AND", "XOR", "NOT", "SWI",
                     "NOR","NAND","XNOR", "LED", "SUB"};
-    private String[] WFnameCases =
-            {       "GateOR", "GateAND", "GateXOR", "Switch", "GateNOT",
-                    "GateNOR","GateNAND","GateXNOR", "Led", "Circuit"};
+    private String[] strategies =
+            {       "GateOR", "GateAND", "GateXOR", "GateNOT", "Switch",
+                    "GateNOR","GateNAND","GateXNOR", "Led", "SUB"};
 
     private Hashtable<String, Button> buttons = new Hashtable<String, Button>();
 
@@ -36,125 +37,78 @@ public class ViewTaskbar extends Container {
         super();
         this.workspace = workspace;
         this.setLayout(new GridLayout(2, 5));
+        this.getAllStyles().setBgColor(0xffffff);
+        this.getAllStyles().setBgTransparency(255);
 
         Config.GetImage();
 
-        for (String buttonName : buttonNames) {
-            if (buttonName == "OR") {
-                Button button = new Button(Config.GateOR, "Button");
-                buttons.put(buttonName, button);
-                this.add(button);
+        for (int i=0; i < buttonNames.length -1 ;i++) {
+            String buttonName = buttonNames[i];
+            String widgetStrat = strategies[i];
+            Image img = null;
+            Button button;
+
+            Boolean gate = false;
+            if (buttonName == "OR"){img = Config.GateOR; gate=true;}
+            if (buttonName == "XOR"){img = Config.GateXOR;gate=true;}
+            if (buttonName == "AND"){img = Config.GateAND;gate=true;}
+            if (buttonName == "NOT"){img = Config.GateNOT;gate=true;}
+            if (buttonName == "NAND"){img = Config.GateNAND;gate=true;}
+            if (buttonName == "NOR"){img = Config.GateNOR;gate=true;}
+            if (buttonName == "XNOR"){img = Config.GateXNOR;gate=true;}
+
+            if (gate){
+                 button = new Button(img, "Button");
             }
-            if (buttonName == "XOR") {
-                Button button = new Button(Config.GateXOR, "Button");
-                buttons.put(buttonName, button);
-                this.add(button);
+            else{
+                 button = new Button(buttonName);
             }
-            if (buttonName == "AND") {
-                Button button = new Button(Config.GateAND);
-                buttons.put(buttonName, button);
-                this.add(button);
-            }
-            if (buttonName == "NOT") {
-                Button button = new Button(Config.GateNOT);
-                buttons.put(buttonName, button);
-                this.add(button);
-            }
-            if (buttonName == "NAND") {
-                Button button = new Button(Config.GateNAND);
-                buttons.put(buttonName, button);
-                this.add(button);
-            }
-            if (buttonName == "NOR") {
-                Button button = new Button(Config.GateNOR);
-                buttons.put(buttonName, button);
-                this.add(button);
-            }
-            if (buttonName == "XNOR") {
-                Button button = new Button(Config.GateXNOR);
-                buttons.put(buttonName, button);
-                this.add(button);
-            }
-            if (buttonName == "LED") {
-                Button button = new Button("LED");
-                buttons.put(buttonName, button);
-                this.add(button);
-            }
-            if (buttonName == "SWI") {
-                Button button = new Button("SWI");
-                buttons.put(buttonName, button);
-                this.add(button);
-            }
-            if (buttonName == "SUB") {
-                Button button = new Button("SUB");
-                buttons.put(buttonName, button);
-                this.add(button);
-            }
+
+            button.getAllStyles().setBgColor(Config.getInstance().taskButtonColor);
+            button.getAllStyles().setBorder(RoundRectBorder.create());
+            this.add(button);
+            buttons.put(buttonName,button);
+
+            button.addActionListener(ee ->{
+                WorkspaceUtil.getInstance().setWidgetAddingStrategy(widgetStrat);
+            });
+            //this.add(button);
+
+
         }
 
-        Button addANDButton = getButton("AND");
-        addANDButton.addActionListener((evt) -> {
-            WorkspaceUtil.getInstance().setWidgetAddingStrategy("GateAND");
-        });
+        
+        Button loadSubCircuitButton = new Button("SUB");
+        loadSubCircuitButton.getAllStyles().setBgColor(Config.getInstance().taskButtonColor);
+        loadSubCircuitButton.getAllStyles().setBorder(RoundRectBorder.create());
+        buttons.put("SUB",loadSubCircuitButton);
+        this.add(loadSubCircuitButton);
 
-        Button addORButton = getButton("OR");
-        addORButton.addActionListener((evt) -> {
-            WorkspaceUtil.getInstance().setWidgetAddingStrategy("GateOR");
-        });
-
-        Button addNANDButton = getButton("NAND");
-        addNANDButton.addActionListener((evt) -> {
-            WorkspaceUtil.getInstance().setWidgetAddingStrategy("GateNAND");
-        });
-
-        Button addNORButton = getButton("NOR");
-        addNORButton.addActionListener((evt) -> {
-            WorkspaceUtil.getInstance().setWidgetAddingStrategy("GateNOR");
-        });
-
-        Button addNOTButton = getButton("NOT");
-        addNOTButton.addActionListener((evt) -> {
-            WorkspaceUtil.getInstance().setWidgetAddingStrategy("GateNOT");
-        });
-
-        Button addXORButton = getButton("XOR");
-        addXORButton.addActionListener((evt) -> {
-            WorkspaceUtil.getInstance().setWidgetAddingStrategy("GateXOR");
-        });
-
-        Button addXNORButton = getButton("XNOR");
-        addXNORButton.addActionListener((evt) -> {
-            WorkspaceUtil.getInstance().setWidgetAddingStrategy("GateXNOR");
-        });
-
-        Button addSWITCHButton = getButton("SWI");
-        addSWITCHButton.addActionListener((evt) -> {
-            WorkspaceUtil.getInstance().setWidgetAddingStrategy("Switch");
-        });
-
-        Button addLEDButton = getButton("LED");
-        addLEDButton.addActionListener((evt) -> {
-            WorkspaceUtil.getInstance().setWidgetAddingStrategy("Led");
-        });
-
-
-        Button loadSubCircuitButton = getButton("SUB");
         String[] fileNames = Storage.getInstance().listEntries();
         loadSubCircuitButton.addActionListener((evt) ->{
-            Dialog d = new Dialog();
+            Dialog d = new Dialog("Select Subcircuit");
             d.setLayout(BoxLayout.y());
             d.getContentPane().setScrollableY(true);
+            Button cancel = new Button("Cancel");
+            cancel.getAllStyles().setBgColor(Config.getInstance().cancelButtonColor);
+            cancel.getAllStyles().setBorder(RoundRectBorder.create());
+            cancel.addActionListener(evt2->{
+                d.dispose();
+            });
             for(int i=0; i < fileNames.length; i++){
                 System.out.print(fileNames[i]);
                 Button mb = new Button(fileNames[i]);
+                mb.getAllStyles().setBgColor(Config.getInstance().taskButtonColor);
+                mb.getAllStyles().setBorder(RoundRectBorder.create());
                 d.add(mb);
                 mb.addActionListener(ee->{
                     //loadSubCircuitButton.setText(mb.getText()); //Change button to name of button
-                    d.dispose();
                     WidgetFactory.getInstance().setSubCircuitName(mb.getText());  
                     WorkspaceUtil.getInstance().setWidgetAddingStrategy("Circuit");
+                    d.dispose();
                 });
             }
+            d.add(cancel);
             d.showPopupDialog(loadSubCircuitButton);
         });
 
@@ -162,5 +116,6 @@ public class ViewTaskbar extends Container {
     }
 
     public Button getButton(String buttonName) { return buttons.get(buttonName);}
+    public final int getLength(String[] names) { return names.length;};
 
 }

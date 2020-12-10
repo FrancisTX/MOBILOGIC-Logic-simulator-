@@ -7,24 +7,21 @@ import com.codename1.ui.Dialog;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
+import com.codename1.ui.plaf.RoundRectBorder;
 import org.ecs160.a2.Objects.Interface.LogicGate;
 import org.ecs160.a2.Objects.Interface.Widget;
+import org.ecs160.a2.Utilities.Config;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
 import org.ecs160.a2.ViewWorkspace;
 
 public class EditButton extends Container {
-    private Button EditButton;
-    public EditButton(ViewWorkspace workspace){
+    public Button button;
+    public EditButton(ViewWorkspace workspace ){
 
-        EditButton = new Button("Edit");
-        this.add(EditButton);
-        EditButton.addActionListener(evt -> {
-            if (WorkspaceUtil.getInstance().getHighlightedWidget() == null){
-                return;
-            }
-            this.showEditPopup(workspace);
-            //workspace.repaint();
-        });
+        button = new Button("Edit");
+        button.getAllStyles().setBgColor(Config.getInstance().taskButtonColor);
+        button.getAllStyles().setBorder(RoundRectBorder.create());
+        //this.add(EditButton);
 
     }
 
@@ -41,6 +38,8 @@ public class EditButton extends Container {
         Label numInputsEditPrompt = new Label("Choose a value between 2 and 5");
         TextField numInputsEntryField  = new TextField("","",2,TextArea.NUMERIC);
         Button acceptEditButton = new Button("Accept Input");
+        acceptEditButton.getAllStyles().setBgColor(Config.getInstance().taskButtonColor);
+        acceptEditButton.getAllStyles().setBorder(RoundRectBorder.create());
         acceptEditButton.addActionListener((e) -> {  //ABSTRACT THIS BY PASSING INT FROM GETTEXT.NUMINPUTSENTRYFIELD AND RETURN NEW FULLY FUNCTIONAL BUTTON
             try{
                 int newInputVal = Integer.parseInt(numInputsEntryField.getText());
