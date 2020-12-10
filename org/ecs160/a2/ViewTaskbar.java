@@ -1,21 +1,12 @@
 package org.ecs160.a2;
 
-import com.codename1.components.MultiButton;
 import com.codename1.io.Storage;
 import com.codename1.ui.layouts.GridLayout;
 
 import java.util.*;
-import static com.codename1.ui.CN.*;
-import static com.codename1.ui.CN.*;
-import com.codename1.ui.Display;
-import com.codename1.ui.Form;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.Label;
-import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.*;
-import com.codename1.ui.geom.Dimension;
-import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.plaf.RoundRectBorder;
 import org.ecs160.a2.Utilities.Config;
 import org.ecs160.a2.Utilities.WidgetFactory;
@@ -71,12 +62,16 @@ public class ViewTaskbar extends Container {
 
             button.addActionListener(ee ->{
                 WorkspaceUtil.getInstance().setWidgetAddingStrategy(widgetStrat);
+                int color;
+                for(int j = 0; j < buttonNames.length -1 ;j++) {
+                    String currStrat = WorkspaceUtil.getInstance().getWidgetAddingType();
+                    color = (WorkspaceUtil.getInstance().getWidgetAddingType() != null && WorkspaceUtil.getInstance().getWidgetAddingType().equals(strategies[j])) ?
+                            0xb7dcff : Config.getInstance().taskButtonColor;
+                    getButton(buttonNames[j]).getAllStyles().setBgColor(color);
+                }
+                this.revalidate();
             });
-            //this.add(button);
-
-
         }
-
         
         Button loadSubCircuitButton = new Button("SUB");
         loadSubCircuitButton.getAllStyles().setBgColor(Config.getInstance().taskButtonColor);
@@ -102,7 +97,6 @@ public class ViewTaskbar extends Container {
                 mb.getAllStyles().setBorder(RoundRectBorder.create());
                 d.add(mb);
                 mb.addActionListener(ee->{
-                    //loadSubCircuitButton.setText(mb.getText()); //Change button to name of button
                     WidgetFactory.getInstance().setSubCircuitName(mb.getText());  
                     WorkspaceUtil.getInstance().setWidgetAddingStrategy("Circuit");
                     d.dispose();
