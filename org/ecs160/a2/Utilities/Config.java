@@ -62,26 +62,26 @@ public class Config {
     public static void GetImage() {
 
         try {
-            String url = System.getProperty("user.dir") + "/src/Images/NOT_GATE.png";
+            String url = "/" + System.getProperty("user.dir") + "/src/Images/NOT_GATE.png";
             GateNOT = Image.createImage("file:" + url).scaledWidth(83).scaledHeight(83);
 
-            url = System.getProperty("user.dir") + "/src/Images/AND_GATE.png";
+            url = "/" + System.getProperty("user.dir") + "/src/Images/AND_GATE.png";
             Log.p(url);
             GateAND = Image.createImage("file:" + url).scaledWidth(80).scaledHeight(83);
 
-            url = System.getProperty("user.dir") + "/src/Images/OR_GATE.png";
+            url = "/" + System.getProperty("user.dir") + "/src/Images/OR_GATE.png";
             GateOR = Image.createImage("file:" + url).scaledWidth(83).scaledHeight(83);
 
-            url = System.getProperty("user.dir") + "/src/Images/XOR_GATE.png";
+            url = "/" + System.getProperty("user.dir") + "/src/Images/XOR_GATE.png";
             GateXOR = Image.createImage("file:" + url).scaledWidth(83).scaledHeight(83);
 
-            url = System.getProperty("user.dir") + "/src/Images/NAND_GATE.png";
+            url = "/" + System.getProperty("user.dir") + "/src/Images/NAND_GATE.png";
             GateNAND = Image.createImage("file:" + url).scaledWidth(80).scaledHeight(83);
 
-            url = System.getProperty("user.dir") + "/src/Images/NOR_GATE.png";
+            url = "/" + System.getProperty("user.dir") + "/src/Images/NOR_GATE.png";
             GateNOR = Image.createImage("file:" + url).scaledWidth(83).scaledHeight(83);
 
-            url = System.getProperty("user.dir") + "/src/Images/XNOR_GATE.png";
+            url = "/" + System.getProperty("user.dir") + "/src/Images/XNOR_GATE.png";
             GateXNOR = Image.createImage("file:" + url).scaledWidth(83).scaledHeight(83);
         } catch (java.io.IOException e) {
             System.out.println("Fail to get png" + e);
