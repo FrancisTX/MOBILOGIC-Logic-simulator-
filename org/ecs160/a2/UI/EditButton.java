@@ -1,6 +1,5 @@
 package org.ecs160.a2.UI;
 
-import com.codename1.ui.*;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
@@ -16,19 +15,16 @@ import org.ecs160.a2.ViewWorkspace;
 
 public class EditButton extends Container {
     public Button button;
-    public EditButton(ViewWorkspace workspace ){
+    public EditButton(){
 
         button = new Button("Edit");
         button.getAllStyles().setBgColor(Config.getInstance().taskButtonColor);
         button.getAllStyles().setBorder(RoundRectBorder.create());
-        //this.add(EditButton);
-
     }
 
 
     public void showEditPopup(ViewWorkspace workspace){
         Dialog numInputsEditBox = createDialogBox(workspace);
-        //Label test = new Label("test");
         numInputsEditBox.showPopupDialog(button);
     }
 
@@ -44,8 +40,6 @@ public class EditButton extends Container {
             try{
                 int newInputVal = Integer.parseInt(numInputsEntryField.getText());
                 callEditInput(newInputVal,numInputsEditBox,workspace);
-                //numInputsEditBox.dispose();
-
             }
             catch(NumberFormatException error){
                 numInputsEditBox.dispose();
@@ -63,8 +57,7 @@ public class EditButton extends Container {
     public void callEditInput (int newInputVal, Dialog numInputsEditBox, ViewWorkspace workspace){
 
         if ((newInputVal <= 5) && (newInputVal >=2) ) {
-            //System.out.println(newInputVal);
-            editNumOfInputs(newInputVal);  //CHANGE TO CALL EDIT HIGHLIGHTED FUNCTION, MIGHT NEED TO PASS WORKSPACE AS PARAMETER
+            editNumOfInputs(newInputVal);
             numInputsEditBox.dispose();
             workspace.repaint();
         }

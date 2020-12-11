@@ -1,18 +1,10 @@
 package org.ecs160.a2.Objects.Gate;
 
 import com.codename1.ui.Graphics;
-import com.codename1.ui.Image;
 import org.ecs160.a2.Objects.Interface.LogicGate;
 import org.ecs160.a2.Utilities.Config;
 
 public class GateNOT extends LogicGate {
-//    public int x, y;
-//    public Image Gate = Config.GateNOT;
-//
-//    public GateNOT(){
-//        super();
-//    }
-
     public GateNOT(int x, int y) {
         super(x, y);
     }
@@ -39,8 +31,6 @@ public class GateNOT extends LogicGate {
                 Config.getInstance().selectedWidgetColor :
                 Config.getInstance().unselectedWidgetColor;
         g.setColor(color);
-        // TODO: Implement Gate Drawing
-        //g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
         g.drawLine(this.x, this.y, this.x+getWidth(), this.y); //top
         g.drawLine(this.x, this.y, this.x+getWidth()/2, this.y+getHeight()); //left
         g.drawLine(this.x+getWidth(), this.y, this.x+getWidth()/2, this.y+getHeight()); //right

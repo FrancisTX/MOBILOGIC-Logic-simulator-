@@ -1,16 +1,12 @@
 package org.ecs160.a2.Utilities;
 import com.codename1.ui.Graphics;
-import com.codename1.ui.Stroke;
-import com.codename1.ui.geom.GeneralPath;
 import org.ecs160.a2.Objects.Circuit;
-import org.ecs160.a2.Objects.Interface.LogicGate;
 import org.ecs160.a2.Objects.Interface.Node;
 import org.ecs160.a2.Objects.Interface.Selectable;
 import org.ecs160.a2.Objects.Interface.Widget;
 import org.ecs160.a2.Objects.NodeInput;
 import org.ecs160.a2.Objects.NodeOutput;
 import org.ecs160.a2.Objects.SwitchButton;
-import org.ecs160.a2.UI.Grid;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -19,8 +15,6 @@ public class WorkspaceUtil {
     private Circuit mainCircuit;
     private Selectable highlighted;
     private String widgetAddingType;
-    GeneralPath p = new GeneralPath();
-    private final Grid grid = Grid.getInstance();
     private static final WorkspaceUtil instance = new WorkspaceUtil();
     private WorkspaceUtil() {}
     public static WorkspaceUtil getInstance() { return instance; }
@@ -123,13 +117,11 @@ public class WorkspaceUtil {
         NodeOutput output = pair.getValue();
         if (input.connected()) {
             // connected, disconnect now
-            // System.out.println("disconnect");
             output.disconnect(input);
             input.disconnect();
             input.update();
         } else {
             // not connected, connect now
-            // System.out.println("connect");
             output.connect(input);
             input.connect(output);
             input.update();
@@ -160,13 +152,6 @@ public class WorkspaceUtil {
                     Config.getInstance().wireOnColor :
                     Config.getInstance().wireOffColor;
             g.setColor(color);
-//            Stroke stroke = new Stroke(
-//                    Config.getInstance().wireWidth,
-//                    Stroke.CAP_BUTT,
-//                    Stroke.JOIN_ROUND, 1f
-//            );
-//            p.moveTo(input.getX()+Config.getInstance().nodeRadius, input.getY());
-//            p.lineTo(output.getX()+Config.getInstance().nodeRadius, output.getY());
             g.drawLine(input.getX()+Config.getInstance().nodeRadius,
                     input.getY(),
                     output.getX()+Config.getInstance().nodeRadius,

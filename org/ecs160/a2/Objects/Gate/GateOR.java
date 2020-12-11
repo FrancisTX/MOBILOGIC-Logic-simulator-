@@ -1,19 +1,11 @@
 package org.ecs160.a2.Objects.Gate;
 
 import com.codename1.ui.Graphics;
-import com.codename1.ui.Image;
 import org.ecs160.a2.Objects.Interface.LogicGate;
 import org.ecs160.a2.Objects.NodeInput;
 import org.ecs160.a2.Utilities.Config;
 
 public class GateOR extends LogicGate {
-//    public int x, y;
-//    public Image Gate = Config.GateOR;
-//
-//    public GateOR(){
-//        super();
-//    }
-
     public GateOR(int x, int y) {
         super(x, y);
     }
@@ -44,10 +36,6 @@ public class GateOR extends LogicGate {
                 Config.getInstance().selectedWidgetColor :
                 Config.getInstance().unselectedWidgetColor;
         g.setColor(color);
-        // TODO: Implement Gate Drawing
-//        char[] data = {'O', 'R'};
-//        g.drawChars(data, 0, 2, x + getWidth() / 5, y + getHeight() / 5);
-//        g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
         g.drawArc(this.x, this.y-getHeight()/2, this.getWidth(), this.getHeight()/2, 0,-180); //top arc
         g.drawArc(this.x, this.y - getHeight()- (int)(getHeight()*(1/1.7)), this.getWidth(), this.getHeight()+ (int)(getHeight()*1.765) , 0,-180); //bottom arc
         drawNodes(g);

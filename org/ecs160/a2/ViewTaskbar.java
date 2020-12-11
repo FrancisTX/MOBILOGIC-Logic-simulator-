@@ -13,8 +13,6 @@ import org.ecs160.a2.Utilities.WidgetFactory;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
 
 public class ViewTaskbar extends Container {
-	private ViewWorkspace workspace;
-
 	private String[] buttonNames =
 			{       "OR", "AND", "XOR", "NOT", "SWI",
 					"NOR","NAND","XNOR", "LED", "SUB"};
@@ -24,9 +22,8 @@ public class ViewTaskbar extends Container {
 
 	private Hashtable<String, Button> buttons = new Hashtable<String, Button>();
 
-	public ViewTaskbar(ViewWorkspace workspace) {
+	public ViewTaskbar() {
 		super();
-		this.workspace = workspace;
 		this.setLayout(new GridLayout(2, 5));
 		this.getAllStyles().setBgColor(0xffffff);
 		this.getAllStyles().setBgTransparency(255);
@@ -126,6 +123,4 @@ public class ViewTaskbar extends Container {
 	}
 
 	public Button getButton(String buttonName) { return buttons.get(buttonName);}
-	public final int getLength(String[] names) { return names.length;};
-
 }

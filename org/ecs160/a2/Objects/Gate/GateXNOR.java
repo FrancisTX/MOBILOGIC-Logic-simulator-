@@ -1,19 +1,11 @@
 package org.ecs160.a2.Objects.Gate;
 
 import com.codename1.ui.Graphics;
-import com.codename1.ui.Image;
 import org.ecs160.a2.Objects.Interface.LogicGate;
 import org.ecs160.a2.Objects.NodeInput;
 import org.ecs160.a2.Utilities.Config;
 
 public class GateXNOR extends LogicGate {
-//    public int x, y;
-//    public Image Gate = Config.GateXNOR;
-//
-//    public GateXNOR(){
-//        super();
-//    }
-
     public GateXNOR(int x, int y) {
         super(x, y);
     }
@@ -46,8 +38,6 @@ public class GateXNOR extends LogicGate {
                 Config.getInstance().selectedWidgetColor :
                 Config.getInstance().unselectedWidgetColor;
         g.setColor(color);
-        // TODO: Implement Gate Drawing
-        //g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
         g.drawArc(this.x, this.y-getHeight()/2, this.getWidth(), this.getHeight()/2, 0,-180); //top-most arc
         g.drawArc(this.x, this.y-getHeight()/3, this.getWidth(), this.getHeight()/2, 0,-180); //top arc
         g.drawArc(this.x, this.y - getHeight()- (int)(getHeight()*(1/1.7)), this.getWidth(), this.getHeight()+ (int)(getHeight()*1.765) , 0,-180); //bottom arc

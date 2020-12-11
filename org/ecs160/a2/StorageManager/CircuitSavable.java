@@ -92,7 +92,6 @@ public class CircuitSavable implements Externalizable {
 
     @Override
     public void internalize(int version, DataInputStream in) throws IOException {
-        // TODO: Internalize
         circuit = new Circuit(Integer.MAX_VALUE, Integer.MAX_VALUE, false);
         ArrayList<CircuitSavable> savablesSubcircuits = (ArrayList<CircuitSavable>)Util.readObject(in);
         for (CircuitSavable savableCircuit : savablesSubcircuits) {
@@ -125,10 +124,6 @@ public class CircuitSavable implements Externalizable {
 
             int outputJ = extractOutputIndex(outputAddress);
             NodeOutput output = getWidgetFrom(outputAddress).getAllOutputNodes().get(outputJ);
-
-//            System.out.println("Internalize Connect");
-//            debug(inputAddress);
-//            debug(outputAddress);
 
             WorkspaceUtil.getInstance().connect(input, output);
         }
@@ -194,9 +189,6 @@ public class CircuitSavable implements Externalizable {
             if (value == null)
                 continue;
 
-//            System.out.println("Externalizing Connect");
-//            debug(key);
-//            debug(value);
             connectivity.put(key, value);
         }
     }

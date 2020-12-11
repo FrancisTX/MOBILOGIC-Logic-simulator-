@@ -44,7 +44,6 @@ public class Led extends Widget {
                 Config.getInstance().selectedWidgetColor :
                 Config.getInstance().unselectedWidgetColor;
         g.setColor(borderColor);
-        // TODO: Implement Gate Drawing
         g.drawRect(this.x, this.y, this.getWidth(), this.getHeight());
         drawNodes(g);
 
@@ -52,7 +51,6 @@ public class Led extends Widget {
                 Config.getInstance().ledIndicatorOnColor :
                 Config.getInstance().ledIndicatorOffColor;
         g.setColor(indicatorColor);
-        // TODO: Implement Gate Drawing
         g.fillRect(calcIndicatorX(), calcIndicatorY(),
                 Config.getInstance().ledIndicatorWidth,
                 Config.getInstance().ledIndicatorHeight);

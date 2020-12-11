@@ -52,7 +52,6 @@ public class Circuit extends Widget {
     @Override
     public void update() {
         if (isMainCircuit) return;
-        // TODO: Implement this
         for (int i = 0; i < switches.size(); i++)
             switches.get(i).update(inputs.get(i).getVal());
         for (int i = 0; i < outputs.size(); i++)
