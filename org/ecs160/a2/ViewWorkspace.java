@@ -12,7 +12,6 @@ public class ViewWorkspace extends Container {
     private final Grid grid = Grid.getInstance();
     public Circuit mainCircuit;
     private final WorkspaceUtil util = WorkspaceUtil.getInstance();
-    private int x, y;
     public ViewWorkspace() {
         super();
         mainCircuit = new Circuit(0, 0, true);
@@ -51,12 +50,5 @@ public class ViewWorkspace extends Container {
         this.mainCircuit = StorageManager.getInstance().loadMain(circuitName);
         util.setMainCircuit(this.mainCircuit);
         repaint();
-    }
-
-    public void addTaskBarListener() {
-        this.addPointerPressedListener(evt -> {
-            this.x = evt.getX();
-            this.y = evt.getY();
-        });
     }
 }

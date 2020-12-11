@@ -30,20 +30,18 @@ public class Grid {
     }
     //this function will convert an absolute coordinate to a corresponding grid coordinate
     public int convertCoordAbstoGrid(int absCoordinate, char dimension){
+        int gridCoordinate = absCoordinate/gridblocksize;
         if(dimension == 'y'){
-            int gridCoordinate = absCoordinate/gridblocksize;
             //check if relCoordinate is out of bounds(if item starts on last row of gridblocks it will be out of bounds)
             if(gridCoordinate > numGridBlocksHigh-1){
                 gridCoordinate = numGridBlocksHigh-1;
             }
-            return gridCoordinate*gridblocksize;
         }else{
-            int gridCoordinate = absCoordinate/gridblocksize;
             //check if relCoordinate is out of bounds(if item starts on last column of gridblocks it will be out of bounds)
             if(gridCoordinate > numGridBlocksWide-1){
                 gridCoordinate = numGridBlocksWide-1;
             }
-            return gridCoordinate*gridblocksize;
         }
+        return gridCoordinate*gridblocksize;
     }
 }

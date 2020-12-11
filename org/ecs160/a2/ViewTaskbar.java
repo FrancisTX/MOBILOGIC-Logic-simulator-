@@ -13,14 +13,14 @@ import org.ecs160.a2.Utilities.WidgetFactory;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
 
 public class ViewTaskbar extends Container {
-	private String[] buttonNames =
+	private final String[] buttonNames =
 			{       "OR", "AND", "XOR", "NOT", "SWI",
 					"NOR","NAND","XNOR", "LED", "SUB"};
-	private String[] strategies =
+	private final String[] strategies =
 			{       "GateOR", "GateAND", "GateXOR", "GateNOT", "Switch",
 					"GateNOR","GateNAND","GateXNOR", "Led", "Circuit"};
 
-	private Hashtable<String, Button> buttons = new Hashtable<String, Button>();
+	private final Hashtable<String, Button> buttons = new Hashtable<>();
 
 	public ViewTaskbar() {
 		super();
@@ -37,13 +37,13 @@ public class ViewTaskbar extends Container {
 			Button button;
 
 			Boolean gate = false;
-			if (buttonName == "OR"){img = Config.GateOR; gate=true;}
-			if (buttonName == "XOR"){img = Config.GateXOR;gate=true;}
-			if (buttonName == "AND"){img = Config.GateAND;gate=true;}
-			if (buttonName == "NOT"){img = Config.GateNOT;gate=true;}
-			if (buttonName == "NAND"){img = Config.GateNAND;gate=true;}
-			if (buttonName == "NOR"){img = Config.GateNOR;gate=true;}
-			if (buttonName == "XNOR"){img = Config.GateXNOR;gate=true;}
+			if (buttonName.equals("OR")){img = Config.GateOR; gate=true;}
+			if (buttonName.equals("XOR")){img = Config.GateXOR;gate=true;}
+			if (buttonName.equals("AND")){img = Config.GateAND;gate=true;}
+			if (buttonName.equals("NOT")){img = Config.GateNOT;gate=true;}
+			if (buttonName.equals("NAND")){img = Config.GateNAND;gate=true;}
+			if (buttonName.equals("NOR")){img = Config.GateNOR;gate=true;}
+			if (buttonName.equals("XNOR")){img = Config.GateXNOR;gate=true;}
 
 			if (gate){
 				 button = new Button(img, "Button");
@@ -89,15 +89,14 @@ public class ViewTaskbar extends Container {
 				loadSubCircuitButton.getAllStyles().setBgColor(Config.getInstance().taskButtonColor);
 				d.dispose();
 			});
-			for(int i=0; i < fileNames.length; i++){
-				System.out.print(fileNames[i]);
-				Button mb = new Button(fileNames[i]);
+			for (String fileName : fileNames) {
+				System.out.print(fileName + "\n");
+				Button mb = new Button(fileName);
 				mb.getAllStyles().setBgColor(Config.getInstance().taskButtonColor);
 				mb.getAllStyles().setBorder(RoundRectBorder.create());
 				d.add(mb);
-				mb.addActionListener(ee->{
+				mb.addActionListener(ee -> {
 					WidgetFactory.getInstance().setSubCircuitName(mb.getText());
-
 					d.dispose();
 				});
 			}
@@ -105,18 +104,14 @@ public class ViewTaskbar extends Container {
 
 			 int color;
 			 for(int j = 0; j < buttonNames.length; j++) {
-			 	String currStrat = WorkspaceUtil.getInstance().getWidgetAddingType();
 			 	color = (WorkspaceUtil.getInstance().getWidgetAddingType() != null && WorkspaceUtil.getInstance().getWidgetAddingType().equals(strategies[j])) ?
 			 			0xb7dcff : Config.getInstance().taskButtonColor;
 			 	getButton(buttonNames[j]).getAllStyles().setBgColor(color);
 			 }
 			 this.revalidate();
 			if(WorkspaceUtil.getInstance().getWidgetAddingType() != null && WorkspaceUtil.getInstance().getWidgetAddingType().equals("Circuit")) {
-			//	loadSubCircuitButton.getAllStyles().setBgColor(0xb7dcff);
 				d.showPopupDialog(loadSubCircuitButton);
-			}/*else{
-				loadSubCircuitButton.getAllStyles().setBgColor(Config.getInstance().taskButtonColor);
-			} */
+			}
 		});
 
 
