@@ -4,7 +4,6 @@
 
 Button {
     border-radius: 2px;
-    background-color: #b7dcff;
     border: 2px solid #3e16f0;
     width: 60px;
     height:70px;
@@ -13,6 +12,5 @@ Button {
 }
 
 Button.pressed {
-    background: #059ef7;
     border: 2px solid #c6c6c6;
 }
