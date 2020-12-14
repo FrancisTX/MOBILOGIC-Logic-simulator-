@@ -9,6 +9,7 @@ public class GateNOT extends LogicGate {
         super(x, y);
     }
     public String getType() { return "GateNOT"; }
+    public int delay;
 
     @Override
     public int getMinInputsNum() {

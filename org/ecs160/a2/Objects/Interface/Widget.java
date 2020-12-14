@@ -13,6 +13,7 @@ import java.util.Iterator;
 public abstract class Widget extends Selectable {
     protected ArrayList<NodeInput> inputs;
     protected ArrayList<NodeOutput> outputs;
+    protected int delay;
 
     public Widget(){super();}
     public Widget(int x, int y, int width, int height) {
@@ -68,6 +69,9 @@ public abstract class Widget extends Selectable {
         for (NodeOutput output : outputs) {
             output.draw(g);
         }
+    }
+    public void setDelay (int time){
+        this.delay = time;
     }
 
     public void populateInput(int size) {

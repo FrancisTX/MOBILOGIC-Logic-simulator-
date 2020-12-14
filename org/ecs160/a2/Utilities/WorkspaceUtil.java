@@ -1,4 +1,5 @@
 package org.ecs160.a2.Utilities;
+import com.codename1.io.Log;
 import com.codename1.ui.Graphics;
 import org.ecs160.a2.Objects.Circuit;
 import org.ecs160.a2.Objects.Interface.Node;
@@ -47,10 +48,12 @@ public class WorkspaceUtil {
                 return;
             }
             if (clicked instanceof SwitchButton) {
+                Log.p("click a switch button");
                 handleClickSwitchButton((SwitchButton)clicked);
                 return;
             }
             if (highlighted != null && clicked != null) {
+                Log.p("click a switch button again");
                 // if we click something when we have highlighted selectable
                 if (clicked != highlighted) {
                     // two different selected component!
@@ -75,6 +78,7 @@ public class WorkspaceUtil {
                     highlighted = null;
                 }
             } else if (highlighted == null){
+                Log.p("click a switch button ");
                 // we don't have highlighted initially, but we click something
                 this.highlighted = clicked;
                 highlighted.flipSelected();

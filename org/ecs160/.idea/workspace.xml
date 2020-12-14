@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6bf5736a-4469-425f-b5de-ffe16eed3b84" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/a2/AppMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/a2/AppMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a2/Objects/Gate/GateAND.java" beforeDir="false" afterPath="$PROJECT_DIR$/a2/Objects/Gate/GateAND.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a2/Objects/Gate/GateNAND.java" beforeDir="false" afterPath="$PROJECT_DIR$/a2/Objects/Gate/GateNAND.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a2/Objects/Gate/GateNOR.java" beforeDir="false" afterPath="$PROJECT_DIR$/a2/Objects/Gate/GateNOR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a2/Objects/Gate/GateNOT.java" beforeDir="false" afterPath="$PROJECT_DIR$/a2/Objects/Gate/GateNOT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a2/Objects/Gate/GateOR.java" beforeDir="false" afterPath="$PROJECT_DIR$/a2/Objects/Gate/GateOR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a2/Objects/Gate/GateXNOR.java" beforeDir="false" afterPath="$PROJECT_DIR$/a2/Objects/Gate/GateXNOR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a2/Objects/Gate/GateXOR.java" beforeDir="false" afterPath="$PROJECT_DIR$/a2/Objects/Gate/GateXOR.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a2/Objects/Interface/LogicGate.java" beforeDir="false" afterPath="$PROJECT_DIR$/a2/Objects/Interface/LogicGate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a2/Objects/Interface/Selectable.java" beforeDir="false" afterPath="$PROJECT_DIR$/a2/Objects/Interface/Selectable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a2/Objects/Interface/Widget.java" beforeDir="false" afterPath="$PROJECT_DIR$/a2/Objects/Interface/Widget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a2/Utilities/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/a2/Utilities/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a2/ViewForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/a2/ViewForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a2/ViewMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/a2/ViewMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a2/ViewWorkspace.java" beforeDir="false" afterPath="$PROJECT_DIR$/a2/ViewWorkspace.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../theme.res" beforeDir="false" afterPath="$PROJECT_DIR$/../../theme.res" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="1lMRDLOtddKlKV9V28CT2ELd5a9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6bf5736a-4469-425f-b5de-ffe16eed3b84" name="Default Changelist" comment="" />
+      <created>1607404852717</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1607404852717</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

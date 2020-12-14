@@ -10,6 +10,7 @@ public class GateNAND extends LogicGate {
         super(x, y);
     }
     public String getType() { return "GateNAND"; }
+    public int delay;
 
     @Override
     public int getMinInputsNum() {

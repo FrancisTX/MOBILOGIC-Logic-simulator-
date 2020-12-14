@@ -7,6 +7,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.plaf.RoundRectBorder;
 import com.codename1.ui.Command;
+import org.ecs160.a2.UI.DelayButton;
 import org.ecs160.a2.UI.EditButton;
 import org.ecs160.a2.Utilities.Config;
 import org.ecs160.a2.Utilities.WorkspaceUtil;
@@ -14,7 +15,7 @@ import org.ecs160.a2.Utilities.WorkspaceUtil;
 public class ViewMenu extends Container {
     public ViewMenu(ViewWorkspace workspace) {
         super();
-        this.setLayout(new GridLayout(1, 4));
+        this.setLayout(new GridLayout(1, 5));
         this.getAllStyles().setBgColor(0xffffff);
 
         Button SaveButton = new Button("Save");
@@ -76,5 +77,15 @@ public class ViewMenu extends Container {
             edit.showEditPopup(workspace);
         });
         this.add(edit.button);
+
+        DelayButton SetDelayButton = new DelayButton();
+        SetDelayButton.button.addActionListener(evt -> {
+            if (WorkspaceUtil.getInstance().getHighlightedWidget() == null){
+                return;
+            }
+            SetDelayButton.showDelayPopup(workspace);
+        });
+        this.add(SetDelayButton.button);
+
     }
 }

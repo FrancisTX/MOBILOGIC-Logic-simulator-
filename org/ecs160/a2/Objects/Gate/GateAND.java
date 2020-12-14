@@ -1,4 +1,5 @@
 package org.ecs160.a2.Objects.Gate;
+import com.codename1.io.Log;
 import com.codename1.ui.Graphics;
 import org.ecs160.a2.Objects.Interface.LogicGate;
 import org.ecs160.a2.Objects.NodeInput;
@@ -9,6 +10,7 @@ public class GateAND extends LogicGate {
         super(x, y);
     }
     public String getType() { return "GateAND"; }
+
     @Override
     public int getMinInputsNum() {
         return NORMALGATE_INPUT_MINSIZE;
@@ -21,6 +23,14 @@ public class GateAND extends LogicGate {
 
     @Override
     public boolean getComputedOutput() {
+        Log.p(String.valueOf(delay)+"run");
+        if (delay > 0){
+            try {
+                Thread.sleep(delay*1000);
+            } catch(InterruptedException ex) {
+                Thread.currentThread().interrupt();
+            }
+        }
         boolean res = true;
         for (NodeInput input : inputs) {
             res &= input.getVal();

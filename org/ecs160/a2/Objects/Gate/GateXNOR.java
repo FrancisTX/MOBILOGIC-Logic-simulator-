@@ -10,6 +10,7 @@ public class GateXNOR extends LogicGate {
         super(x, y);
     }
     public String getType() { return "GateXNOR"; }
+    public int delay;
 
     @Override
     public int getMinInputsNum() {

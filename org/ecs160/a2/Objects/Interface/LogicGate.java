@@ -25,6 +25,10 @@ public abstract class LogicGate extends Widget {
         populateInput(inputSize);
     }
 
+    public void changeDelayTime(int time){
+        setDelay(time);
+    }
+
     @Override
     public int getMinOutputNum() {
         return 1;
